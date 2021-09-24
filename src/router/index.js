@@ -14,9 +14,9 @@ const routes = [
     component: () => import('../components/homepage-patient.vue')
   },
   {
-    path: '/HomePage',
-    name: 'Home-page',
-    component: () => import('../components/homepage-patient.vue')
+    path: '/Homepsycho',
+    name: 'Home-psycho',
+    component: () => import('../components/homepage-psychologist')
   },
   {
     path: '/patientProfile',

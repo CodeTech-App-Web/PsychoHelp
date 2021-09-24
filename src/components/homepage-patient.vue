@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
+    <v-col cols="2" lg="2" >
       <v-img  max-width="250" src="https://cdn.vuetifyjs.com/images/john.jpg" alt="user"></v-img>
       <v-divider inset vertical></v-divider>
       <v-sheet rounded="lg">
@@ -16,7 +16,8 @@
         </v-list>
       </v-sheet>
     </v-col>
-    <v-col >
+
+    <v-col cols="8" >
       <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
         <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
           <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
@@ -61,7 +62,7 @@
             </v-row>
       </v-sheet>
     </v-col>
-    <v-col sm="" lg="2" >
+    <v-col lg="2" >
       <v-divider inset vertical></v-divider>
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
