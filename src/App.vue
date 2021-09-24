@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color=#2196F3>
+    <v-app-bar app color="primary">
       <!--Drawer Icon-->
-      <v-app-bar-nav-icon color="white" align="right" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-btn plain class="text-h4" color="white" to="/homepage">PSYCHOHELP</v-btn>
+      <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-btn plain class="text-h4" text to="/homepage">PSYCHOHELP</v-btn>
       <v-container class="py-0 fill-height">
         <v-spacer></v-spacer>
         <v-responsive max-width="200">
@@ -38,12 +38,11 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-
     <v-main class="grey lighten-3">
-    <v-container fluid>
-      <router-view/>
-    </v-container>
-  </v-main>
+      <v-container fluid>
+        <router-view/>
+      </v-container>
+    </v-main>
 
   </v-app>
 </template>
