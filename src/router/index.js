@@ -4,19 +4,19 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Home',
-    name: 'Home',
-    component: () => import('../views/Home')
-  },
-  {
-    path:'/',
-    name: 'Home-page',
-    component: () => import('../components/homepage-patient.vue')
-  },
-  {
-    path: '/Homepsycho',
-    name: 'Home-psycho',
+    path: '/homePsycho',
+    name: 'home-psycho',
     component: () => import('../components/homepage-psychologist')
+  },
+  {
+    path:'/homePatient',
+    name: 'home-patient',
+    component: () => import('../components/homepage-patient')
+  },
+  {
+    path: '/homePage',
+    name: 'home-page',
+    component: () => import('../components/homepage-patient')
   },
   {
     path: '/patientProfile',
