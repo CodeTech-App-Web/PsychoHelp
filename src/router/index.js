@@ -19,6 +19,16 @@ const routes = [
     component: () => import('../components/homepage-patient.vue')
   },
   {
+    path: '/patientProfile',
+    name: 'patient-profile',
+    component: () => import('../components/patient-profile')
+  },
+  {
+    path: '/psychologistProfile',
+    name: 'psychologist-profile',
+    component: () => import('../components/psychologist-profile')
+  },
+  {
     path: '*',
     name: 'Error',
     component: () => import('../components/errorpage')
