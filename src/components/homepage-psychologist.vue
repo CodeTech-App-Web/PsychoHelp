@@ -22,7 +22,7 @@
 
     <v-container>
       <v-col align-self="center">
-
+        <!-- CONTENIDO PARA SUBIR PUBLIACION -->
         <v-flex class="mx-auto" v-if="formAdd">
           <v-card class="mb-3 pa-3">
             <v-form @submit.prevent="addPost">
@@ -32,7 +32,7 @@
             </v-form>
           </v-card>
         </v-flex>
-
+        <!-- CONTENIDO PARA EDIT PUBLIACION -->
         <v-flex class="mx-auto" v-if="!formAdd">
           <v-card class="mb-3 pa-3">
             <v-form @submit.prevent="editPost">
@@ -162,7 +162,7 @@ export default {
         this.publications.push ({
           id: Date.now(),
           title: this.title,
-          description: this.description
+          description: this.description,
         })
         this.title = ''
         this.description = ''
