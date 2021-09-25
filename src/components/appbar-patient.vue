@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-app-bar app color="primary">
+    <v-app-bar app color=#03A9F4>
       <!--Drawer Icon-->
-      <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer" color="white"></v-app-bar-nav-icon>
       <v-btn plain color="white" class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium" text to="/homepage">
         PSYCHOHELP
       </v-btn>
@@ -20,7 +20,7 @@
     </v-app-bar>
 
     <!--Drawer despegable-->
-    <v-navigation-drawer v-model="drawer" absolute temporary >
+    <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item>

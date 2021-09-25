@@ -2,7 +2,7 @@
   <div>
     <v-app-bar app color="primary">
       <!--Drawer Icon-->
-      <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer" color="white"></v-app-bar-nav-icon>
       <v-btn plain color="white" class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium" text to="/homepage">
         PSYCHOHELP
       </v-btn>
@@ -25,7 +25,7 @@
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="text-h6">Pyschologist</v-list-item-title>
+              <v-list-item-title class="text-h6">Usuario</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider inset vertical></v-divider>

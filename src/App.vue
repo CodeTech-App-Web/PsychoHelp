@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <AppBarPatient ></AppBarPatient>
     <AppBarPsycho></AppBarPsycho>
+    <AppBarPatient ></AppBarPatient>
     <v-main class="grey lighten-3">
       <v-container fluid>
         <router-view/>

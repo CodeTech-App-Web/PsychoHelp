@@ -38,7 +38,7 @@
 
     <v-container>
       <v-col align-self="center">
-        <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
+        <v-carousel class="des" height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
           <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
             <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
           </v-carousel-item>
@@ -90,47 +90,30 @@
 
     </v-container>
 
-
-
-
-    <v-col cols="2" align-self="center">
-      <v-subheader> Psicologos </v-subheader>
-      <!--CARDS PSICÓLOGOS-->
-      <v-card class="mx-auto" >
-        <v-img class="white--text align-end" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-          <v-card-title>Juan Hidalgo</v-card-title>
-        </v-img>
-        <v-card-subtitle class="pb-0">
-          Juan Hidalgo Viscaya
-        </v-card-subtitle>
-        <v-card-text class="text--primary">
-          <div>Emprendedor</div>
-          <div>Lorem Ipsun</div>
-        </v-card-text>
-        <!-- BOTONES CARDS-->
-        <v-card-actions>
-          <v-btn color="primary" text>Mas...</v-btn>
-          <v-btn color="primary" text>Agendar</v-btn>
-        </v-card-actions>
-      </v-card>
+    <v-col sm="" lg="2">
       <v-divider inset vertical></v-divider>
-      <v-card class="mx-auto" >
-        <v-img class="white--text align-end" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-          <v-card-title>Juan Hidalgo</v-card-title>
-        </v-img>
-        <v-card-subtitle class="pb-0">
-          Juan Hidalgo Viscaya
-        </v-card-subtitle>
-        <v-card-text class="text--primary">
-          <div>Emprendedor</div>
-          <div>Lorem Ipsun</div>
-        </v-card-text>
-        <!-- BOTONES CARDS-->
-        <v-card-actions>
-          <v-btn color="primary" text>Mas...</v-btn>
-          <v-btn color="primary" text>Agendar</v-btn>
-        </v-card-actions>
-      </v-card>
+      <!--CARDS PSICÓLOGOS-->
+      <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
+      <v-row>
+        <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
+          <v-card v-if="psychology.new" max-height="300" max-width="200" class="mx-auto mb-5" >
+            <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
+            </v-img>
+            <v-card-subtitle class="pb-0">
+              {{psychology.name}}
+            </v-card-subtitle>
+            <v-card-text class="text--primary">
+              <div>Emprendedor</div>
+              <div>Lorem Ipsun</div>
+            </v-card-text>
+            <!-- BOTONES CARDS-->
+            <v-card-actions>
+              <v-btn color="primary" text>Mas...</v-btn>
+              <v-btn color="primary" text>Agendar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -138,6 +121,8 @@
 <script>
 
 import PublicationsApiService from "../core/services/publications-api-service"
+import PsychologistsApiService from "../core/services/psychologists-api.service"
+
 
 export default {
   name: "homepage-psychologist",
@@ -163,6 +148,7 @@ export default {
       {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
     ],
     publications: [],
+    psychologists: [],
     title: '',
     description: '',
     snackbar: false,
@@ -176,7 +162,9 @@ export default {
   async created() {
     try {
       const response = await PublicationsApiService.getAll();
+      const response2 = await PsychologistsApiService.getAll();
       this.publications = response.data;
+      this.psychologists = response2.data;
     }
     catch (e)
     {
@@ -234,4 +222,5 @@ export default {
 .psy {
   border-radius: 10%;
 }
+
 </style>
