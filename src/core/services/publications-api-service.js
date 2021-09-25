@@ -9,7 +9,7 @@ class PublicationsApiService{
     }
 
     create(data) {
-        return http.post("/publications", data);
+        return http.post("/publications",data);
     }
 
     update(id, data) {
