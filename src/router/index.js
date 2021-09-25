@@ -4,19 +4,29 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Home',
-    name: 'Home',
-    component: () => import('../views/Home')
+    path: '/homePsycho',
+    name: 'home-psycho',
+    component: () => import('../components/homepage-psychologist')
   },
   {
-    path:'/',
-    name: 'Home-page',
-    component: () => import('../components/homepage-patient.vue')
+    path:'/homePatient',
+    name: 'home-patient',
+    component: () => import('../components/homepage-patient')
   },
   {
-    path: '/HomePage',
-    name: 'Home-page',
-    component: () => import('../components/homepage-patient.vue')
+    path: '/homePage',
+    name: 'home-page',
+    component: () => import('../components/homepage-patient')
+  },
+  {
+    path: '/patientProfile',
+    name: 'patient-profile',
+    component: () => import('../components/patient-profile')
+  },
+  {
+    path: '/psychologistProfile',
+    name: 'psychologist-profile',
+    component: () => import('../components/psychologist-profile')
   },
   {
     path: '*',

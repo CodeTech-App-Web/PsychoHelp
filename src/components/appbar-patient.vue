@@ -29,7 +29,11 @@
             </v-list-item-content>
           </v-list-item>
           <v-divider inset vertical></v-divider>
+
           <v-list-item v-for="item in items" :key="item" link to:item.route>
+
+          <v-list-item v-for="item in items" :key="item" link router :to=item.route>
+
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>

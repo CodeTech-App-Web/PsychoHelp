@@ -16,7 +16,11 @@
         </v-list>
       </v-sheet>
     </v-col>
+
     <v-col  >
+
+    <v-col cols="8">
+
       <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
         <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
           <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
