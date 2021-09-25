@@ -17,10 +17,7 @@
       </v-sheet>
     </v-col>
 
-    <v-col  >
-
     <v-col cols="8">
-
       <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
         <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
           <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
@@ -28,11 +25,10 @@
       </v-carousel>
       <v-divider inset vertical></v-divider>
       <v-sheet min-height="60vh" rounded="lg">
-            <v-row v-for="i in publications" :key="i.id" class="py-4">
+            <v-row v-for="publication in publications" :key="publication.id" class="py-4">
               <v-col cols="12" md="4">
                 <v-card class="pl-4" flat height="100%">
-                  <v-img
-                      src="https://cdn.pixabay.com/photo/2021/01/27/06/54/nova-scotia-duck-tolling-retriever-5953883_1280.jpg"
+                  <v-img :src="publication.img"
                       :aspect-ratio="16 / 9"
                       height="100%"
                   ></v-img>
@@ -43,11 +39,11 @@
                   <v-btn depressed color="primary">Publicaciones</v-btn>
 
                   <h3 class="text-lg-h5 font-weight-bold pt-3">
-                    {{i.title}}
+                    {{publication.title}}
                   </h3>
 
                   <p class="text-h6 font-weight-regular pt-3 text--secondary">
-                    {{i.description}}
+                    {{publication.description}}
                   </p>
 
                   <div class="d-flex align-center">
@@ -55,7 +51,7 @@
                       <v-icon dark>mdi-feather</v-icon>
                     </v-avatar>
 
-                    <div class="pl-2">Luis Panta · 23 09 2021</div>
+                    <div class="pl-2"> Luis Panta · 23 09 2021</div>
                   </div>
                 </div>
               </v-col>
@@ -67,10 +63,10 @@
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
-        <v-col  sm="4" lg="12" v-for="i in 3" :key="i" >
-          <v-card class="mx-auto mb-5" >
-            <v-img class="white--text align-end" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-              <v-card-title>Juan Hidalgo</v-card-title>
+        <v-col  sm="4" lg="12" v-for="psychology in psychologists" :key="psychology" >
+          <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
+            <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
+              <v-card-title>{{psychology.name}}</v-card-title>
             </v-img>
             <v-card-subtitle class="pb-0">
               Juan Hidalgo Viscaya
@@ -92,19 +88,21 @@
 </template>
 
 <script>
+
+import axios from "axios"
+
 export default {
   name: "homepage",
   data: () => ({
+
+    publications: [],
+    psychologists: [],
     colors: [
       'indigo',
       'warning',
       'pink darken-2',
       'red lighten-1',
       'deep-purple accent-4',
-    ],
-    publications: [
-      {id: 1, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum' },
-      {id: 2, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum' },
     ],
     slides: [
       {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
@@ -117,8 +115,21 @@ export default {
       {text: 'Psicologos', route:'/psicologos'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
       {text:'Guia', route:'guia'}
-    ]
-  })
+    ],
+
+  }),
+  async created() {
+    try {
+      const response = await axios.get(`http://localhost:3000/publications`);
+      this.publications = response.data;
+      const response2 = await axios.get(`http://localhost:3000/psychologists`);
+      this.psychologists = response2.data;
+    }
+    catch (e)
+    {
+      console.error(e);
+    }
+  },
 }
 </script>
 

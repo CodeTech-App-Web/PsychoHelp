@@ -30,14 +30,15 @@
           </v-list-item>
           <v-divider inset vertical></v-divider>
 
-          <v-list-item v-for="item in items" :key="item" link to:item.route>
-
-          <v-list-item v-for="item in items" :key="item" link router :to=item.route>
+          <v-list-item v-for="item in items" :key="item" link :to=item.route>
 
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-content>{{ item.text }} <v-divider></v-divider> </v-list-item-content>
+            <v-list-item-content>
+              {{ item.text }}
+              <v-divider></v-divider>
+            </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -56,7 +57,7 @@ export default {
       'Updates',
     ],
     items: [
-      {text:'Mi Perfil', icon:'mdi-account', route:'/perfil'},
+      {text:'Mi Perfil', icon:'mdi-account', route:'/patientprofile'},
       {text:'Citas', icon:'mdi-calendar-range', route:'/citas'},
       {text:'Metodo de Pago', icon:'mdi-credit-card', route:'/metododepago'},
       {text:'Bitacora', icon:'mdi-account-search', route:'/bitacora'},
