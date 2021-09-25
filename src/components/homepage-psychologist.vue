@@ -2,6 +2,35 @@
   <v-row>
     <v-col cols="2">
       <v-img class="psy" contain src="https://image.freepik.com/foto-gratis/empresaria-confiada-sonriente-que-presenta-brazos-cruzados_1262-20950.jpg"></v-img>
+      <v-spacer class="my-5"></v-spacer>
+      <template>
+        <v-btn block color="primary" rounded
+            @click="dialog = !dialog"
+        >Nuevo Post</v-btn>
+        <v-dialog
+            v-model="dialog"
+            max-width="800px"
+        >
+          <v-flex class="mx-auto" v-if="formAdd">
+            <v-card class="mb-3 pa-3">
+              <v-form @submit.prevent="addPost">
+                <v-text-field label="To post" v-model="title"></v-text-field>
+                <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
+                <v-combobox multiple
+                            v-model="select"
+                            label="Tags"
+                            append-icon
+                            chips
+                            deletable-chips
+                            class="tag-input"
+                >
+                </v-combobox>
+                <v-btn block color=#BBDEFB type="submit">Add Published</v-btn>
+              </v-form>
+            </v-card>
+          </v-flex>
+        </v-dialog>
+      </template>
       <v-divider inset vertical class="mx-4"></v-divider>
       <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
         <v-list shaped >
@@ -17,21 +46,8 @@
       </v-sheet>
     </v-col>
 
-
-
-
     <v-container>
-      <v-col align-self="center">
-        <!-- CONTENIDO PARA SUBIR PUBLIACION -->
-        <v-flex class="mx-auto" v-if="formAdd">
-          <v-card class="mb-3 pa-3">
-            <v-form @submit.prevent="addPost">
-              <v-text-field label="To post" v-model="title"></v-text-field>
-              <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
-              <v-btn block color=#BBDEFB type="submit">Add Published</v-btn>
-            </v-form>
-          </v-card>
-        </v-flex>
+      <v-col cols="8" align-self="center">
         <!-- CONTENIDO PARA EDIT PUBLIACION -->
         <v-flex class="mx-auto" v-if="!formAdd">
           <v-card class="mb-3 pa-3">
@@ -55,6 +71,8 @@
                 {{item.title}}
               </v-chip>
               <p>{{item.description}}</p>
+              <v-chip>{{item.tags}}</v-chip>
+              <v-spacer class="my-3"></v-spacer>
               <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
               <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
             </v-card-text>
@@ -123,6 +141,7 @@
 export default {
   name: "homepage-psychologist",
   data: () => ({
+
     items: [
       {text: 'Calendario', route:'/psicologos'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
@@ -143,19 +162,21 @@ export default {
       'Fifth',
     ],
     publications: [
-      {id: 1, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum' },
-      {id: 2, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum' },
+      {id: 1, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum', tags: ['aaaa', 'bbbb'] },
+      {id: 2, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum', tags: ['aaaa', 'bbbb'] },
     ],
     title: '',
     description: '',
     snackbar: false,
     message: '',
     formAdd: true,
-    indexPost: ''
+    indexPost: '',
+    dialog: false,
+    tags:[]
   }),
   methods: {
     addPost() {
-      if(this.title === '' || this.description === '') {
+      if(this.title === '' || this.description === '' || this.tags === []) {
         this.snackbar = true
         this.message = 'Llena todos los campos'
       } else {
@@ -163,13 +184,18 @@ export default {
           id: Date.now(),
           title: this.title,
           description: this.description,
+          tags: this.tags,
         })
         this.title = ''
         this.description = ''
         this.snackbar = true
         this.message = 'added post'
+        this.tags = []
       }
     },
+
+
+
     deletePost(id) {
       this.publications = this.publications.filter(e => e.id !== id)
     },
@@ -187,7 +213,8 @@ export default {
       this.description = ''
       this.snackbar = true
       this.message = 'Editaste la tarea'
-    }
+    },
+
   }
 }
 </script>
