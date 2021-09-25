@@ -7,23 +7,13 @@
         <v-btn block color="primary" rounded
             @click="dialog = !dialog"
         >Nuevo Post</v-btn>
-        <v-dialog
-            v-model="dialog"
-            max-width="800px"
-        >
+        <v-dialog v-model="dialog" max-width="800px">
           <v-flex class="mx-auto" v-if="formAdd">
             <v-card class="mb-3 pa-3">
               <v-form @submit.prevent="addPost">
                 <v-text-field label="To post" v-model="title"></v-text-field>
                 <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
-                <v-combobox multiple
-                            v-model="select"
-                            label="Tags"
-                            append-icon
-                            chips
-                            deletable-chips
-                            class="tag-input"
-                >
+                <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
                 </v-combobox>
                 <v-btn block color=#BBDEFB type="submit">Add Published</v-btn>
               </v-form>
