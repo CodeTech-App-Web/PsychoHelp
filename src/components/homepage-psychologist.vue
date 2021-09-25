@@ -130,6 +130,9 @@
 </template>
 
 <script>
+
+import PublicationsApiService from "../core/services/publications-api-service"
+
 export default {
   name: "homepage-psychologist",
   data: () => ({
@@ -153,10 +156,7 @@ export default {
       'Fourth',
       'Fifth',
     ],
-    publications: [
-      {id: 1, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum', tags: ['aaaa', 'bbbb'] },
-      {id: 2, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum', tags: ['aaaa', 'bbbb'] },
-    ],
+    publications: [],
     title: '',
     description: '',
     snackbar: false,
@@ -166,6 +166,18 @@ export default {
     dialog: false,
     tags:[]
   }),
+
+  async created() {
+    try {
+      const response = await PublicationsApiService.getAll();
+      this.publications = response.data;
+    }
+    catch (e)
+    {
+      console.error(e);
+    }
+  },
+
   methods: {
     addPost() {
       if(this.title === '' || this.description === '' || this.tags === []) {
