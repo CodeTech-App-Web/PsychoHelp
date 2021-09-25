@@ -61,7 +61,7 @@
                 {{item.title}}
               </v-chip>
               <p>{{item.description}}</p>
-              <v-chip>{{item.tags}}</v-chip>
+              <v-chip v-for="tag in item.tags " :key="tag" >{{tag}}</v-chip>
               <v-spacer class="my-3"></v-spacer>
               <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
               <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
