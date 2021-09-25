@@ -44,6 +44,8 @@
             <v-form @submit.prevent="editPost">
               <v-text-field label="To post" v-model="title"></v-text-field>
               <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
+              <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
+              </v-combobox>
               <v-btn block color=#757575 type="submit">Edit Published</v-btn>
             </v-form>
           </v-card>
@@ -184,8 +186,6 @@ export default {
       }
     },
 
-
-
     deletePost(id) {
       this.publications = this.publications.filter(e => e.id !== id)
     },
@@ -193,14 +193,17 @@ export default {
       this.formAdd = false
       this.title = this.publications[index].title
       this.description = this.publications[index].description
+      this.tags = this.publications[index].tags
       this.indexPost = index
     },
     editPost() {
       this.publications[this.indexPost].title = this.title
       this.publications[this.indexPost].description = this.description
+      this.publications[this.indexPost].tags = this.tags
       this.formAdd = true
       this.title = ''
       this.description = ''
+      this.tags = []
       this.snackbar = true
       this.message = 'Editaste la tarea'
     },
