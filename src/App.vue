@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <AppBarPatient ></AppBarPatient>
+    <AppBarPsycho></AppBarPsycho>
     <v-main class="grey lighten-3">
       <v-container fluid>
         <router-view/>
@@ -12,10 +13,13 @@
 <script>
 
 import AppBarPatient from './components/appbar-patient'
+import AppBarPsycho from './components/appbar-psycho'
 
 export default {
   components: {
-    AppBarPatient},
+    AppBarPatient,
+    AppBarPsycho
+  },
   data: () => ({
     //
   })
