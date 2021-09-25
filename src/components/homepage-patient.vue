@@ -17,7 +17,7 @@
       </v-sheet>
     </v-col>
 
-    <v-col cols="8">
+    <v-col sm="12" md="10" lg="8">
       <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
         <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
           <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
@@ -30,7 +30,7 @@
                 <v-card class="pl-4" flat height="100%">
                   <v-img :src="publication.img"
                       :aspect-ratio="16 / 9"
-                      height="100%"
+                      max-height="100%"
                   ></v-img>
                 </v-card>
               </v-col>
@@ -63,13 +63,12 @@
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
-        <v-col  sm="4" lg="12" v-for="psychology in psychologists" :key="psychology" >
+        <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology" >
           <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
             <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
-              <v-card-title>{{psychology.name}}</v-card-title>
             </v-img>
             <v-card-subtitle class="pb-0">
-              Juan Hidalgo Viscaya
+              {{psychology.name}}
             </v-card-subtitle>
             <v-card-text class="text--primary">
               <div>Emprendedor</div>
