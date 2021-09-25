@@ -59,8 +59,8 @@ export default {
     items: [
       {text:'Mi Perfil', icon:'mdi-account', route:'/psychologistProfile'},
       {text:'Citas', icon:'mdi-calendar-range', route:'/citas'},
-      {text:'Paciente', icon:'mdi-credit-card', route:'/metododepago'},
-      {text:'Forma de Pago', icon:'mdi-account-search', route:'/bitacora'},
+      {text:'Forma de Pago', icon:'mdi-credit-card', route:'/metododepago'},
+      {text:'Paciente', icon:'mdi-account-search', route:'/bitacora'},
       {text:'Cerrar Sesion', icon:'mdi-logout', route:'/'},
     ],
     drawer: false,

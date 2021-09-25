@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="2">
-      <v-img class="psy" contain src="https://image.freepik.com/foto-gratis/empresaria-confiada-sonriente-que-presenta-brazos-cruzados_1262-20950.jpg"></v-img>
+      <v-img class="psy" contain src="https://i.pinimg.com/originals/29/ba/5e/29ba5e5aa2fc49070ae3caec4b3a1680.jpg"></v-img>
       <v-spacer class="my-5"></v-spacer>
       <template>
         <v-btn block color="primary" rounded
@@ -38,6 +38,12 @@
 
     <v-container>
       <v-col align-self="center">
+        <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
+          <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
+            <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
+          </v-carousel-item>
+        </v-carousel>
+        <v-divider inset vertical></v-divider>
         <!-- CONTENIDO PARA EDIT PUBLIACION -->
         <v-flex class="mx-auto" v-if="!formAdd">
           <v-card class="mb-3 pa-3">
@@ -147,11 +153,11 @@ export default {
       'deep-purple accent-4',
     ],
     slides: [
-      'First',
-      'Second',
-      'Third',
-      'Fourth',
-      'Fifth',
+      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
+      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
+      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
+      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
+      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
     ],
     publications: [
       {id: 1, title: 'John Leider', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrysum', tags: ['aaaa', 'bbbb'] },

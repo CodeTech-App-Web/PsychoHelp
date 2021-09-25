@@ -1,9 +1,9 @@
 <template>
   <v-row>
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
-      <v-img  max-width="250" src="https://cdn.vuetifyjs.com/images/john.jpg" alt="user"></v-img>
+      <v-img class="pat" contain src="https://laverdadnoticias.com/__export/1595974553339/sites/laverdad/img/2020/07/28/rm_colaboraciones_bts.png_1902800913.png" alt="user"></v-img>
       <v-divider inset vertical></v-divider>
-      <v-sheet rounded="lg">
+      <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
         <v-list>
           <v-list-item v-for="item in items" :key="item.text" router :to="item.route">
             <v-list-item-content>
@@ -133,5 +133,7 @@ export default {
 </script>
 
 <style scoped>
-
+.pat {
+  border-radius: 10%;
+}
 </style>
