@@ -63,8 +63,8 @@
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
-        <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology" >
-          <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
+        <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
+          <v-card v-if="psychology.new" max-height="300" max-width="200" class="mx-auto mb-5" >
             <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
             </v-img>
             <v-card-subtitle class="pb-0">
@@ -88,7 +88,8 @@
 
 <script>
 
-import axios from "axios"
+import PublicationsApiService from "../core/services/publications-api-service"
+import PsychologistsApiService from "../core/services/psychologists-api.service"
 
 export default {
   name: "homepage",
@@ -111,24 +112,24 @@ export default {
       {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
     ],
     items: [
-      {text: 'Psicologos', route:'/psicologos'},
-      {text:'Centro de Ayuda', route:'/centro de ayuda'},
-      {text:'Guia', route:'guia'}
+      {text: 'Psicologos', route: '/psicologos'},
+      {text: 'Centro de Ayuda', route: '/centro de ayuda'},
+      {text: 'Guia', route: 'guia'}
     ],
 
   }),
   async created() {
     try {
-      const response = await axios.get(`http://localhost:3000/publications`);
+      const response = await PublicationsApiService.getAll();
+      const response2 = await PsychologistsApiService.getAll();
       this.publications = response.data;
-      const response2 = await axios.get(`http://localhost:3000/psychologists`);
       this.psychologists = response2.data;
     }
     catch (e)
     {
       console.error(e);
     }
-  },
+  }
 }
 </script>
 
