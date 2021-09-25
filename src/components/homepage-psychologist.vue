@@ -37,7 +37,7 @@
     </v-col>
 
     <v-container>
-      <v-col cols="8" align-self="center">
+      <v-col align-self="center">
         <!-- CONTENIDO PARA EDIT PUBLIACION -->
         <v-flex class="mx-auto" v-if="!formAdd">
           <v-card class="mb-3 pa-3">
