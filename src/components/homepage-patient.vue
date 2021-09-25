@@ -89,6 +89,7 @@
 <script>
 
 import PublicationsApiService from "../core/services/publications-api-service"
+import PsychologistsApiService from "../core/services/psychologists-api.service"
 
 export default {
   name: "homepage",
@@ -120,7 +121,9 @@ export default {
   async created() {
     try {
       const response = await PublicationsApiService.getAll();
+      const response2 = await PsychologistsApiService.getAll();
       this.publications = response.data;
+      this.psychologists = response2.data;
     }
     catch (e)
     {
