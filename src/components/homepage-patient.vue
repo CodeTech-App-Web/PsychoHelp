@@ -88,7 +88,7 @@
 
 <script>
 
-import axios from "axios"
+import PublicationsApiService from "../core/services/publications-api-service"
 
 export default {
   name: "homepage",
@@ -111,24 +111,22 @@ export default {
       {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
     ],
     items: [
-      {text: 'Psicologos', route:'/psicologos'},
-      {text:'Centro de Ayuda', route:'/centro de ayuda'},
-      {text:'Guia', route:'guia'}
+      {text: 'Psicologos', route: '/psicologos'},
+      {text: 'Centro de Ayuda', route: '/centro de ayuda'},
+      {text: 'Guia', route: 'guia'}
     ],
 
   }),
   async created() {
     try {
-      const response = await axios.get(`http://localhost:3000/publications`);
+      const response = await PublicationsApiService.getAll();
       this.publications = response.data;
-      const response2 = await axios.get(`http://localhost:3000/psychologists`);
-      this.psychologists = response2.data;
     }
     catch (e)
     {
       console.error(e);
     }
-  },
+  }
 }
 </script>
 
