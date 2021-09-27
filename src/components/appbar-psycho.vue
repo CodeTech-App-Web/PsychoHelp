@@ -1,24 +1,22 @@
 <template>
   <div>
-    <v-app-bar app color="primary">
+    <v-app-bar app color=#03A9F4>
       <!--Drawer Icon-->
       <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer" color="white"></v-app-bar-nav-icon>
-      <v-btn plain color="white" class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium" text to="/homepage">
+      <v-btn plain color="white" class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium" text to="/">
         PSYCHOHELP
       </v-btn>
-      <v-container class="py-0 fill-height">
-        <v-spacer></v-spacer>
+      <v-container>
         <v-responsive class="flex xl12" max-width="300">
-          <v-text-field background-color="grey lighten-1" dense flat hide-details rounded solo-inverted ></v-text-field>
+          <v-text-field background-color=#BDBDBD dense flat hide-details rounded solo-inverted ></v-text-field>
         </v-responsive>
       </v-container>
-      <v-btn icon depressed to="/perfil">
-        <v-avatar right color="grey darken-1" size="40" >
-          <v-icon color="white">mdi-account-circle</v-icon>
+      <v-btn icon depressed to="/psychologistProfile">
+        <v-avatar right color=#BDBDBD size="50">
+          <v-icon color="white" size="40">mdi-account-circle</v-icon>
         </v-avatar>
       </v-btn>
     </v-app-bar>
-
     <!--Drawer despegable-->
     <v-navigation-drawer v-model="drawer" absolute temporary >
       <v-list nav dense>

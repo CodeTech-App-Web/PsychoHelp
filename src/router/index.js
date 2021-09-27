@@ -14,7 +14,7 @@ const routes = [
     component: () => import('../components/homepage-patient')
   },
   {
-    path: '/homePage',
+    path: '/',
     name: 'home-page',
     component: () => import('../components/homepage-patient')
   },

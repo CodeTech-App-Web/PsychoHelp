@@ -5,7 +5,7 @@
         <v-row align="center" justify="center">
           <v-col cols="auto">
             <v-card elevation="10">
-              <v-img lazy-src="../assets/patient1.jpg" max-height="370" max-width="370"
+              <v-img class="user" lazy-src="../assets/patient1.jpg" max-height="350" max-width="350"
                      src="../assets/patient1.jpg"></v-img>
             </v-card>
             <v-card class="mt-2" elevation="10">
@@ -43,5 +43,7 @@ export default {
 </script>
 
 <style scoped>
-
+.user {
+  border-radius: 20%;
+}
 </style>

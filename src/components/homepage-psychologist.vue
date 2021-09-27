@@ -37,7 +37,7 @@
     </v-col>
 
     <v-container>
-      <v-col align-self="center">
+      <v-col>
         <v-carousel class="des" height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
           <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
             <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
@@ -62,17 +62,17 @@
         <v-flex class="mx-auto">
           <v-card class="mb-3" v-for="(item, index) in publications" :key="index">
             <v-card-text>
-              <v-chip class="ma-2 ml-0" color="primary" label>
+              <v-chip class="ma-2 ml-0" color=#03A9F4 label>
                 <v-icon left>
                   mdi-account-circle-outline
                 </v-icon>
                 {{item.title}}
               </v-chip>
-              <p>{{item.description}}</p>
+              <p class="black--text">{{item.description}}</p>
               <v-chip v-for="tag in item.tags " :key="tag" >{{tag}}</v-chip>
               <v-spacer class="my-3"></v-spacer>
-              <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
-              <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
+                  <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
+                  <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
             </v-card-text>
           </v-card>
         </v-flex>
