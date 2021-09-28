@@ -22,26 +22,26 @@
         <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
           <v-sheet :color="colors[i]" height="100%">
             <v-row class="fill-height" align="center" justify="center">
-              <div class="carousel_text text-h5 font-weight-medium">
+              <div class= " carousel_text text-lg-h5 text-sm-h6 font-weight-medium">
                 {{ slide }}
-                <v-btn color="white">Agenda Aquí</v-btn>
               </div>
+              <v-btn color="white">Agenda Aquí</v-btn>
             </v-row>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
       <v-divider inset vertical></v-divider>
-      <v-sheet min-height="60vh" rounded="lg">
-            <v-row v-for="publication in publications" :key="publication.id" class="py-4">
+      <v-card min-width="50vh" rounded="lg">
+            <v-row v-for="publication in publications" :key="publication.id" class="py-4 mr-2">
               <v-col cols="12" md="4">
                 <v-card class="pl-4" flat height="100%">
                   <v-img :src="publication.img"
                       :aspect-ratio="16 / 9"
-                      max-height="100%"
+                      max-height="90%"
                   ></v-img>
                 </v-card>
               </v-col>
-              <v-col>
+              <v-col class="ml-4">
                 <div>
                   <v-btn depressed color="primary">Publicaciones</v-btn>
 
@@ -58,12 +58,12 @@
                       <v-icon dark>mdi-feather</v-icon>
                     </v-avatar>
 
-                    <div class="pl-2"> Luis Panta · 23 09 2021</div>
+                    <div class="pl-2">  23 09 2021</div>
                   </div>
                 </div>
               </v-col>
             </v-row>
-      </v-sheet>
+      </v-card>
     </v-col>
     <v-col sm="" lg="2">
       <v-divider inset vertical></v-divider>
@@ -78,8 +78,7 @@
               {{psychology.name}}
             </v-card-subtitle>
             <v-card-text class="text--primary">
-              <div>Emprendedor</div>
-              <div>Lorem Ipsun</div>
+              <div>{{ psychology.email}}</div>
             </v-card-text>
             <!-- BOTONES CARDS-->
             <v-card-actions>
@@ -121,6 +120,11 @@ export default {
       {text: 'Centro de Ayuda', route: '/centro de ayuda'},
       {text: 'Guia', route: 'guia'}
     ],
+    specialties: [
+        'Terapias de pareja',
+        'Autoestima',
+        'Ansiedad'
+    ]
 
   }),
   async created() {
@@ -145,6 +149,7 @@ export default {
 
 .carousel_text {
   color: white;
+
 }
 
 </style>

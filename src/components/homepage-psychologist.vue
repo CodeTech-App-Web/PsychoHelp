@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="2">
+    <v-col cols="2" v-if="$vuetify.breakpoint.mdAndDown===!true">
       <v-img class="psy" contain src="https://i.pinimg.com/originals/29/ba/5e/29ba5e5aa2fc49070ae3caec4b3a1680.jpg"></v-img>
       <v-spacer class="my-5"></v-spacer>
       <template>
@@ -15,7 +15,7 @@
                 <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
                 <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
                 </v-combobox>
-                <v-btn block color=#BBDEFB type="submit">Add Published</v-btn>
+                <v-btn block color=#BBDEFB type="submit" >Add Published</v-btn>
               </v-form>
             </v-card>
           </v-flex>
@@ -36,59 +36,44 @@
       </v-sheet>
     </v-col>
 
-    <v-container>
-      <v-col>
-        <v-carousel class="des" height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
-          <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
-            <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
-          </v-carousel-item>
-        </v-carousel>
-        <v-divider inset vertical></v-divider>
-        <!-- CONTENIDO PARA EDIT PUBLIACION -->
-        <v-flex class="mx-auto" v-if="!formAdd">
-          <v-card class="mb-3 pa-3">
-            <v-form @submit.prevent="editPost">
-              <v-text-field label="To post" v-model="title"></v-text-field>
-              <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
-              <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
-              </v-combobox>
-              <v-btn block color=#757575 type="submit">Edit Published</v-btn>
-            </v-form>
-          </v-card>
-        </v-flex>
+    <v-col  justify="center" sm="12" md="10" lg="8">
+      <v-divider inset vertical></v-divider>
+      <!-- CONTENIDO PARA EDIT PUBLIACION -->
+      <v-flex class="mx-auto" v-if="!formAdd">
+        <v-card class="mb-3 pa-3">
+          <v-form @submit.prevent="editPost">
+            <v-text-field label="To post" v-model="title"></v-text-field>
+            <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
+            <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
+            </v-combobox>
+            <v-btn block color=#757575 type="submit">Edit Published</v-btn>
+          </v-form>
+        </v-card>
+      </v-flex>
 
-        <v-divider inset vertical></v-divider>
+      <v-divider inset vertical></v-divider>
 
-        <v-flex class="mx-auto">
-          <v-card class="mb-3" v-for="(item, index) in publications" :key="index">
-            <v-card-text>
-              <v-chip class="ma-2 ml-0" color=#03A9F4 label>
-                <v-icon left>
-                  mdi-account-circle-outline
-                </v-icon>
-                {{item.title}}
-              </v-chip>
-              <p class="black--text">{{item.description}}</p>
-              <v-chip v-for="tag in item.tags " :key="tag" >{{tag}}</v-chip>
-              <v-spacer class="my-3"></v-spacer>
-                  <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
-                  <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
-            </v-card-text>
-          </v-card>
-        </v-flex>
+      <v-flex class="mx-auto">
+        <v-card class="mb-3" v-for="(item, index) in publications" :key="index">
+          <v-card-text>
+            <v-chip class="ma-2 ml-0" color=#03A9F4 label>
+              <v-icon left>
+                mdi-account-circle-outline
+              </v-icon>
+              {{item.title}}
+            </v-chip>
+            <p class="black--text">{{item.description}}</p>
+            <v-chip v-for="tag in item.tags " :key="tag" class="mr-2">{{tag}}</v-chip>
+            <v-spacer class="my-3"></v-spacer>
+            <v-btn color=#BDBDBD class="mr-4" @click="edit(index)">Editar</v-btn>
+            <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-flex>
 
-      </v-col>
+    </v-col>
 
-      <v-snackbar v-model="snackbar">
-        {{ message }}
-        <template v-slot:action="{ attrs }">
-          <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
-            Close
-          </v-btn>
-        </template>
-      </v-snackbar>
 
-    </v-container>
 
     <v-col sm="" lg="2">
       <v-divider inset vertical></v-divider>
