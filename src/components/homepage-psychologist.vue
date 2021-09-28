@@ -38,9 +38,16 @@
 
     <v-container>
       <v-col>
-        <v-carousel class="des" height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
+        <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
           <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
-            <v-img :src="slide.src" max-width="131vh" max-height="20vh"></v-img>
+            <v-sheet :color="colors[i]" height="100%">
+              <v-row class="fill-height" align="center" justify="center">
+                <div class="carousel_text text-h5 font-weight-medium">
+                  {{ slide }}
+                  <v-btn color="white">Agenda Aquí</v-btn>
+                </div>
+              </v-row>
+            </v-sheet>
           </v-carousel-item>
         </v-carousel>
         <v-divider inset vertical></v-divider>
@@ -141,11 +148,8 @@ export default {
       'deep-purple accent-4',
     ],
     slides: [
-      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
-      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
-      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
-      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
-      {src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',},
+      'Hasta un 20% de descuento en el paquete de citas!!!',
+      'Agenda con nuestros nuevos psicólogos!'
     ],
     publications: [],
     psychologists: [],
