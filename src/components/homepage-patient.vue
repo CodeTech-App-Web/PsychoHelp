@@ -116,7 +116,7 @@ export default {
 
     ],
     items: [
-      {text: 'Psicologos', route: '/psicologos'},
+      {text: 'Psicologos', route: '/listPsychologists'},
       {text: 'Centro de Ayuda', route: '/centro de ayuda'},
       {text: 'Guia', route: 'guia'}
     ],
