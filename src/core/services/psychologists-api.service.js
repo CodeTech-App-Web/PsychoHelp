@@ -22,11 +22,23 @@ class PsychologistsApiService {
     }
 
     findByName(name) {
-        return http.get(`/psychologists?name=${name}`);
+        return http.get(`/psychologists?name_like=${name}`);
     }
 
     findBySpecialization(specialization){
         return http.get(`/psychologists?specialization=${specialization}`);
+    }
+
+    findByGenre(genre){
+        return http.get(`/psychologists?genre=${genre}`);
+    }
+
+    findBySessionType(sessionType){
+        return http.get(`/psychologists?sessionType=${sessionType}`);
+    }
+
+    findByGenreAndSessionType(genre, sessionType){
+        return http.get(`/psychologists?genre=${genre}&sessionType=${sessionType}`)
     }
 }
 
