@@ -29,6 +29,11 @@ const routes = [
     component: () => import('../components/psychologist-profile')
   },
   {
+    path: '/patientdashboard',
+    name: 'patientDBs',
+    component: () => import('../components/patient-dashboard')
+  },
+  {
     path: '*',
     name: 'Error',
     component: () => import('../components/errorpage')
