@@ -34,9 +34,19 @@ const routes = [
     component: () => import('../components/errorpage')
   },
   {
-    path: '/loginpacient',
-    name: 'Login-Pacient',
-    component: () => import('../components/login-pacient')
+    path: '/loginPatient',
+    name: 'Login-Patient',
+    component: () => import('../components/login-patient')
+  },
+  {
+    path: '/signUpPatient',
+    name: 'Sign-up-Patient',
+    component: () => import('../components/signup-patient')
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('../views/Home')
   }
 ]
 

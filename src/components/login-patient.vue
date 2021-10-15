@@ -44,10 +44,10 @@
                           <span class="caption blue--text">Forgot password</span>
                         </v-col>
                         <v-btn color="blue" dark block tile class="mb-3">Log in</v-btn>
-                        <h3 class="mb-3">You do not have an account?</h3>
-                        <v-spacer>
-                          <span class="blue--text">Sign Up</span>
-                        </v-spacer>
+                        <v-divider inset></v-divider>
+                        <v-btn class="ma-1" color="blue" plain to="/signUpPatient">
+                        Sign up
+                        </v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -60,8 +60,9 @@
 
 <script>
 
+
 export default {
-  name: "login-pacient",
+  name: "login-patient",
 
   data () {
     return {
