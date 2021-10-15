@@ -1,7 +1,7 @@
 <template>
   <v-row align="center" justify="center" >
     <v-col>
-      <v-card class="elevation-6 mt-10">
+      <v-card class="elevation-6 mt-5">
         <v-row>
           <v-col cols="12" md="6">
             <v-img width="100%" src="https://static.vecteezy.com/system/resources/previews/002/610/660/non_2x/woman-consulting-psychologist-vector.jpg"></v-img>
@@ -23,6 +23,7 @@
                         :error-messages="firstnameErrors"
                         :counter="30"
                         label="Firstname"
+                        prepend-icon="mdi-account-details"
                         required
                         @input="$v.firstname.$touch()"
                         @blur="$v.firstname.$touch()"
@@ -33,6 +34,7 @@
                         :error-messages="lastnameErrors"
                         :counter="30"
                         label="Lastname"
+                        prepend-icon="mdi-account-details-outline"
                         required
                         @input="$v.lastname.$touch()"
                         @blur="$v.lastname.$touch()"
@@ -42,12 +44,11 @@
                         v-model="email"
                         :error-messages="emailErrors"
                         label="E-mail"
+                        prepend-icon="mdi-at"
                         required
                         @input="$v.email.$touch()"
                         @blur="$v.email.$touch()"
                     ></v-text-field>
-
-
                     <v-text-field
                         outlined dense color="blue"
                         v-model="password"
@@ -55,6 +56,7 @@
                         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show1 ? 'text' : 'password'"
                         label="Password"
+                        prepend-icon="mdi-form-textbox-password"
                         required
                         counter
                         hint="At least 8 characters"
@@ -62,34 +64,66 @@
                         @input="$v.email.$touch()"
                         @blur="$v.email.$touch()"
                     ></v-text-field>
-
-
                     <v-select
                         outlined dense color="blue"
                         v-model="state"
                         :items="itemsState"
                         :error-messages="stateErrors"
                         label="Marital status"
+                        prepend-icon="mdi-list-status"
                         required
                         @change="$v.state.$touch()"
                         @blur="$v.state.$touch()"
                     ></v-select>
                     <v-text-field
                         outlined dense color="blue"
-                        v-model="number"
-                        :error-messages="numberErrors"
+                        v-model="phone"
+                        :error-messages="phoneErrors"
                         :counter="9"
                         label="Phone Number"
+                        prepend-icon="mdi-cellphone"
                         required
-                        @input="$v.number.$touch()"
-                        @blur="$v.number.$touch()"
+                        @input="$v.phone.$touch()"
+                        @blur="$v.phone.$touch()"
                     ></v-text-field>
+                    <v-menu
+                        ref="menu"
+                        v-model="menu"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            outlined dense color="blue"
+                            v-model="date"
+                            :error-messages="dateErrors"
+                            required
+                            label="Birthday date"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            @input="$v.date.$touch()"
+                            @blur="$v.date.$touch()"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                          v-model="date"
+                          :active-picker.sync="activePicker"
+                          :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                          min="1950-01-01"
+                          @change="save"
+                      ></v-date-picker>
+                    </v-menu>
                     <v-select
                         outlined dense color="blue"
                         v-model="gender"
                         :items="itemsGender"
                         :error-messages="genderErrors"
                         label="Gender"
+                        prepend-icon="mdi-human"
                         required
                         @change="$v.gender.$touch()"
                         @blur="$v.gender.$touch()"
@@ -105,14 +139,14 @@
                     ></v-checkbox>
 
 
-                    <v-btn
-                        class="mr-4"
-                        @click="submit"
-                    >
-                      submit
+                    <v-btn class="mr-4" @click="submit">
+                      Validate
                     </v-btn>
-                    <v-btn @click="clear">
-                      clear
+                    <v-btn class="mr-4" @click="clear">
+                      Clear
+                    </v-btn>
+                    <v-btn v-on:click="register()">
+                      Register
                     </v-btn>
                   </v-form>
                 </v-col>
@@ -129,6 +163,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import {required, maxLength, minLength, email} from 'vuelidate/lib/validators'
+import PatientApiService from "../core/services/patient-api-service"
 
 export default {
   name: "signup-patient",
@@ -136,11 +171,12 @@ export default {
   validations: {
     firstname: { required, maxLength: maxLength(30) },
     lastname: { required, maxLength: maxLength(30) },
-    number: { required, maxLength: maxLength(9) },
+    phone: { required, maxLength: maxLength(9) },
     password: { required, minLength: minLength(8) },
     email: { required, email },
     state: { required },
     gender: { required },
+    date: { required },
     checkbox: {
       checked (val) {
         return val
@@ -149,11 +185,13 @@ export default {
   },
 
   data: () => ({
+    patients: [],
     show1: false,
+    id: 0,
     firstname: '',
     lastname: '',
     email: '',
-    number: '',
+    phone: '',
     password: '',
     state: null,
     gender: null,
@@ -169,7 +207,16 @@ export default {
       'Others',
     ],
     checkbox: false,
+    activePicker: null,
+    date: null,
+    menu: false,
   }),
+
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = 'YEAR'))
+    },
+  },
 
   computed: {
     checkboxErrors () {
@@ -188,6 +235,12 @@ export default {
       const errors = []
       if (!this.$v.gender.$dirty) return errors
       !this.$v.gender.required && errors.push('Item is required')
+      return errors
+    },
+    dateErrors () {
+      const errors = []
+      if (!this.$v.date.$dirty) return errors
+      !this.$v.date.required && errors.push('Birthday date is required')
       return errors
     },
     firstnameErrors () {
@@ -218,16 +271,51 @@ export default {
       !this.$v.email.required && errors.push('E-mail is required')
       return errors
     },
-    numberErrors () {
+    phoneErrors () {
       const errors = []
-      if (!this.$v.number.$dirty) return errors
-      !this.$v.number.maxLength && errors.push('Phone number must be at most 9 digit')
-      !this.$v.number.required && errors.push('Phone number is required.')
+      if (!this.$v.phone.$dirty) return errors
+      !this.$v.phone.maxLength && errors.push('Phone number must be at most 9 digit')
+      !this.$v.phone.required && errors.push('Phone number is required.')
       return errors
     },
   },
 
   methods: {
+    retrievePatient() {
+      PatientApiService.getAll()
+          .then(response => {
+            this.patients = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    },
+
+    register () {
+      this.patients=({
+        id: this.id,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        email: this.email,
+        password: this.password,
+        state: this.state,
+        phone: this.phone,
+        date: this.date,
+        gender: this.gender,
+      })
+      this.firstname= ''
+      this.lastname=''
+      this.email=''
+      this.password=''
+      this.state=''
+      this.phone=''
+      this.date=''
+      this.gender=''
+      PatientApiService.create(this.patients)
+      console.log(this.data)
+    },
+
     submit () {
       this.$v.$touch()
     },
@@ -236,13 +324,21 @@ export default {
       this.firstname = ''
       this.lastname = ''
       this.email = ''
-      this.number=''
+      this.phone=''
       this.password=''
       this.state = null
       this.gender = null
+      this.date = null
       this.checkbox = false
     },
+    save (date) {
+      this.$refs.menu.save(date)
+    },
   },
+
+  mounted() {
+    this.retrievePatient();
+  }
 }
 </script>
 
