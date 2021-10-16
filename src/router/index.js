@@ -61,6 +61,21 @@ const routes = [
     name: 'psychologist-register',
     component: () => import('../components/register-psychologist')
   },
+  {
+    path: '/loginPatient',
+    name: 'Login-Patient',
+    component: () => import('../components/login-patient')
+  },
+  {
+    path: '/signUpPatient',
+    name: 'Sign-up-Patient',
+    component: () => import('../components/signup-patient')
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('../views/Home')
+  }
 ]
 
 const router = new VueRouter({
