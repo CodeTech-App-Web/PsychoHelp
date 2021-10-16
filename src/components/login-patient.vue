@@ -43,7 +43,7 @@
                         <v-col align="center">
                           <span class="caption blue--text">Forgot password</span>
                         </v-col>
-                        <v-btn color="blue" dark block tile class="mb-3">Log in</v-btn>
+                        <v-btn color="blue" dark block tile class="mb-3" @click="validateLogin()">Log in</v-btn>
                         <v-divider inset></v-divider>
                         <v-btn class="ma-1" color="blue" plain to="/signUpPatient">
                         Sign up
@@ -59,25 +59,43 @@
 </template>
 
 <script>
-
+import PatientApiService from "../core/services/patient-api-service"
 
 export default {
   name: "login-patient",
-
-  data () {
-    return {
-      show1: false,
-      email: '',
-      password: '',
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 8 characters',
-        email: value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
-        },
-      }
+  data: () => ({
+    patients: [],
+    show1: false,
+    email: '',
+    password: '',
+    rules: {
+      required: value => !!value || 'Required.',
+      min: v => v.length >= 8 || 'Min 8 characters',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Invalid e-mail.'
+      },
     }
+  }),
+  async created() {
+    try {
+      const response = await PatientApiService.getAll();
+      this.patients = response.data;
+    }
+    catch (e)
+    {
+      console.error(e);
+    }
+  },
+  methods: {
+    validateLogin() {
+      for(let i = 0; i < this.patients.length; i++) {
+        if (this.password === this.patients[i].password && this.email === this.patients[i].email)
+        {
+          this.$router.push({name:'home-patient'})
+        }
+      }
+    },
   }
 }
 </script>
