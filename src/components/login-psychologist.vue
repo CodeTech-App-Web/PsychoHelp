@@ -60,7 +60,8 @@ export default {
       for(let i = 0; i < this.psychologists.length; i++) {
         if (this.password === this.psychologists[i].password && this.email === this.psychologists[i].email)
         {
-          this.$router.push({name:'home-psycho'})
+          this.id = this.psychologists;
+          this.$router.push({name:'home-psycho', params:{id: this.psychologists[i].id}})
         }
       }
     },

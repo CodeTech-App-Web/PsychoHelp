@@ -212,7 +212,7 @@ export default {
         this.psychologists.push(psychologistObject)
         PsychologistsApiService.create(psychologistObject)
         alert("Registrado correctamente")
-        this.$router.push({name: 'home-psycho'})
+        this.$router.push({name: 'home-psycho',params:{id: psychologistObject.id}})
       }
 
     }
