@@ -1,18 +1,19 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="2">
+      <v-col cols="3">
         <v-sheet rounded="lg">
           <v-container>
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-card>
-                  <v-card-title>Filtros</v-card-title>
+                  <v-card-title class="text-lg-subtitle-2">¿Ya tienes psicólogo? Búscalo por su nombre</v-card-title>
                   <v-card-actions>
-                  <v-text-field v-model="search" label="Search Name" outlined v-on:input="getPsychologistByName()"></v-text-field>
+                    <v-text-field v-model="search" label="Search Name" outlined v-on:input="getPsychologistByName()"></v-text-field>
                   </v-card-actions>
+                  <v-card-title>Filtrar por</v-card-title>
                   <v-divider></v-divider>
-                  <v-card-title>Genero</v-card-title>
+                  <v-card-title class="text-lg-subtitle-1">Género</v-card-title>
                   <v-card-text>
                     <v-radio-group v-model="genre">
                       <v-radio label="Masculino" value="Masculino" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
@@ -20,7 +21,7 @@
                     </v-radio-group>
                   </v-card-text>
                   <v-divider></v-divider>
-                  <v-card-title>Tipo de Sesión</v-card-title>
+                  <v-card-title class="text-lg-subtitle-1">Tipo de Sesión</v-card-title>
                   <v-card-text>
                   <v-radio-group v-model="sessionType">
                     <v-radio label="Individual" value="Individual" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
