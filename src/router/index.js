@@ -34,6 +34,11 @@ const routes = [
     component: () => import('../components/errorpage')
   },
   {
+    path: '/videocall',
+    name: 'videoCall',
+    component: () => import('../components/video-call')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

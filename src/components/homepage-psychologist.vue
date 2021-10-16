@@ -4,9 +4,7 @@
       <v-img class="psy" contain src="https://i.pinimg.com/originals/29/ba/5e/29ba5e5aa2fc49070ae3caec4b3a1680.jpg"></v-img>
       <v-spacer class="my-5"></v-spacer>
       <template>
-        <v-btn block color="primary" rounded
-            @click="dialog = !dialog"
-        >Nuevo Post</v-btn>
+        <v-btn block color="primary" rounded @click="dialog = !dialog">Nuevo Post</v-btn>
         <v-dialog v-model="dialog" max-width="800px">
           <v-flex class="mx-auto" v-if="formAdd">
             <v-card class="mb-3 pa-3">
@@ -138,7 +136,7 @@ export default {
     items: [
       {text: 'Calendario', route:'/psicologos'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
-      {text:'Guia', route:'guia'}
+      {text:'Video Call', route:'/videocall'}
     ],
     colors: [
       'indigo',
