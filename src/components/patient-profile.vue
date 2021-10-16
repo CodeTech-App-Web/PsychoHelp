@@ -2,6 +2,10 @@
   <div>
     <v-content>
       <v-container fluid>
+
+
+
+
         <v-row align="center" justify="center">
           <v-col cols="auto">
             <v-card elevation="10">
@@ -15,18 +19,29 @@
           <v-col cols="12" sm="6" md="8">
             <v-card elevation="10">
               <v-card-title class="ml-5" style="font-size:2em">Perfil del usuario</v-card-title>
-              <v-text-field v-model="name" :rules="nameRules" label="Nombres y apellidos"
-                            class="ml-10 mr-10" required></v-text-field>
-              <v-text-field v-model="email" :rules="emailRules" label="Correo electrónico"
-                            class="ml-10 mr-10" required></v-text-field>
-              <v-text-field v-model="birthdate" :rules="dateRules" label="Fecha de nacimiento"
-                            class="ml-10 mr-10" required></v-text-field>
-              <v-text-field v-model="numcellphone" :rules="numRules" label="Número de teléfono"
-                            class="ml-10 mr-10" required></v-text-field>
-              <v-card-actions class="justify-center">
-                <v-btn color="primary" text large>Guardar cambios</v-btn>
+              <v-row class="mb-2">
+                <v-col cols="12" md="6">
+                  <v-card-title class="ml-10 mr-10 mb-2" >Firstname</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">Juanito</v-card-subtitle>
+                  <v-card-title class="ml-10 mr-10 mb-2">Lastname</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">Perez</v-card-subtitle>
+                  <v-card-title class="ml-10 mr-10 mb-2">Birth Day</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:1em">2001-28-04</v-card-subtitle>
+                </v-col>
+                <v-divider inset vertical></v-divider>
+                <v-col cols="12" md="6">
+                  <v-card-title class="ml-10 mr-10 mb-2">Gender</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">Male</v-card-subtitle>
+                  <v-card-title class="ml-10 mr-10 mb-2">State</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">Single</v-card-subtitle>
+                  <v-card-title class="ml-10 mr-10 mb-2">Phone</v-card-title>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">963258741</v-card-subtitle>
+                </v-col>
+              </v-row>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
                 <v-btn color="#BBDEFB" elevation="2" large>Editar perfil</v-btn>
-                <v-btn color="error" text large>Cancelar</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -43,6 +58,9 @@ export default {
 </script>
 
 <style scoped>
+.dateProfile{
+  margin-left: 40px;
+}
 .user {
   border-radius: 20%;
 }
