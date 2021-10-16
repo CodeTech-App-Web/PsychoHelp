@@ -45,7 +45,17 @@ const routes = [
     path: '/listPsychologists',
     name: 'list-psychologists',
     component: ()=> import('../components/list-psychologists')
-  }
+  },
+  {
+    path: '/psychologistLogin',
+    name: 'psychologist-login',
+    component: () => import('../components/login-psychologist')
+  },
+  {
+    path: '/registerPsychologist',
+    name: 'psychologist-register',
+    component: () => import('../components/register-psychologist')
+  },
 ]
 
 const router = new VueRouter({
