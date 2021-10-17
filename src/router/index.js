@@ -4,7 +4,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/homePsycho',
+    path: '/homePsycho/:id',
     name: 'home-psycho',
     component: () => import('../components/homepage-psychologist')
   },
