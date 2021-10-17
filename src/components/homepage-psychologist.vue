@@ -136,7 +136,7 @@ export default {
     items: [
       {text: 'Calendario', route:'/psicologos'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
-      {text:'Video Call', route:'/videocall'}
+      {text:'Guía', route:'/videocall'}
     ],
     colors: [
       'indigo',
