@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col cols="2">
-      <v-img class="psy" contain src="https://i.pinimg.com/originals/29/ba/5e/29ba5e5aa2fc49070ae3caec4b3a1680.jpg"></v-img>
+      <v-img class="psy" contain :src="loginData.img"></v-img>
+      <span class="mt-8 ml-3">User: {{loginData.name}}</span>
       <v-spacer class="my-5"></v-spacer>
       <template>
         <v-btn block color="primary" rounded @click="dialog = !dialog">Nuevo Post</v-btn>
@@ -128,7 +129,6 @@
 import PublicationsApiService from "../core/services/publications-api-service"
 import PsychologistsApiService from "../core/services/psychologists-api.service"
 
-
 export default {
   name: "homepage-psychologist",
   data: () => ({
@@ -151,6 +151,8 @@ export default {
     ],
     publications: [],
     psychologists: [],
+    loginData: [],
+    userId: 0,
     title: '',
     description: '',
     snackbar: false,
@@ -160,19 +162,22 @@ export default {
     dialog: false,
     tags:[]
   }),
-
   async created() {
+    this.userId = this.$route.params.id;
     try {
       const response = await PublicationsApiService.getAll();
       const response2 = await PsychologistsApiService.getAll();
+      const response3 = await PsychologistsApiService.getById(this.userId);
       this.publications = response.data;
       this.psychologists = response2.data;
+      this.loginData = response3.data;
     }
     catch (e)
     {
       console.error(e);
     }
   },
+
 
   methods: {
     addPost() {

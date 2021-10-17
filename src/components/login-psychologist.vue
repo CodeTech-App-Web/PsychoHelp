@@ -33,6 +33,7 @@ export default {
   name: "login-psychologist",
   data: () => ({
     psychologists: [],
+    loginData: [],
     email: "",
     password: "",
     show:false,
@@ -56,14 +57,22 @@ export default {
     }
   },
   methods: {
-    validateLogin() {
-      for(let i = 0; i < this.psychologists.length; i++) {
-        if (this.password === this.psychologists[i].password && this.email === this.psychologists[i].email)
+    async validateLogin() {
+      try {
+        const response2 = await PsychologistsApiService.findByEmail(this.email);
+        this.loginData = response2.data;
+        if (this.password === this.loginData[0].password)
         {
-          this.$router.push({name:'home-psycho'})
+          await this.$router.push({name:'home-psycho', params:{id: this.loginData[0].id}})
+        } else {
+          console.log(this.loginData[0].password)
+          alert("Incorrect Password")
         }
       }
-    },
+      catch (e) {
+        console.error(e)
+      }
+    }
   }
 }
 </script>

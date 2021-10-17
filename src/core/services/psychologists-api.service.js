@@ -40,6 +40,10 @@ class PsychologistsApiService {
     findByGenreAndSessionType(genre, sessionType){
         return http.get(`/psychologists?genre=${genre}&sessionType=${sessionType}`)
     }
+
+    findByEmail(email){
+        return http.get(`/psychologists?email=${email}`);
+    }
 }
 
 export default new PsychologistsApiService();
