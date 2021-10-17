@@ -9,7 +9,7 @@ const routes = [
     component: () => import('../components/homepage-psychologist')
   },
   {
-    path:'/homePatient',
+    path:'/homePatient/:id',
     name: 'home-patient',
     component: () => import('../components/homepage-patient')
   },

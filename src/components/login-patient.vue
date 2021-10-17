@@ -65,6 +65,7 @@ export default {
   name: "login-patient",
   data: () => ({
     patients: [],
+    loginData: [],
     show1: false,
     email: '',
     password: '',
@@ -88,14 +89,20 @@ export default {
     }
   },
   methods: {
-    validateLogin() {
-      for(let i = 0; i < this.patients.length; i++) {
-        if (this.password === this.patients[i].password && this.email === this.patients[i].email)
-        {
-          this.$router.push({name:'home-patient'})
+    async validateLogin() {
+      try {
+        const response2 = await PatientApiService.findByEmail(this.email);
+        this.loginData = response2.data;
+        if (this.password === this.loginData[0].password) {
+          await this.$router.push({name: 'home-patient', params: {id: this.loginData[0].id}})
+        } else {
+          console.log(this.loginData[0].password)
+          alert("Incorrect Password")
         }
+      } catch (e) {
+        console.error(e)
       }
-    },
+    }
   }
 }
 </script>

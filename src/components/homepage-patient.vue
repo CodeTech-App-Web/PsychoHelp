@@ -1,7 +1,8 @@
 <template>
   <v-row>
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
-      <v-img class="pat" contain src="https://laverdadnoticias.com/__export/1595974553339/sites/laverdad/img/2020/07/28/rm_colaboraciones_bts.png_1902800913.png" alt="user"></v-img>
+      <v-img class="pat" contain :src="loginData.img"></v-img>
+      <span class="mt-8 ml-3">User: {{loginData.lastname}}</span>
       <v-divider inset vertical></v-divider>
       <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
         <v-list>
@@ -96,6 +97,7 @@
 
 import PublicationsApiService from "../core/services/publications-api-service"
 import PsychologistsApiService from "../core/services/psychologists-api.service"
+import PatientApiService from "../core/services/patient-api-service"
 
 export default {
   name: "homepage",
@@ -103,6 +105,8 @@ export default {
 
     publications: [],
     psychologists: [],
+    loginData: [],
+    userId: 0,
     colors: [
       '#03A9F4',
       '#03A9F4',
@@ -128,11 +132,14 @@ export default {
 
   }),
   async created() {
+    this.userId = this.$route.params.id;
     try {
       const response = await PublicationsApiService.getAll();
       const response2 = await PsychologistsApiService.getAll();
+      const response3 = await PatientApiService.getById(this.userId);
       this.publications = response.data;
       this.psychologists = response2.data;
+      this.loginData = response3.data;
     }
     catch (e)
     {
