@@ -7,7 +7,7 @@
       <v-divider inset vertical></v-divider>
       <h2 class="mt-lg-8">¡Comienza Aquí!</h2>
       <v-row justify="end" class="mr-2">
-        <v-btn plain outline to="/psychologistLogin">¿Ya eres parte de nuestro equipo? Ingresa Aquí</v-btn>
+        <v-btn plain outline to="/login_psycho">¿Ya eres parte de nuestro equipo? Ingresa Aquí</v-btn>
       </v-row>
       <v-divider inset vertical></v-divider>
       <form>
@@ -72,7 +72,7 @@
 
 <script>
 
-import PsychologistsApiService from "../core/services/psychologists-api.service"
+import PsychologistsApiService from "../../core/services/psychologists-api.service"
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email, minLength, numeric } from 'vuelidate/lib/validators'
 

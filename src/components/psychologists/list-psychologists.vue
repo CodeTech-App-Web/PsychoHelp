@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import PsychologistsApiService from "../../src/core/services/psychologists-api.service"
+import PsychologistsApiService from "../../core/services/psychologists-api.service"
 import { validationMixin } from 'vuelidate'
 export default {
   name: "list-psychologists",

@@ -5,8 +5,8 @@
         <v-row align="center" justify="center">
           <v-col cols="auto">
             <v-card elevation="10">
-              <v-img lazy-src="../assets/psychologist1.jpg" max-height="370" max-width="370"
-                     src="../assets/psychologist1.jpg"></v-img>
+              <v-img lazy-src="../../assets/psychologist1.jpg" max-height="370" max-width="370"
+                     src="../../assets/psychologist1.jpg"></v-img>
             </v-card>
             <v-card class="mt-2" elevation="10">
               <v-card-title class="justify-center" style="font-size:2em">Nombre de psicologo</v-card-title>

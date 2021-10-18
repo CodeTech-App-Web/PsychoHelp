@@ -12,8 +12,8 @@
 
 <script>
 
-import AppBarPsycho from './components/appbar-psycho'
-import AppBar from "./components/app-bar";
+import AppBarPsycho from './components/navigation-bar/appbar-psycho'
+import AppBar from "./components/navigation-bar/app-bar";
 
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
   computed: {
     verifyUserType() {
       let flag = false
-      if (this.$route.name === 'psychologist-login' || this.$route.name === 'Login-Patient' ) {
+      if (this.$route.name === 'psychologist-login' || this.$route.name === 'Login-Patient' || this.$route.name === 'psychologist-register' || this.$route.name === 'Sign-up-Patient') {
         flag = false
       } else {
         flag = true

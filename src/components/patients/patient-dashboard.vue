@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import PatientApiService from "../../src/core/services/patient-api-service"
+import PatientApiService from "../../core/services/patient-api-service"
 
 export default {
   name: "patientDBs",

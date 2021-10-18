@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import PsychologistsApiService from "../core/services/psychologists-api.service";
+import PsychologistsApiService from "../../core/services/psychologists-api.service";
 
 export default {
   name: "login-psychologist",

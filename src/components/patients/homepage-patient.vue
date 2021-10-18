@@ -95,9 +95,9 @@
 
 <script>
 
-import PublicationsApiService from "../core/services/publications-api-service"
-import PsychologistsApiService from "../core/services/psychologists-api.service"
-import PatientApiService from "../core/services/patient-api-service"
+import PublicationsApiService from "../../core/services/publications-api-service"
+import PsychologistsApiService from "../../core/services/psychologists-api.service"
+import PatientApiService from "../../core/services/patient-api-service"
 
 export default {
   name: "homepage",
@@ -120,9 +120,9 @@ export default {
 
     ],
     items: [
-      {text: 'Psicologos', route: '/listPsychologists'},
+      {text: 'Psicologos', route: '/dashboard_psycho'},
       {text: 'Centro de Ayuda', route: '/centro de ayuda'},
-      {text: 'Guia', route: 'guia'}
+      {text: 'Guia', route: '/guia'}
     ],
     specialties: [
         'Terapias de pareja',

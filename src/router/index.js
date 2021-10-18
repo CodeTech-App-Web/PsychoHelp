@@ -4,44 +4,44 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/homePsycho/:id',
+    path: '/home_psycho/:id',
     name: 'home-psycho',
-    component: () => import('../components/homepage-psychologist')
+    component: () => import('../components/psychologists/homepage-psychologist')
   },
   {
-    path:'/homePatient/:id',
+    path:'/home_patient/:id',
     name: 'home-patient',
-    component: () => import('../components/homepage-patient')
+    component: () => import('../components/patients/homepage-patient')
   },
   {
     path: '/',
     name: 'home-page',
-    component: () => import('../components/homepage-patient')
+    component: () => import('../components/patients/homepage-patient')
   },
   {
-    path: '/patientProfile',
+    path: '/profile_patient',
     name: 'patient-profile',
-    component: () => import('../components/patient-profile')
+    component: () => import('../components/patients/patient-profile')
   },
   {
-    path: '/psychologistProfile',
+    path: '/profile_psycho',
     name: 'psychologist-profile',
-    component: () => import('../components/psychologist-profile')
+    component: () => import('../components/psychologists/psychologist-profile')
   },
   {
-    path: '/patientdashboard',
+    path: '/dashboard_patient',
     name: 'patientDBs',
-    component: () => import('../components/patient-dashboard')
+    component: () => import('../components/patients/patient-dashboard')
   },
   {
     path: '*',
     name: 'Error',
-    component: () => import('../components/errorpage')
+    component: () => import('../components/page-error/errorpage')
   },
   {
-    path: '/videocall',
+    path: '/video-call',
     name: 'videoCall',
-    component: () => import('../components/video-call')
+    component: () => import('../components/video-call/video-call')
   },
   {
     path: '/about',
@@ -52,29 +52,29 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/listPsychologists',
+    path: '/dashboard_psycho',
     name: 'list-psychologists',
-    component: ()=> import('../components/list-psychologists')
+    component: ()=> import('../components/psychologists/list-psychologists')
   },
   {
-    path: '/psychologistLogin',
+    path: '/login_psycho',
     name: 'psychologist-login',
-    component: () => import('../components/login-psychologist')
+    component: () => import('../components/psychologists/login-psychologist')
   },
   {
-    path: '/registerPsychologist',
+    path: '/register_psycho',
     name: 'psychologist-register',
-    component: () => import('../components/register-psychologist')
+    component: () => import('../components/psychologists/register-psychologist')
   },
   {
-    path: '/loginPatient',
+    path: '/login_patient',
     name: 'Login-Patient',
-    component: () => import('../components/login-patient')
+    component: () => import('../components/patients/login-patient')
   },
   {
-    path: '/signUpPatient',
+    path: '/register_patient',
     name: 'Sign-up-Patient',
-    component: () => import('../components/signup-patient')
+    component: () => import('../components/patients/signup-patient')
   },
   {
     path: '/home',

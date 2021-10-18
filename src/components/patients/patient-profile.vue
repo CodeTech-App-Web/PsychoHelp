@@ -9,8 +9,8 @@
         <v-row align="center" justify="center">
           <v-col cols="auto">
             <v-card elevation="10">
-              <v-img class="user" lazy-src="../assets/patient1.jpg" max-height="350" max-width="350"
-                     src="../assets/patient1.jpg"></v-img>
+              <v-img class="user" lazy-src="https://cd1.eju.tv/wp-content/uploads/2014/05/Las-caracteristicas-de-los-diferentes-tipos-de-rostros-2.jpg" max-height="350" max-width="350"
+                     src="https://cd1.eju.tv/wp-content/uploads/2014/05/Las-caracteristicas-de-los-diferentes-tipos-de-rostros-2.jpg"></v-img>
             </v-card>
             <v-card class="mt-2" elevation="10">
               <v-card-title class="justify-center" style="font-size:2em">Nombre de paciente</v-card-title>

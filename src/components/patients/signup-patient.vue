@@ -163,7 +163,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import {required, maxLength, minLength, email} from 'vuelidate/lib/validators'
-import PatientApiService from "../core/services/patient-api-service"
+import PatientApiService from "../../core/services/patient-api-service"
 
 export default {
   name: "signup-patient",

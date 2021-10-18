@@ -45,7 +45,7 @@
                         </v-col>
                         <v-btn color="blue" dark block tile class="mb-3" @click="validateLogin()">Log in</v-btn>
                         <v-divider inset></v-divider>
-                        <v-btn class="ma-1" color="blue" plain to="/signUpPatient">
+                        <v-btn class="ma-1" color="blue" plain to="/register_patient">
                         Sign up
                         </v-btn>
                       </v-col>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import PatientApiService from "../core/services/patient-api-service"
+import PatientApiService from "../../core/services/patient-api-service"
 
 export default {
   name: "login-patient",

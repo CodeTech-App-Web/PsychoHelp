@@ -126,17 +126,16 @@
 
 <script>
 
-import PublicationsApiService from "../core/services/publications-api-service"
-import PsychologistsApiService from "../core/services/psychologists-api.service"
+import PublicationsApiService from "../../core/services/publications-api-service"
+import PsychologistsApiService from "../../core/services/psychologists-api.service"
 
 export default {
   name: "homepage-psychologist",
   data: () => ({
-
     items: [
       {text: 'Calendario', route:'/psicologos'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
-      {text:'Guía', route:'/videocall'}
+      {text:'Guía', route:'/video-call'}
     ],
     colors: [
       'indigo',
