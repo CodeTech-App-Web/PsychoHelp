@@ -19,12 +19,12 @@ const routes = [
     component: () => import('../components/patients/homepage-patient')
   },
   {
-    path: '/home_psycho/:id/profile_patient',
+    path: '/home_patient/:id/profile_patient',
     name: 'patient-profile',
     component: () => import('../components/patients/patient-profile')
   },
   {
-    path: '/home_patient/:id/profile_psycho',
+    path: '/home_psycho/:id/profile_psycho',
     name: 'psychologist-profile',
     component: () => import('../components/psychologists/psychologist-profile')
   },
