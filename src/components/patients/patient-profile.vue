@@ -2,18 +2,13 @@
   <div>
     <v-content>
       <v-container fluid>
-
-
-
-
         <v-row align="center" justify="center">
           <v-col cols="auto">
             <v-card elevation="10">
-              <v-img class="user" lazy-src="https://cd1.eju.tv/wp-content/uploads/2014/05/Las-caracteristicas-de-los-diferentes-tipos-de-rostros-2.jpg" max-height="350" max-width="350"
-                     src="https://cd1.eju.tv/wp-content/uploads/2014/05/Las-caracteristicas-de-los-diferentes-tipos-de-rostros-2.jpg"></v-img>
+              <v-img class="user" :src="profileData.img" max-height="350" max-width="350"></v-img>
             </v-card>
             <v-card class="mt-2" elevation="10">
-              <v-card-title class="justify-center" style="font-size:2em">Nombre de paciente</v-card-title>
+              <v-card-title class="justify-center" style="font-size:2em">{{profileData.firstname}} {{ profileData.lastname }}</v-card-title>
             </v-card>
           </v-col>
           <v-col cols="12" sm="6" md="8">
@@ -22,20 +17,20 @@
               <v-row class="mb-2">
                 <v-col cols="12" md="6">
                   <v-card-title class="ml-10 mr-10 mb-2" >Firstname</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">Juanito</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.firstname }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Lastname</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">Perez</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.lastname }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Birth Day</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:1em">2001-28-04</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:1em">{{ profileData.date }}</v-card-subtitle>
                 </v-col>
                 <v-divider inset vertical></v-divider>
                 <v-col cols="12" md="6">
                   <v-card-title class="ml-10 mr-10 mb-2">Gender</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">Male</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.gender }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">State</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">Single</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.state }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Phone</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">963258741</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.phone }}</v-card-subtitle>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
@@ -52,8 +47,28 @@
 </template>
 
 <script>
+import PatientApiService from "../../core/services/patient-api-service"
+
 export default {
-  name: "patient-profile"
+  name: "patient-profile",
+  data: () => ({
+    patients: [],
+    profileData: [],
+    userId: 0,
+  }),
+  async created() {
+    this.userId = this.$route.params.id;
+    try {
+      const response = await PatientApiService.getAll();
+      const response2 = await PatientApiService.getById(this.userId);
+      this.patients = response.data;
+      this.profileData = response2.data;
+    }
+    catch (e)
+    {
+      console.error(e);
+    }
+  }
 }
 </script>
 

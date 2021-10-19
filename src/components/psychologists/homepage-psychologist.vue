@@ -133,7 +133,7 @@ export default {
   name: "homepage-psychologist",
   data: () => ({
     items: [
-      {text: 'Calendario', route:'/psicologos'},
+      {text: 'Pacientes', route:'/dashboard_patient'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
       {text:'Guía', route:'/video-call'}
     ],

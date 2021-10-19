@@ -13,18 +13,6 @@
       <form>
         <v-sheet rounded color=#03A9F4>
           <v-divider inset vertical></v-divider>
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.name" label="Nombres completos"-->
-<!--                        :rules="[rules.required]"></v-text-field>-->
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.dni" label="DNI"-->
-<!--                        :rules="[rules.required]"></v-text-field>-->
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.phone" label="Celular"-->
-<!--                        :rules="[rules.required]"></v-text-field>-->
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.email" label="Correo electrónico"-->
-<!--                        :rules="[rules.required, rules.email]"></v-text-field>-->
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.cmp" label="CMP"-->
-<!--                        :rules="[rules.required]"></v-text-field>-->
-<!--          <v-text-field solo class="mt-5 ml-10 mr-10" v-model="editedItem.password" label="Password"-->
-<!--                        :rules="[rules.required, rules.counter]"></v-text-field>-->
           <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="name" label="Nombres completos"
                         required :error-messages="nameErrors"
                         @input="$v.name.$touch()"
