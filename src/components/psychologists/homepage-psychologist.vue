@@ -5,14 +5,14 @@
       <span class="mt-8 ml-3">User: {{loginData.name}}</span>
       <v-spacer class="my-5"></v-spacer>
       <template>
-        <v-btn block color="primary" rounded @click="dialog = !dialog">Nuevo Post</v-btn>
+        <v-btn block color="primary" rounded @click="dialog = !dialog">New Post</v-btn>
         <v-dialog v-model="dialog" max-width="800px">
           <v-flex class="mx-auto" v-if="formAdd">
             <v-card class="mb-3 pa-3">
-              <v-form @submit.prevent="addPost">
-                <v-text-field label="To post" v-model="title"></v-text-field>
-                <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
-                <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
+              <v-form @submit.prevent="addPublication">
+                <v-text-field label="To post" v-model="defaultPublication.title"></v-text-field>
+                <v-textarea label="What do you want to publish?" v-model="defaultPublication.description"></v-textarea>
+                <v-combobox multiple v-model="defaultPublication.tags" label="Tags" append-icon chips deletable-chips class="tag-input">
                 </v-combobox>
                 <v-btn block color=#BBDEFB type="submit">Add Published</v-btn>
               </v-form>
@@ -35,8 +35,8 @@
       </v-sheet>
     </v-col>
 
-    <v-container>
-      <v-col>
+
+      <v-col lg="8">
         <v-carousel height="20vh"  hide-delimiter-background show-arrows-on-hover rounded = "lg">
           <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
             <v-sheet :color="colors[i]" height="100%">
@@ -50,15 +50,15 @@
           </v-carousel-item>
         </v-carousel>
         <v-divider inset vertical></v-divider>
-        <!-- CONTENIDO PARA EDIT PUBLIACION -->
-        <v-flex class="mx-auto" v-if="!formAdd">
+        <!-- CONTENIDO PARA EDIT PUBLICACION -->
+        <v-flex class="mx-auto" v-if="!formEdit">
           <v-card class="mb-3 pa-3">
-            <v-form @submit.prevent="editPost">
-              <v-text-field label="To post" v-model="title"></v-text-field>
-              <v-textarea label="What do you want to publish?" v-model="description"></v-textarea>
-              <v-combobox multiple v-model="tags" label="Tags" append-icon chips deletable-chips class="tag-input">
+            <v-form @submit.prevent="editPublication">
+              <v-text-field label="To post" v-model="editedPublication.title"></v-text-field>
+              <v-textarea label="What do you want to publish?" v-model="editedPublication.description"></v-textarea>
+              <v-combobox multiple v-model="editedPublication.tags" label="Tags" append-icon chips deletable-chips class="tag-input">
               </v-combobox>
-              <v-btn block color=#757575 type="submit">Edit Published</v-btn>
+              <v-btn block color="primary" type="submit">Edit Published</v-btn>
             </v-form>
           </v-card>
         </v-flex>
@@ -66,20 +66,32 @@
         <v-divider inset vertical></v-divider>
 
         <v-flex class="mx-auto">
-          <v-card class="mb-3" v-for="(item, index) in publications" :key="index">
+          <v-card class="mb-3" v-for="item in publications" :key="item">
+              <v-row
+                  align="center"
+                  class="ml-4 mt-4"
+                  no-gutters
+              >
+                <v-avatar size="40">
+                  <img
+                      alt="user"
+                      src="https://laverdadnoticias.com/__export/1628114924332/sites/laverdad/img/2021/08/04/jin_de_bts_miente_sobre_su_edad.jpg_305319620.jpg"
+                  >
+                </v-avatar>
+                <p class="ml-2 mt-4">Example Name</p>
+              </v-row>
+            <v-divider></v-divider>
+            <v-card-title>{{item.title}}</v-card-title>
             <v-card-text>
-              <v-chip class="ma-2 ml-0" color=#03A9F4 label>
-                <v-icon left>
-                  mdi-account-circle-outline
-                </v-icon>
-                {{item.title}}
-              </v-chip>
               <p class="black--text">{{item.description}}</p>
-              <v-chip v-for="tag in item.tags " :key="tag" >{{tag}}</v-chip>
-              <v-spacer class="my-3"></v-spacer>
-                  <v-btn color=#BDBDBD class="ml-0" @click="edit(index)">Editar</v-btn>
-                  <v-btn color="black white--text" @click="deletePost(item.id)">Eliminar</v-btn>
+              <v-chip-group>
+              <v-chip v-for="tag in item.tags " :key="tag" color="primary" outlined>{{tag}}</v-chip>
+              </v-chip-group>
             </v-card-text>
+            <v-card-actions class="justify-end">
+              <v-btn color="white" class="ml-0" @click="editChanges(item)">Edit</v-btn>
+              <v-btn color="primary" @click="deletePost(item)">Delete</v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
 
@@ -94,10 +106,9 @@
         </template>
       </v-snackbar>
 
-    </v-container>
 
-    <v-col sm="" lg="2">
-      <v-divider inset vertical></v-divider>
+
+    <v-col lg="2">
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
@@ -109,8 +120,8 @@
               {{psychology.name}}
             </v-card-subtitle>
             <v-card-text class="text--primary">
-              <div>Emprendedor</div>
-              <div>Lorem Ipsun</div>
+              <div>{{ psychology.email }}</div>
+              <div class="text-truncate">{{ psychology.about }}</div>
             </v-card-text>
             <!-- BOTONES CARDS-->
             <v-card-actions>
@@ -151,16 +162,31 @@ export default {
     publications: [],
     psychologists: [],
     loginData: [],
-    userId: 0,
-    title: '',
-    description: '',
     snackbar: false,
     message: '',
     formAdd: true,
-    indexPost: '',
+    formEdit: true,
     dialog: false,
-    tags:[]
+
+    editedIndex: 0,
+    deletedIndex: 0,
+    editedPublication:{
+      id:0,
+      title:'',
+      description:'',
+      tags:[],
+      psychologistId: 0
+    },
+    defaultPublication:{
+      id:0,
+      title:'',
+      description:'',
+      tags:[],
+      psychologistId: 0
+    }
+
   }),
+
   async created() {
     this.userId = this.$route.params.id;
     try {
@@ -179,45 +205,40 @@ export default {
 
 
   methods: {
-    addPost() {
-      if(this.title === '' || this.description === '' || this.tags === []) {
+
+    addPublication(){
+      if(this.defaultPublication.title === '' || this.defaultPublication.description === '' || this.defaultPublication.tags === []) {
         this.snackbar = true
         this.message = 'Llena todos los campos'
-      } else {
-        this.publications.push ({
-          id: Date.now(),
-          title: this.title,
-          description: this.description,
-          tags: this.tags,
-        })
-        this.title = ''
-        this.description = ''
-        this.snackbar = true
-        this.message = 'added post'
-        this.tags = []
       }
+      else {
+        this.publications.push(this.defaultPublication);
+        PublicationsApiService.create(this.defaultPublication);
+        this.snackbar = true;
+        this.message = 'added post';
+        this.dialog = false;
+      }
+
     },
 
-    deletePost(id) {
-      this.publications = this.publications.filter(e => e.id !== id)
+    editChanges(item){
+      this.formEdit = false;
+      this.editedIndex = this.publications.indexOf(item);
+      this.editedPublication = Object.assign({}, item);
     },
-    edit(index) {
-      this.formAdd = false
-      this.title = this.publications[index].title
-      this.description = this.publications[index].description
-      this.tags = this.publications[index].tags
-      this.indexPost = index
+
+    editPublication(){
+      this.formEdit = true;
+      Object.assign(this.publications[this.editedIndex], this.editedPublication);
+      PublicationsApiService.update(this.editedPublication.id, this.editedPublication);
+      this.snackbar = true;
+      this.message = 'Editaste la tarea';
     },
-    editPost() {
-      this.publications[this.indexPost].title = this.title
-      this.publications[this.indexPost].description = this.description
-      this.publications[this.indexPost].tags = this.tags
-      this.formAdd = true
-      this.title = ''
-      this.description = ''
-      this.tags = []
-      this.snackbar = true
-      this.message = 'Editaste la tarea'
+
+    deletePost(item) {
+      this.deletedIndex = this.publications.indexOf(item);
+      PublicationsApiService.delete(item.id);
+      this.publications.splice(this.deletedIndex, 1);
     },
 
   }
@@ -228,5 +249,7 @@ export default {
 .psy {
   border-radius: 10%;
 }
+
+
 
 </style>
