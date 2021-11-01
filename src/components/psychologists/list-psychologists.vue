@@ -135,7 +135,7 @@
                   <v-card-subtitle class="text-center">Turno mañana</v-card-subtitle>
                   <v-chip-group active-class="primary--text" column class="ml-7">
                     <div v-for="schedule in schedules" :key="schedule" >
-                      <v-chip v-if="schedule.id < 6">
+                      <v-chip v-if="schedule.id < 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
                     </div>
@@ -146,9 +146,9 @@
               <v-col cols="12" sm="6">
                 <v-card elevation="5">
                   <v-card-subtitle class="text-center">Turno Tarde</v-card-subtitle>
-                  <v-chip-group active-class="primary--text" column class="ml-7">
-                    <div v-for="schedule in schedules" :key="schedule" align="center">
-                      <v-chip v-if="schedule.id >= 6">
+                  <v-chip-group  active-class="primary--text" column class="ml-7">
+                    <div v-for="schedule in schedules" :key="schedule" align="center" >
+                      <v-chip  v-if="schedule.id >= 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
                     </div>
@@ -160,6 +160,12 @@
               <v-btn @click.stop="dialogAppointment=false">Cancelar</v-btn>
             </v-flex>
           </v-container>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="dialogSelected" width="500">
+        <v-card>
+          <v-card-title>Haber que pasa</v-card-title>
         </v-card>
       </v-dialog>
     </template>
@@ -177,7 +183,9 @@ export default {
     psychologists: [],
     schedules: [],
     dialog: false,
+    toggle_exclusive: undefined,
     dialogAppointment: false,
+    dialogSelected: false,
     selectedPsychologist: null,
     selectedAppointment: null,
     selected: [],
@@ -191,6 +199,7 @@ export default {
     this.retrieveSchedules();
     this.dialog = false;
     this.dialogAppointment = false;
+    this.dialogSelected = false;
   },
 
   methods:{
@@ -225,6 +234,11 @@ export default {
     appointmentDialog(appointment){
       this.selectedAppointment = appointment;
       this.dialogAppointment = true;
+    },
+
+    scheduleDialog(psychologist){
+      this.selectedPsychologist = psychologist;
+      this.dialogSelected = true;
     },
 
     getPsychologistsByFilter(genre, sessionType){
