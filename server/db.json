@@ -102,7 +102,8 @@
       "genre": "Masculino",
       "sessionType": "Individual",
       "cmp": 123456,
-      "password": "12s45s5d"
+      "password": "12s45s5d",
+      "scheduleId": 1
     },
     {
       "id": 2,
@@ -120,7 +121,8 @@
       "genre": "Femenino",
       "sessionType": "Individual",
       "cmp": 123456,
-      "password": "12s45s5d"
+      "password": "12s45s5d",
+      "scheduleId": 2
     },
     {
       "id": 3,
@@ -138,7 +140,8 @@
       "genre": "Femenino",
       "sessionType": "Pareja",
       "cmp": 123456,
-      "password": "12s45s5d"
+      "password": "12s45s5d",
+      "scheduleId": 3
     },
     {
       "id": 4,
@@ -156,7 +159,8 @@
       "genre": "Femenino",
       "sessionType": "Pareja",
       "cmp": 123456,
-      "password": "12s45s5d"
+      "password": "12s45s5d",
+      "scheduleId": 4
     }
   ],
   "publications": [
@@ -193,6 +197,58 @@
         "#tristeza"
       ],
       "img": "https://gentequebrilla.azurewebsites.net/wp-content/uploads/2019/04/12014-1024x604.jpg"
+    }
+  ],
+
+  "schedules": [
+    {
+      "id": 1,
+      "time": "08:00"
+    },
+    {
+      "id": 2,
+      "time": "09:00"
+    },
+    {
+      "id": 3,
+      "time": "10:00"
+    },
+    {
+      "id": 4,
+      "time": "11:00"
+    },
+    {
+      "id": 5,
+      "time": "12:00"
+    },
+    {
+      "id": 6,
+      "time": "16:00"
+    },
+    {
+      "id": 7,
+      "time": "17:00"
+    },
+    {
+      "id": 8,
+      "time": "18:00"
+    },
+    {
+      "id": 9,
+      "time": "19:00"
+    },
+    {
+      "id": 10,
+      "time": "20:00"
+    }
+  ],
+
+  "appointments": [
+    {
+      "id": 1,
+      "scheduleId": 2,
+      "psychologistId": 1,
+      "patientId": 1
     }
   ]
 }
