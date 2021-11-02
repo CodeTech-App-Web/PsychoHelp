@@ -123,7 +123,7 @@
       <!--Fin del Dialog-->
     </template>
     <template>
-      <v-dialog v-model="dialogAppointment" width="400" persistent >
+      <v-dialog v-model="dialogAppointment" v-if="selectedAppointment!=null" width="400" persistent >
         <v-card>
           <v-card-title class="justify-center">Elige un horario a tu preferencia</v-card-title>
           <v-card-subtitle class="text-center">Horarios disponibles</v-card-subtitle>
@@ -134,7 +134,7 @@
                 <v-card elevation="5">
                   <v-card-subtitle class="text-center">Turno mañana</v-card-subtitle>
                   <v-chip-group active-class="primary--text" column class="ml-7">
-                    <div v-for="schedule in schedules" :key="schedule" >
+                    <div v-for="schedule in selectedAppointment.schedules" :key="schedule" >
                       <v-chip v-if="schedule.id < 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
@@ -142,12 +142,11 @@
                   </v-chip-group>
                 </v-card>
               </v-col>
-
               <v-col cols="12" sm="6">
                 <v-card elevation="5">
                   <v-card-subtitle class="text-center">Turno Tarde</v-card-subtitle>
                   <v-chip-group  active-class="primary--text" column class="ml-7">
-                    <div v-for="schedule in schedules" :key="schedule" align="center" >
+                    <div v-for="schedule in selectedAppointment.schedules" :key="schedule" align="center" >
                       <v-chip  v-if="schedule.id >= 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
@@ -197,6 +196,7 @@ export default {
   created() {
     this.retrievePsychologists();
     this.retrieveSchedules();
+    this.retrievePsychoSchedules();
     this.dialog = false;
     this.dialogAppointment = false;
     this.dialogSelected = false;
@@ -223,6 +223,17 @@ export default {
       .catch(e => {
         console.log(e);
       })
+    },
+
+    retrievePsychoSchedules() {
+      PsychologistsApiService.getPsychoSchedules()
+          .then(response => {
+            this.psychologists = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
     },
 
     psychologistDialog(psychologist){
