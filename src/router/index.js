@@ -81,6 +81,8 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home')
   }
+    component: ()=> import('../components/psychologists/psychologist-logbook')
+  },
 ]
 
 const router = new VueRouter({
