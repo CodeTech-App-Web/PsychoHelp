@@ -102,8 +102,7 @@
       "genre": "Masculino",
       "sessionType": "Individual",
       "cmp": 123456,
-      "password": "12s45s5d",
-      "scheduleId": 1
+      "password": "12s45s5d"
     },
     {
       "id": 2,
@@ -121,8 +120,7 @@
       "genre": "Femenino",
       "sessionType": "Individual",
       "cmp": 123456,
-      "password": "12s45s5d",
-      "scheduleId": 2
+      "password": "12s45s5d"
     },
     {
       "id": 3,
@@ -140,8 +138,7 @@
       "genre": "Femenino",
       "sessionType": "Pareja",
       "cmp": 123456,
-      "password": "12s45s5d",
-      "scheduleId": 3
+      "password": "12s45s5d"
     },
     {
       "id": 4,
@@ -159,8 +156,7 @@
       "genre": "Femenino",
       "sessionType": "Pareja",
       "cmp": 123456,
-      "password": "12s45s5d",
-      "scheduleId": 4
+      "password": "12s45s5d"
     }
   ],
   "publications": [
@@ -203,43 +199,61 @@
   "schedules": [
     {
       "id": 1,
-      "time": "08:00"
+      "time": "08:00",
+      "psychologistId": 1
     },
     {
       "id": 2,
-      "time": "09:00"
+      "time": "09:00",
+      "psychologistId": 2
     },
     {
       "id": 3,
-      "time": "10:00"
+      "time": "10:00",
+      "psychologistId": 3
     },
     {
       "id": 4,
-      "time": "11:00"
+      "time": "11:00",
+      "psychologistId": 4
     },
     {
       "id": 5,
-      "time": "12:00"
+      "time": "12:00",
+      "psychologistId": 3
     },
     {
       "id": 6,
-      "time": "16:00"
+      "time": "16:00",
+      "psychologistId": 2
     },
     {
       "id": 7,
-      "time": "17:00"
+      "time": "17:00",
+      "psychologistId": 1
     },
     {
       "id": 8,
-      "time": "18:00"
+      "time": "18:00",
+      "psychologistId": 1
     },
     {
       "id": 9,
-      "time": "19:00"
+      "time": "19:00",
+      "psychologistId": 3
     },
     {
       "id": 10,
-      "time": "20:00"
+      "time": "20:00",
+      "psychologistId": 2
+    }
+  ],
+
+  "schedulesPsycho": [
+    {
+      "id": 1,
+      "scheduleId": 1,
+      "psychologistId": 1
     }
   ],
 
