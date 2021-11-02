@@ -27,6 +27,10 @@ class PatientApiService{
     findByEmail(email) {
         return http.get(`/patients?email=${email}`);
     }
+
+    findAppointments(id) {
+        return http.get(`/patients/${id}?_embed=appointments`);
+    }
 }
 
 export default new PatientApiService();

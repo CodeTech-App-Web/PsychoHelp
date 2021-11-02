@@ -5,7 +5,7 @@ class PublicationsApiService{
         return http.get("/publications");
     }
     getById(id) {
-        return http.get(`/publications/${id}`);
+        return http.get(`/publications/${id}?_expand=psychologist`);
     }
 
     create(data) {
