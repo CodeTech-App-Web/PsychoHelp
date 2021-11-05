@@ -1,4 +1,5 @@
 <template>
+  <v-container fluid>
   <v-row>
     <v-col cols="2">
       <v-img class="psy" contain :src="loginData.img"></v-img>
@@ -121,18 +122,44 @@
             </v-card-subtitle>
             <v-card-text class="text--primary">
               <div>{{ psychology.email }}</div>
-              <div class="text-truncate">{{ psychology.about }}</div>
             </v-card-text>
             <!-- BOTONES CARDS-->
             <v-card-actions>
-              <v-btn color="primary" text>Mas...</v-btn>
-              <v-btn color="primary" text>Agendar</v-btn>
+              <v-btn color="primary" text @click="psychologistDialog(psychology)">More</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-col>
+
+    <template>
+      <!--DIALOG INFO PSICOLOGO SELECCIONADO-->
+      <v-dialog v-model="dialogInfo" width="400" v-if="selectedPsychologist!=null" persistent>
+        <v-card>
+          <v-col align="center">
+            <v-avatar width="100" height="100">
+              <v-img :src="selectedPsychologist.img"></v-img>
+            </v-avatar>
+          </v-col>
+          <v-card-title class="justify-center">{{ selectedPsychologist.name }}</v-card-title>
+          <v-card-subtitle class="text-center">CMP: {{ selectedPsychologist.cmp }}</v-card-subtitle>
+          <v-card-text class="text-justify">{{ selectedPsychologist.about }}</v-card-text>
+          <v-container>
+            <v-layout>
+              <v-flex>
+                <v-flex class="mt-2 text-end">
+                  <v-btn @click.stop="dialogInfo=false">Close</v-btn>
+                </v-flex>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-dialog>
+      <!--Fin del Dialog-->
+    </template>
+
   </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -167,6 +194,9 @@ export default {
     formAdd: true,
     formEdit: true,
     dialog: false,
+
+    dialogInfo: false,
+    selectedPsychologist: null,
 
     editedIndex: 0,
     deletedIndex: 0,
@@ -215,7 +245,7 @@ export default {
         this.publications.push(this.defaultPublication);
         PublicationsApiService.create(this.defaultPublication);
         this.snackbar = true;
-        this.message = 'added post';
+        this.message = 'Added post';
         this.dialog = false;
       }
 
@@ -232,13 +262,19 @@ export default {
       Object.assign(this.publications[this.editedIndex], this.editedPublication);
       PublicationsApiService.update(this.editedPublication.id, this.editedPublication);
       this.snackbar = true;
-      this.message = 'Editaste la tarea';
+      this.message = 'Post edited successfully';
     },
 
     deletePost(item) {
       this.deletedIndex = this.publications.indexOf(item);
       PublicationsApiService.delete(item.id);
       this.publications.splice(this.deletedIndex, 1);
+    },
+
+    psychologistDialog(psychologist){
+      console.log('psychologistDialog psychologist:', psychologist);
+      this.selectedPsychologist = psychologist;
+      this.dialogInfo = true;
     },
 
   }
