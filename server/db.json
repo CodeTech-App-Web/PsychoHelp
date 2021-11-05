@@ -194,5 +194,75 @@
       ],
       "img": "https://gentequebrilla.azurewebsites.net/wp-content/uploads/2019/04/12014-1024x604.jpg"
     }
+  ],
+
+  "schedules": [
+    {
+      "id": 1,
+      "time": "08:00",
+      "psychologistId": 1
+    },
+    {
+      "id": 2,
+      "time": "09:00",
+      "psychologistId": 2
+    },
+    {
+      "id": 3,
+      "time": "10:00",
+      "psychologistId": 3
+    },
+    {
+      "id": 4,
+      "time": "11:00",
+      "psychologistId": 4
+    },
+    {
+      "id": 5,
+      "time": "12:00",
+      "psychologistId": 3
+    },
+    {
+      "id": 6,
+      "time": "16:00",
+      "psychologistId": 2
+    },
+    {
+      "id": 7,
+      "time": "17:00",
+      "psychologistId": 1
+    },
+    {
+      "id": 8,
+      "time": "18:00",
+      "psychologistId": 1
+    },
+    {
+      "id": 9,
+      "time": "19:00",
+      "psychologistId": 3
+    },
+    {
+      "id": 10,
+      "time": "20:00",
+      "psychologistId": 2
+    }
+  ],
+
+  "schedulesPsycho": [
+    {
+      "id": 1,
+      "scheduleId": 1,
+      "psychologistId": 1
+    }
+  ],
+
+  "appointments": [
+    {
+      "id": 1,
+      "scheduleId": 2,
+      "psychologistId": 1,
+      "patientId": 1
+    }
   ]
 }

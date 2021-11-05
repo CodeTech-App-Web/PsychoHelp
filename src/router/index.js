@@ -52,7 +52,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/dashboard_psycho',
+    path: '/dashboard_psycho/:id',
     name: 'list-psychologists',
     component: ()=> import('../components/psychologists/list-psychologists')
   },
