@@ -8,7 +8,6 @@
               <v-flex xs12 sm12>
                 <v-card>
                   <v-card-title class="text-lg-subtitle-2">¿Ya tienes psicólogo? Búscalo por su nombre</v-card-title>
-                  <h1>{{loginData.lastname}}</h1>
                   <v-card-actions>
                     <v-text-field v-model="search" label="Search Name" outlined v-on:input="getPsychologistByName()"></v-text-field>
                   </v-card-actions>
@@ -128,7 +127,6 @@
         <v-card>
           <v-card-title class="justify-center">Elige un horario a tu preferencia</v-card-title>
           <v-card-subtitle class="text-center">Horarios disponibles</v-card-subtitle>
-          <v-card-title>{{selectedAppointment.name}}</v-card-title>
           <v-divider></v-divider>
           <v-container>
             <v-row>
@@ -137,7 +135,7 @@
                   <v-card-subtitle class="text-center">Turno mañana</v-card-subtitle>
                   <v-chip-group active-class="primary--text" column class="ml-7">
                     <div v-for="schedule in selectedAppointment.schedules" :key="schedule" >
-                      <v-chip v-if="schedule.id < 6" @click="scheduleDialog(schedule)">
+                      <v-chip v-if="schedule.id < 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
                     </div>
@@ -149,7 +147,7 @@
                   <v-card-subtitle class="text-center">Turno Tarde</v-card-subtitle>
                   <v-chip-group  active-class="primary--text" column class="ml-7">
                     <div v-for="schedule in selectedAppointment.schedules" :key="schedule" align="center" >
-                      <v-chip  v-if="schedule.id >= 6" @click="scheduleDialog(schedule)">
+                      <v-chip  v-if="schedule.id >= 6" @click="scheduleDialog">
                         {{ schedule.time }}
                       </v-chip>
                     </div>
@@ -164,14 +162,9 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="dialogSelected" v-if="selectedSchedule!=null" width="500">
+      <v-dialog v-model="dialogSelected" width="500">
         <v-card>
-          <v-card-title class="justify-center">Detalles de tu cita</v-card-title>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold mt-2">Terapeuta: {{selectedAppointment.name}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{selectedSchedule.time}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastname}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Teléfono: {{loginData.phone}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">E-mail: {{loginData.email}}</v-card-subtitle>
+          <v-card-title>Haber que pasa</v-card-title>
         </v-card>
       </v-dialog>
     </template>
@@ -180,41 +173,29 @@
 
 <script>
 import PsychologistsApiService from "../../core/services/psychologists-api.service"
+import SchedulesApiService from "../../core/services/schedules-api.service"
 import { validationMixin } from 'vuelidate'
-import PatientApiService from "../../core/services/patient-api-service";
 export default {
   name: "list-psychologists",
   mixins: [validationMixin],
   data: ()=> ({
     psychologists: [],
     schedules: [],
-    loginData: [],
-    userId: 0,
     dialog: false,
     toggle_exclusive: undefined,
     dialogAppointment: false,
     dialogSelected: false,
     selectedPsychologist: null,
     selectedAppointment: null,
-    selectedSchedule: null,
     selected: [],
     genre: null,
     sessionType: null,
     search: "",
   }),
 
-  async created() {
-    this.userId = this.$route.params.id;
-    try {
-      const response = await PatientApiService.getById(this.userId);
-      this.loginData = response.data;
-    }
-    catch (e)
-    {
-      console.error(e);
-    }
-
+  created() {
     this.retrievePsychologists();
+    this.retrieveSchedules();
     this.retrievePsychoSchedules();
     this.dialog = false;
     this.dialogAppointment = false;
@@ -231,6 +212,17 @@ export default {
       .catch(e => {
         console.log(e);
       });
+    },
+
+    retrieveSchedules(){
+      SchedulesApiService.getAll()
+      .then(response => {
+        this.schedules = response.data;
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      })
     },
 
     retrievePsychoSchedules() {
@@ -255,8 +247,8 @@ export default {
       this.dialogAppointment = true;
     },
 
-    scheduleDialog(schedule){
-      this.selectedSchedule = schedule;
+    scheduleDialog(psychologist){
+      this.selectedPsychologist = psychologist;
       this.dialogSelected = true;
     },
 
