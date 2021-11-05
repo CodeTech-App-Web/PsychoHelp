@@ -44,6 +44,10 @@ class PsychologistsApiService {
     findByEmail(email){
         return http.get(`/psychologists?email=${email}`);
     }
+
+    getPsychoSchedules() {
+        return http.get(`/psychologists?_embed=schedules`);
+    }
 }
 
 export default new PsychologistsApiService();
