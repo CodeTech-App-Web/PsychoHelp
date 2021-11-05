@@ -80,6 +80,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: () => import('../views/Home')
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('../components/checkout/payment')
   }
 ]
 
