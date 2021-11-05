@@ -85,6 +85,16 @@ const routes = [
     path: '/checkout',
     name: 'checkout',
     component: () => import('../components/checkout/payment')
+  },
+  {
+    path: '/publication/:id',
+    name: 'patient-publication',
+    component: () => import('../components/patients/patient-publication')
+  },
+  {
+    path: '/logbook_psychologist/:id',
+    name: 'psychologist-logbook',
+    component: ()=> import('../components/psychologists/psychologist-logbook')
   }
 ]
 

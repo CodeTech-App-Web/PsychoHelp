@@ -32,6 +32,9 @@
         </v-carousel-item>
       </v-carousel>
       <v-divider inset vertical></v-divider>
+
+      <!-- PUBLICATIONS !-->
+
       <v-card min-width="50vh" rounded="lg">
             <v-row v-for="publication in publications" :key="publication.id" class="py-4 mr-2">
               <v-col cols="12" md="4">
@@ -44,7 +47,7 @@
               </v-col>
               <v-col class="ml-4">
                 <div>
-                  <v-btn depressed color="primary">Publicaciones</v-btn>
+                  <v-btn @click="redirectToPublication(publication.id)" depressed color="primary">Publicaciones</v-btn>
 
                   <h3 class="text-lg-h5 font-weight-bold pt-3">
                     {{publication.title}}
@@ -144,6 +147,12 @@ export default {
     catch (e)
     {
       console.error(e);
+    }
+  },
+
+  methods: {
+    redirectToPublication(publicationId) {
+      this.$router.push({name:'patient-publication', params:{id: publicationId}})
     }
   }
 }
