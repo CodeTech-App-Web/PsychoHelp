@@ -1,4 +1,5 @@
 <template>
+  <v-container fluid>
   <v-row>
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
       <v-img class="pat" contain :src="loginData.img"></v-img>
@@ -70,7 +71,6 @@
       </v-card>
     </v-col>
     <v-col sm="" lg="2">
-      <v-divider inset vertical></v-divider>
       <!--CARDS PSICÓLOGOS-->
       <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
@@ -86,14 +86,42 @@
             </v-card-text>
             <!-- BOTONES CARDS-->
             <v-card-actions>
-              <v-btn color="primary" text>Mas...</v-btn>
-              <v-btn color="primary" text>Agendar</v-btn>
+              <v-btn color="primary" text @click="psychologistDialog(psychology)">More</v-btn>
+              <v-btn color="primary" text :to="{name: 'list-psychologists'}" >Schedule</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-col>
   </v-row>
+
+  <template>
+    <!--DIALOG INFO PSICOLOGO SELECCIONADO-->
+    <v-dialog v-model="dialog" width="400" v-if="selectedPsychologist!=null" persistent>
+      <v-card>
+        <v-col align="center">
+          <v-avatar width="100" height="100">
+            <v-img :src="selectedPsychologist.img"></v-img>
+          </v-avatar>
+        </v-col>
+        <v-card-title class="justify-center">{{ selectedPsychologist.name }}</v-card-title>
+        <v-card-subtitle class="text-center">CMP: {{ selectedPsychologist.cmp }}</v-card-subtitle>
+        <v-card-text class="text-justify">{{ selectedPsychologist.about }}</v-card-text>
+        <v-container>
+          <v-layout>
+            <v-flex>
+              <v-flex class="mt-2 text-end">
+                <v-btn @click.stop="dialog=false">Close</v-btn>
+              </v-flex>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-dialog>
+    <!--Fin del Dialog-->
+  </template>
+
+  </v-container>
 </template>
 
 <script>
@@ -110,6 +138,8 @@ export default {
     psychologists: [],
     loginData: [],
     userId: 0,
+    dialog: false,
+    selectedPsychologist: null,
     colors: [
       '#03A9F4',
       '#03A9F4',
@@ -123,7 +153,7 @@ export default {
 
     ],
     items: [
-      {text: 'Psicologos', route: '/dashboard_psycho'},
+      {text: 'Psicologos', route: '/dashboard_psycho/:id'},
       {text: 'Centro de Ayuda', route: '/centro de ayuda'},
       {text: 'Guia', route: '/guia'}
     ],
@@ -150,9 +180,15 @@ export default {
     }
   },
 
-  methods: {
+  methods:{
     redirectToPublication(publicationId) {
       this.$router.push({name:'patient-publication', params:{id: publicationId}})
+    },
+
+    psychologistDialog(psychologist){
+      console.log('psychologistDialog psychologist:', psychologist);
+      this.selectedPsychologist = psychologist;
+      this.dialog = true;
     }
   }
 }
