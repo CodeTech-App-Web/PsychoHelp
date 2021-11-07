@@ -52,7 +52,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/dashboard_psycho',
+    path: '/dashboard_psycho/:id',
     name: 'list-psychologists',
     component: ()=> import('../components/psychologists/list-psychologists')
   },
@@ -80,6 +80,21 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: () => import('../views/Home')
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('../components/checkout/payment')
+  },
+  {
+    path: '/publication/:id',
+    name: 'patient-publication',
+    component: () => import('../components/patients/patient-publication')
+  },
+  {
+    path: '/logbook_psychologist/:id',
+    name: 'psychologist-logbook',
+    component: ()=> import('../components/psychologists/psychologist-logbook')
   }
 ]
 

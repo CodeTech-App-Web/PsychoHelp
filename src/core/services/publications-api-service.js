@@ -5,8 +5,13 @@ class PublicationsApiService{
         return http.get("/publications");
     }
     getById(id) {
-        return http.get(`/publications/${id}`);
+        return http.get(`/publications/${id}?_expand=psychologist`);
     }
+
+    getByPsychologistId(id){
+        return http.get(`/publications?psychologistId=${id}`);
+    }
+
 
     create(data) {
         return http.post("/publications",data);
