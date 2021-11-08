@@ -7,9 +7,6 @@
       <v-container fluid>
         <router-view/>
       </v-container>
-      <h1>{{this.$route.name}}</h1>
-      <h1>{{this.rutas}}</h1>
-      <h1>{{this.usertype}}</h1>
     </v-main>
   </v-app>
 </template>

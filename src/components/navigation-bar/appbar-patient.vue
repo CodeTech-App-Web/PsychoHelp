@@ -57,7 +57,7 @@ export default {
       'Updates',
     ],
     items: [
-      {text:'Mi Perfil', icon:'mdi-account', route:'/patientprofile'},
+      {text:'Mi Perfil', icon:'mdi-account', route:'/home_patient/:id/profile_patient'},
       {text:'Citas', icon:'mdi-calendar-range', route:'/citas'},
       {text:'Metodo de Pago', icon:'mdi-credit-card', route:'/metododepago'},
       {text:'Bitacora', icon:'mdi-account-search', route:'/bitacora'},

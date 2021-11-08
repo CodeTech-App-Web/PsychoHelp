@@ -8,7 +8,6 @@
               <v-flex xs12 sm12>
                 <v-card>
                   <v-card-title class="text-lg-subtitle-2">¿Ya tienes psicólogo? Búscalo por su nombre</v-card-title>
-                  <h1>{{loginData.lastname}}</h1>
                   <v-card-actions>
                     <v-text-field v-model="search" label="Search Name" outlined v-on:input="getPsychologistByName()"></v-text-field>
                   </v-card-actions>
