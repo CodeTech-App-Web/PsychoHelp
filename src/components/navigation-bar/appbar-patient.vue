@@ -30,12 +30,12 @@
           </v-list-item>
           <v-divider inset vertical></v-divider>
 
-          <v-list-item v-for="item in items" :key="item" link :to=item.route>
+          <v-list-item v-for="item in items" :key="item">
 
-            <v-list-item-icon>
+            <v-list-item-icon >
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
-            <v-list-item-content>
+            <v-list-item-content @click="redirectTo(item.routeName, userId)">
               {{ item.text }}
               <v-divider></v-divider>
             </v-list-item-content>
@@ -57,18 +57,26 @@ export default {
       'Updates',
     ],
     items: [
-      {text:'Mi Perfil', icon:'mdi-account', route:'/patientprofile'},
-      {text:'Citas', icon:'mdi-calendar-range', route:'/citas'},
-      {text:'Metodo de Pago', icon:'mdi-credit-card', route:'/metododepago'},
-      {text:'Bitacora', icon:'mdi-account-search', route:'/bitacora'},
-      {text:'Cerrar Sesion', icon:'mdi-logout', route:'/'},
+      {text:'Mi Perfil', icon:'mdi-account', routeName:'patient-profile'},
+      {text:'Citas', icon:'mdi-calendar-range', routeName:'list-psychologists'},
+      //{text:'Metodo de Pago', icon:'mdi-credit-card', routeName:'/metododepago'},
+      {text:'Cerrar Sesion', icon:'mdi-logout', routeName:'Login-Patient'},
     ],
     drawer: false,
     group: null,
+    userId: 0,
   }),
+  beforeUpdate() {
+    this.userId = this.$route.params.id;
+  },
   watch: {
     group() {
       this.drawer = false
+    },
+  },
+  methods: {
+    redirectTo(router, id) {
+      this.$router.push({name: router, params:{id: id}})
     }
   }
 }
