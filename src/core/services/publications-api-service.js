@@ -12,6 +12,11 @@ class PublicationsApiService{
         return http.get(`/publications/${id}`);
     }
 
+    getByPsychologistId(id){
+        return http.get(`/publications?psychologistId=${id}`);
+    }
+
+
     create(data) {
         return http.post("/publications",data);
     }
