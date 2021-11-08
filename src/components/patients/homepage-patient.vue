@@ -48,7 +48,7 @@
               </v-col>
               <v-col class="ml-4">
                 <div>
-                  <v-btn @click="redirectToPublication(publication.id)" depressed color="primary">Publicaciones</v-btn>
+                  <v-btn @click="redirectToPublication(publication.id)" depressed color="primary">{{publication.date}}</v-btn>
 
                   <h3 class="text-lg-h5 font-weight-bold pt-3">
                     {{publication.title}}
@@ -63,7 +63,7 @@
                       <v-icon dark>mdi-feather</v-icon>
                     </v-avatar>
 
-                    <div class="pl-2">  23 09 2021</div>
+                    <div class="pl-2"> {{ publication.autor }}</div>
                   </div>
                 </div>
               </v-col>
