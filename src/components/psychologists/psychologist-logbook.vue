@@ -6,7 +6,7 @@
           <v-card rounded class="ml-4" color=8BC6CD>
             <h2 class="Center">{{patients.firstname}}</h2>
           </v-card>
-          <img class="mt-2 ml-4" width="205vw" height="135vw" :src="patients.img">
+          <img class="mt-2 ml-4" width="95%" height="135vw" :src="patients.img">
         </v-col>
         <v-col cols="10">
           <v-sheet rounded class="mr-4">
