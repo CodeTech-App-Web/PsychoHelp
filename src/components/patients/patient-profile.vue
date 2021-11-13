@@ -293,6 +293,9 @@ export default {
      this.profileData.date = this.date;
      PatientApiService.update(this.profileData.id, this.profileData);
      this.dialog = false;
+    },
+    save (date) {
+      this.$refs.menu.save(date)
     }
 
   }

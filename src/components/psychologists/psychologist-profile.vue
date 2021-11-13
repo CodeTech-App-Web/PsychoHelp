@@ -32,10 +32,7 @@
                   <v-card-title class="ml-10 mr-10 mb-2">Gender</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.genre }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Session Type</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{
-                      profileData.sessionType
-                    }}
-                  </v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.sessionType }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">CMP</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.cmp }}</v-card-subtitle>
                 </v-col>
@@ -44,20 +41,14 @@
               <v-row>
                 <v-col cols="12">
                   <v-card-title class="ml-10 mr-10 mb-2">Specialization</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{
-                      profileData.specialization
-                    }}
-                  </v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.specialization }}</v-card-subtitle>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
               <v-row>
                 <v-col cols="12">
                   <v-card-title class="ml-10 mr-10 mb-2">Formation</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{
-                      profileData.formation
-                    }}
-                  </v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.formation }}</v-card-subtitle>
                 </v-col>
               </v-row>
               <v-divider></v-divider>
@@ -68,86 +59,9 @@
                 </v-col>
               </v-row>
               <v-divider></v-divider>
-
               <v-card-actions>
                 <v-row>
-                  <v-dialog v-model="dialog" persistent max-width="600px">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn class="ma-6" color="#BBDEFB" elevation="2" large v-bind="attrs" v-on="on">Editar perfil
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title>
-                        <span class="text-h5">Perfil del psicologo</span>
-                      </v-card-title>
-                      <v-card-text>
-
-                        <v-form>
-
-                        </v-form>
-
-
-                        <v-container>
-                          <v-row>
-                            <v-col cols="12">
-                              <v-text-field :rules="nameRules" label="Full name*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-text-field :rules="emailRules" label="E-mail*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-menu ref="menu" v-model="menu" :close-on-content-click="false"
-                                      :return-value.sync="date" transition="scale-transition" offset-y min-width="auto">
-                                <template v-slot:activator="{ on, attrs }">
-                                  <v-text-field :rules="birthdayRules" v-model="date" label="Birthday*"
-                                                prepend-icon="mdi-calendar" readonly v-bind="attrs"
-                                                v-on="on"></v-text-field>
-                                </template>
-                                <v-date-picker v-model="date" no-title scrollable>
-                                  <v-spacer></v-spacer>
-                                  <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                                  <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                                </v-date-picker>
-                              </v-menu>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-select :rules="genderRules" :items="['Masculine', 'Feminine', 'Not specified']"
-                                        label="Gender*" required></v-select>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-select :items="['Individual', 'Couples', 'Kids']" label="Session Type"></v-select>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-text-field :rules="phoneRules" label="Phone*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6">
-                              <v-text-field :rules="cmpRules" label="CMP*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                              <v-file-input :rules="imgRules" accept="image/png, image/jpeg, image/bmp"
-                                            placeholder="Elija una foto de perfil" prepend-icon="mdi-camera"
-                                            label="Foto de perfil"></v-file-input>
-                            </v-col>
-                            <v-col cols="12">
-                              <v-text-field :rules="specRules" label="Specialization*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                              <v-text-field :rules="formaRules" label="Formation*" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12">
-                              <v-text-field label="About" :counter="300"></v-text-field>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                        <small class="ml-3">*indicates required field</small>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="dialog = false">Cerrar</v-btn>
-                        <v-btn color="blue darken-1" text @click="dialog = false">Guardar</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                  <v-btn class="ma-6" color="#BBDEFB" elevation="2" @click="editProfile(profileData)">Editar perfil</v-btn>
                 </v-row>
               </v-card-actions>
             </v-card>
@@ -155,50 +69,222 @@
         </v-row>
       </v-container>
     </v-content>
+    <template>
+      <v-dialog v-model="dialog" persistent max-width="500px" v-if="correct!=null">
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Perfil del psicólogo</span>
+          </v-card-title>
+          <v-card-text>
+            <v-row align="center" justify="center">
+              <v-col cols="12" sm="8">
+                <v-form>
+                  <v-text-field
+                      outlined dense color="blue"
+                      class="mt-16"
+                      v-model="name"
+                      :error-messages="nameErrors"
+                      :counter="30"
+                      label="Name"
+                      prepend-icon="mdi-account-details"
+                      required
+                      @input="$v.name.$touch()"
+                      @blur="$v.name.$touch()"
+                  ></v-text-field>
+                  <v-menu
+                      ref="menu"
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                          outlined dense color="blue"
+                          v-model="age"
+                          :error-messages="ageErrors"
+                          required
+                          label="Birthday date"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          @input="$v.age.$touch()"
+                          @blur="$v.age.$touch()"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="age"
+                        :active-picker.sync="activePicker"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                        min="1950-01-01"
+                        @change="save"
+                    ></v-date-picker>
+                  </v-menu>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="dni"
+                      :error-messages="dniErrors"
+                      :counter="9"
+                      label="DNI"
+                      prepend-icon="mdi-cellphone"
+                      required
+                      @input="$v.dni.$touch()"
+                      @blur="$v.dni.$touch()"
+                  ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="email"
+                      :error-messages="emailErrors"
+                      label="E-mail"
+                      prepend-icon="mdi-at"
+                      required
+                      @input="$v.email.$touch()"
+                      @blur="$v.email.$touch()"
+                  ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="phone"
+                      :error-messages="phoneErrors"
+                      :counter="9"
+                      label="Phone Number"
+                      prepend-icon="mdi-cellphone"
+                      required
+                      @input="$v.phone.$touch()"
+                      @blur="$v.phone.$touch()"
+                  ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="cmp"
+                      :error-messages="cmpErrors"
+                      :counter="6"
+                      label="CMP Number"
+                      prepend-icon="mdi-cellphone"
+                      required
+                      @input="$v.cmp.$touch()"
+                      @blur="$v.cmp.$touch()"
+                  ></v-text-field>
+                  <v-select
+                      outlined dense color="blue"
+                      v-model="genre"
+                      :items="itemsGenre"
+                      :error-messages="genreErrors"
+                      label="Genre"
+                      prepend-icon="mdi-human"
+                      required
+                      @change="$v.genre.$touch()"
+                      @blur="$v.genre.$touch()"
+                  ></v-select>
+                  <v-select
+                      outlined dense color="blue"
+                      v-model="sessionType"
+                      :items="itemsSession"
+                      :error-messages="sessionErrors"
+                      label="Genre"
+                      prepend-icon="mdi-human"
+                      required
+                      @change="$v.sessionType.$touch()"
+                      @blur="$v.sessionType.$touch()"
+                  ></v-select>
+                  <v-textarea
+                      outlined dense color="blue"
+                      v-model="specialization"
+                      :error-messages="specializationErrors"
+                      :counter="200"
+                      label="Specialization"
+                      prepend-icon="mdi-account-details"
+                      required
+                      @input="$v.specialization.$touch()"
+                      @blur="$v.specialization.$touch()"
+                  ></v-textarea>
+                  <v-textarea
+                      outlined dense color="blue"
+                      v-model="formation"
+                      :error-messages="formationErrors"
+                      :counter="200"
+                      label="Formation"
+                      prepend-icon="mdi-account-details"
+                      required
+                      @input="$v.formation.$touch()"
+                      @blur="$v.formation.$touch()"
+                  ></v-textarea>
+                  <v-textarea
+                      outlined dense color="blue"
+                      v-model="about"
+                      :error-messages="aboutErrors"
+                      :counter="400"
+                      label="About"
+                      prepend-icon="mdi-account-details"
+                      required
+                      @input="$v.about.$touch()"
+                      @blur="$v.about.$touch()"
+                  ></v-textarea>
+                </v-form>
+              </v-col>
+            </v-row>
+            <small class="ml-3">*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">Cerrar</v-btn>
+            <v-btn color="blue darken-1" text @click="saveProfile()">Guardar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </template>
   </div>
 </template>
 
 <script>
 import PsychologistsApiService from "../../core/services/psychologists-api.service";
+import {validationMixin} from "vuelidate";
+import {email, maxLength, required} from "vuelidate/lib/validators";
 
 export default {
   name: "psychologist-profile",
+  mixins: [validationMixin],
+  validations: {
+    name: { required, maxLength: maxLength(50)},
+    age: { required },
+    email: { required, email },
+    phone: { required, maxLength: maxLength(9) },
+    dni: { required, maxLength: maxLength(8) },
+    genre: { required },
+    sessionType: { required },
+    specialization: { required },
+    formation: { required },
+    about: { required },
+    cmp: { required, maxLength: maxLength(8) },
+
+  },
   data: () => ({
     psychologists: [],
     profileData: [],
+    dataUser: {},
     userId: 0,
     dialog: false,
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    correct: null,
+    date: null,
+    age: null,
+    activePicker: null,
     menu: false,
-    nameRules: [
-      v => !!v || 'Nombre es obligatorio',
+    itemsGenre: [
+      'Male',
+      'Female',
+      'Others',
     ],
-    emailRules: [
-      v => !!v || 'E-mail es obligatorio',
-    ],
-    genderRules: [
-      v => !!v || 'Gender es obligatorio',
-    ],
-    birthdayRules: [
-      v => !!v || 'Birthday es obligatorio',
-    ],
-    formaRules: [
-      v => !!v || 'Formation es obligatorio',
-    ],
-    cmpRules: [
-      v => !!v || 'CMP es obligatorio',
-    ],
-    phoneRules: [
-      v => !!v || 'Phone es obligatorio',
-    ],
-    specRules: [
-      v => !!v || 'Specialization es obligatorio',
-    ],
-    imgRules: [
-      value => !value || value.size < 2000000 || 'La imagen de perfil debe pesar menos de 2 MB!',
-    ],
-
+    itemsSession: [
+     'Individual',
+     'Couple',
+    ]
   }),
+
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = 'YEAR'))
+    },
+  },
+
   async created() {
     this.userId = this.$route.params.id;
     try {
@@ -208,6 +294,46 @@ export default {
       this.profileData = response2.data;
     } catch (e) {
       console.error(e);
+    }
+
+    this.dialog = false;
+  },
+
+  methods: {
+    editProfile(select){
+      this.correct = select;
+      this.name = this.profileData.name;
+      this.age = this.profileData.age;
+      this.email = this.profileData.email;
+      this.phone = this.profileData.phone;
+      this.dni = this.profileData.dni;
+      this.genre = this.profileData.genre;
+      this.sessionType = this.profileData.sessionType;
+      this.specialization = this.profileData.specialization;
+      this.formation = this.profileData.formation;
+      this.about = this.profileData.about;
+      this.cmp = this.profileData.cmp;
+      this.dialog = true;
+    },
+
+    saveProfile() {
+      this.profileData.name = this.name;
+      this.profileData.email = this.email;
+      this.profileData.age = this.age;
+      this.profileData.phone = this.phone;
+      this.profileData.dni = this.dni;
+      this.profileData.genre = this.genre;
+      this.profileData.sessionType = this.sessionType;
+      this.profileData.specialization = this.specialization;
+      this.profileData.formation = this.formation;
+      this.profileData.about = this.about;
+      this.profileData.cmp = this.cmp;
+      PsychologistsApiService.update(this.profileData.id, this.profileData);
+      this.dialog = false;
+    },
+
+    save (date) {
+      this.$refs.menu.save(date)
     }
   }
 }

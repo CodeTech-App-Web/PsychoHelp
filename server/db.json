@@ -4,10 +4,10 @@
       "id": 1,
       "firstname": "Maria Luisa",
       "lastname": "de la Vega",
-      "email": "maria123@upc.com",
+      "email": "maria405@upc.com",
       "password": "12345678def",
       "gender": "Female",
-      "date": "2000-04-28",
+      "date": "1985-02-13",
       "state": "Single",
       "phone": "123456789",
       "img": "https://www.elcolombiano.com/documents/10157/0/581x870/0c42/580d365/none/11101/MVGI/image_content_33688223_20190625103020.jpg"
@@ -88,16 +88,12 @@
   "psychologists": [
     {
       "id": 1,
-      "name": "Daniel Caceres Montes",
-      "age": 55,
-      "dni": 74546845,
+      "name": "Daniel Garcilazo",
+      "age": "1992-04-30",
+      "dni": "12345678",
       "email": "daniel.cm@gmail.com",
       "phone": 958666951,
-      "specialization": [
-        "Trastorno por estrés postraumático",
-        "Conflictos de pareja",
-        "Ansiedad"
-      ],
+      "specialization": "-Trastorno por estrés\n-saddas\n-asdasdsda\n-sadsddsasd",
       "formation": [
         "Maestría en Psicología Clínica - Universidad Cesar Vallejo",
         "Licenciatura en Psicología - Universidad Cesar Vallejo"
@@ -106,9 +102,9 @@
       "active": true,
       "img": "https://bullseye-magazine.eu/wp-content/uploads/2019/09/portrait_test.jpg",
       "new": true,
-      "genre": "Masculino",
-      "sessionType": "Individual",
-      "cmp": 123456,
+      "genre": "Male",
+      "sessionType": "Couple",
+      "cmp": "963258",
       "password": "12s45s5d"
     },
     {
