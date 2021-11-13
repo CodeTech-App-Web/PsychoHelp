@@ -81,6 +81,12 @@
                         <span class="text-h5">Perfil del psicologo</span>
                       </v-card-title>
                       <v-card-text>
+
+                        <v-form>
+
+                        </v-form>
+
+
                         <v-container>
                           <v-row>
                             <v-col cols="12">
@@ -144,7 +150,6 @@
                   </v-dialog>
                 </v-row>
               </v-card-actions>
-
             </v-card>
           </v-col>
         </v-row>
