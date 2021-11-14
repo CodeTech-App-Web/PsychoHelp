@@ -3,7 +3,9 @@
   <v-row>
     <v-col cols="2">
       <v-img class="psy" contain :src="loginData.img"></v-img>
-      <span class="mt-8 ml-3">User: {{loginData.name}}</span>
+      <v-card class="rounded-xl">
+        <v-card-title class="mt-4">Bienvenido(a): {{loginData.name}}</v-card-title>
+      </v-card>
       <v-spacer class="my-5"></v-spacer>
       <template>
         <v-btn block color="primary" rounded @click="dialog = !dialog">New Post</v-btn>

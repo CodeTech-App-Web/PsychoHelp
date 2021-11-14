@@ -8,7 +8,7 @@
       "password": "12345678def",
       "gender": "Female",
       "date": "1985-02-13",
-      "state": "Single",
+      "state": "Married",
       "phone": "123456789",
       "img": "https://www.elcolombiano.com/documents/10157/0/581x870/0c42/580d365/none/11101/MVGI/image_content_33688223_20190625103020.jpg"
     },
@@ -93,7 +93,11 @@
       "dni": "12345678",
       "email": "daniel.cm@gmail.com",
       "phone": 958666951,
-      "specialization": "-Trastorno por estrés\n-saddas\n-asdasdsda\n-sadsddsasd",
+      "specialization": [
+        "Codependencia",
+        "Autoestima",
+        "Celos"
+      ],
       "formation": [
         "Maestría en Psicología Clínica - Universidad Cesar Vallejo",
         "Licenciatura en Psicología - Universidad Cesar Vallejo"

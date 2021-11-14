@@ -93,6 +93,7 @@
                 <v-card>
                   <v-card-title class="blue--text text--darken-2">Áreas de Atención</v-card-title>
                   <v-card-text>
+<!--                    {{ selectedPsychologist.specialization }}-->
                   <v-flex v-for="specialization in selectedPsychologist.specialization" :key="specialization">
                     {{specialization}}
                   </v-flex>
@@ -171,6 +172,13 @@
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastname}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Teléfono: {{loginData.phone}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">E-mail: {{loginData.email}}</v-card-subtitle>
+          <v-card-actions>
+            <v-row>
+              <v-col>
+                <v-btn class="text-lg-overline mb-5">Agendar cita</v-btn>
+              </v-col>
+            </v-row>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </template>

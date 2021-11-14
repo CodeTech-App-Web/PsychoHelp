@@ -3,15 +3,15 @@
   <v-row>
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
       <v-img class="pat" contain :src="loginData.img"></v-img>
-      <span class="mt-8 ml-3">User: {{loginData.lastname}}</span>
+      <v-card class="rounded-xl">
+        <v-card-title class="mt-4">Bienvenido(a): {{loginData.firstname}} {{loginData.lastname}}</v-card-title>
+      </v-card>
       <v-divider inset vertical></v-divider>
-      <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
+      <v-sheet elevation="8" class="pa-1" rounded="xl" color=white>
         <v-list>
-          <v-list-item v-for="item in items" :key="item.text" router :to="item.route">
-            <v-list-item-content>
-              <v-list-item-title>
-                {{item.text}}
-              </v-list-item-title>
+          <v-list-item v-for="item in items" :key="item">
+            <v-list-item-content @click="redirectTo(item.routeName, userId)">
+              {{item.text}}
               <v-divider></v-divider>
             </v-list-item-content>
           </v-list-item>
@@ -72,7 +72,7 @@
     </v-col>
     <v-col sm="" lg="2">
       <!--CARDS PSICÓLOGOS-->
-      <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
+      <v-subheader class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">NUEVOS PSICÓLOGOS:</v-subheader>
       <v-row>
         <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
           <v-card v-if="psychology.new" max-height="300" max-width="200" class="mx-auto mb-5" >
@@ -150,10 +150,9 @@ export default {
     ],
     buttons: [
         'Agenda aquí',
-
     ],
     items: [
-      {text: 'Psicologos', route: '/dashboard_psycho/:id'},
+      {text: 'Psicologos', routeName: 'list-psychologists'},
       {text: 'Centro de Ayuda', route: '/centro de ayuda'},
       {text: 'Guia', route: '/guia'}
     ],
@@ -185,10 +184,15 @@ export default {
       this.$router.push({name:'patient-publication', params:{id: publicationId}})
     },
 
+
     psychologistDialog(psychologist){
       console.log('psychologistDialog psychologist:', psychologist);
       this.selectedPsychologist = psychologist;
       this.dialog = true;
+    },
+
+    redirectTo(router, id) {
+      this.$router.push({name: router, params:{id: id}})
     }
   }
 }

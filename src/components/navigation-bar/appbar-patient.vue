@@ -3,9 +3,7 @@
     <v-app-bar app color=#03A9F4>
       <!--Drawer Icon-->
       <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer" color="white"></v-app-bar-nav-icon>
-      <v-btn plain color="white" class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium" text to="/">
-        PSYCHOHELP
-      </v-btn>
+      <h1 class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium white--text ml-3" >PSYCHOHELP</h1>
       <v-container class="py-0 fill-height">
         <v-spacer></v-spacer>
         <v-responsive class="flex xl12" max-width="300">
