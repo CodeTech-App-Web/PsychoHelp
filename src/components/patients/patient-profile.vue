@@ -8,8 +8,8 @@
               <v-img class="user " :src="profileData.img" max-height="400" max-width="400"></v-img>
             </v-card>
             <v-card class="mt-2" elevation="10">
-              <v-card-title class="justify-center" style="font-size:2em">{{ profileData.firstname }}
-                {{ profileData.lastname }}
+              <v-card-title class="justify-center" style="font-size:2em">{{ profileData.firstName }}
+                {{ profileData.lastName }}
               </v-card-title>
             </v-card>
           </v-col>
@@ -19,9 +19,9 @@
               <v-row class="mb-2">
                 <v-col cols="12" md="6">
                   <v-card-title class="ml-10 mr-10 mb-2">Firstname</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.firstname }}</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.firstName }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Lastname</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.lastname }}</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.lastName }}</v-card-subtitle>
                   <v-row>
                     <v-col>
                       <v-card-title class="ml-10 mr-10 mb-2">Gender</v-card-title>
@@ -62,32 +62,31 @@
             <span class="text-h5">Perfil del usuario</span>
           </v-card-title>
           <v-card-text>
-
             <v-row align="center" justify="center">
               <v-col cols="12" sm="8">
                 <v-form>
                   <v-text-field
                       outlined dense color="blue"
                       class="mt-16"
-                      v-model="firstname"
+                      v-model="firstName"
                       :error-messages="firstnameErrors"
                       :counter="30"
                       label="Firstname"
                       prepend-icon="mdi-account-details"
                       required
-                      @input="$v.firstname.$touch()"
-                      @blur="$v.firstname.$touch()"
+                      @input="$v.firstName.$touch()"
+                      @blur="$v.firstName.$touch()"
                   ></v-text-field>
                   <v-text-field
                       outlined dense color="blue"
-                      v-model="lastname"
+                      v-model="lastName"
                       :error-messages="lastnameErrors"
                       :counter="30"
                       label="Lastname"
                       prepend-icon="mdi-account-details-outline"
                       required
-                      @input="$v.lastname.$touch()"
-                      @blur="$v.lastname.$touch()"
+                      @input="$v.lastName.$touch()"
+                      @blur="$v.lastName.$touch()"
                   ></v-text-field>
                   <v-text-field
                       outlined dense color="blue"
@@ -187,13 +186,14 @@ export default {
   name: "patient-profile",
   mixins: [validationMixin],
   validations: {
-    firstname: { required, maxLength: maxLength(30) },
-    lastname: { required, maxLength: maxLength(30) },
+    firstName: { required, maxLength: maxLength(30) },
+    lastName: { required, maxLength: maxLength(30) },
     phone: { required, maxLength: maxLength(9) },
     email: { required, email },
     state: { required },
     gender: { required },
     date: { required },
+    img: {required},
   },
   data: () => ({
     patients: [],
@@ -202,15 +202,6 @@ export default {
     userId: 0,
     dialog: false,
     correct: null,
-    profileIndex: 0,
-    editedProfile: {
-      firstname:'',
-      lastname:'',
-      gender: null,
-      date: null,
-      state: null,
-      phone: 0
-    },
     itemsState: [
       'Single',
       'Married',
@@ -236,9 +227,9 @@ export default {
   computed: {
     firstnameErrors () {
       const errors = []
-      if (!this.$v.firstname.$dirty) return errors
-      !this.$v.firstname.maxLength && errors.push('Name must be at most 30 characters long')
-      !this.$v.firstname.required && errors.push('Name is required.')
+      if (!this.$v.firstName.$dirty) return errors
+      !this.$v.firstName.maxLength && errors.push('Name must be at most 30 characters long')
+      !this.$v.firstName.required && errors.push('Name is required.')
       return errors
     },
   },
@@ -258,39 +249,28 @@ export default {
   },
 
   methods: {
-    async retrieveProfileInfo() {
-      const response = await PatientApiService.getAll();
-      this.dataUser = response.data;
-      this.firstname = this.dataUser.firstname;
-      this.lasttname = this.dataUser.lasttname;
-      this.email = this.dataUser.email;
-      this.gender = this.dataUser.gender;
-      this.state = this.dataUser.state;
-      this.phone = this.dataUser.phone;
-      this.date = this.dataUser.date;
-      console.log(this.dataUser.firstname)
-    },
-
     editProfile(select){
       this.correct = select;
-      this.firstname = this.profileData.firstname;
-      this.lastname = this.profileData.lastname;
+      this.firstName = this.profileData.firstName;
+      this.lastName = this.profileData.lastName;
       this.email = this.profileData.email;
       this.gender = this.profileData.gender;
       this.phone = this.profileData.phone;
       this.state = this.profileData.state;
       this.date = this.profileData.date;
+      this.img = this.img.date;
       this.dialog = true;
     },
 
     saveProfile() {
-     this.profileData.firstname = this.firstname;
-     this.profileData.lastname = this.lastname;
+     this.profileData.firstName = this.firstName;
+     this.profileData.lastName = this.lastName;
      this.profileData.email = this.email;
      this.profileData.gender = this.gender;
      this.profileData.phone = this.phone;
      this.profileData.state = this.state;
      this.profileData.date = this.date;
+     this.profileData.img = this.img;
      PatientApiService.update(this.profileData.id, this.profileData);
      this.dialog = false;
     },
