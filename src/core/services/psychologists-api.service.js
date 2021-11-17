@@ -42,7 +42,7 @@ class PsychologistsApiService {
     }
 
     findByEmail(email){
-        return http.get(`/psychologists?email=${email}`);
+        return http.get(`/psychologists/email/${email}`);
     }
 
     getPsychoSchedules() {

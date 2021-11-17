@@ -28,7 +28,6 @@
 
 <script>
 import PsychologistsApiService from "../../core/services/psychologists-api.service";
-import PatientApiService from "../../core/services/patient-api-service";
 
 export default {
   name: "login-psychologist",
@@ -62,10 +61,12 @@ export default {
       try {
         const response2 = await PsychologistsApiService.findByEmail(this.email);
         this.loginData = response2.data;
+        console.log(this.loginData);
         if (this.password === this.loginData.password) {
           await this.$router.push({name: 'home-psycho', params: {id: this.loginData.id}})
         }else {
-            alert("Incorrect Password")
+          console.log(this.loginData.email)
+          alert("Incorrect Password")
         }
       } catch (e) {
         console.error(e)
