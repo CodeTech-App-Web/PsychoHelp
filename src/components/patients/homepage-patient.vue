@@ -4,7 +4,7 @@
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
       <v-img class="pat" contain :src="loginData.img"></v-img>
       <v-card class="rounded-xl">
-        <v-card-title class="mt-4">Bienvenido(a): {{loginData.firstname}} {{loginData.lastname}}</v-card-title>
+        <v-card-title class="mt-4">Bienvenido(a): {{loginData.firstName}} {{loginData.lastName}}</v-card-title>
       </v-card>
       <v-divider inset vertical></v-divider>
       <v-sheet elevation="8" class="pa-1" rounded="xl" color=white>
@@ -62,7 +62,9 @@
                     <v-avatar color="primary" size="36">
                       <v-icon dark>mdi-feather</v-icon>
                     </v-avatar>
-
+                    <v-chip-group v-for="tag in tags" :key="tag">
+                      <v-chip  v-if="tag.publication.id === publication.id" color="primary" outlined>{{tag.publication.id}}</v-chip>
+                    </v-chip-group>
                     <div class="pl-2"> {{ publication.autor }}</div>
                   </div>
                 </div>
@@ -75,9 +77,9 @@
       <v-subheader class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">NUEVOS PSICÓLOGOS:</v-subheader>
       <v-row>
         <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
-          <v-card v-if="psychology.new" max-height="300" max-width="200" class="mx-auto mb-5" >
-            <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
-            </v-img>
+          <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
+<!--            <v-img aspect-ratio="14:9" height="150" width="200" class="white&#45;&#45;text align-end" :src="psychology.img">-->
+<!--            </v-img>-->
             <v-card-subtitle class="pb-0">
               {{psychology.name}}
             </v-card-subtitle>
@@ -137,6 +139,7 @@ export default {
     publications: [],
     psychologists: [],
     loginData: [],
+    tags: [],
     userId: 0,
     dialog: false,
     selectedPsychologist: null,
@@ -168,10 +171,13 @@ export default {
     try {
       const response = await PublicationsApiService.getAll();
       const response2 = await PsychologistsApiService.getAll();
-      const response3 = await PatientApiService.getById(this.userId);
+      const response3 = await PublicationsApiService.getTags();
+      const response4 = await PatientApiService.getById(this.userId);
       this.publications = response.data;
       this.psychologists = response2.data;
-      this.loginData = response3.data;
+      this.tags = response3.data;
+      console.log(this.tags);
+      this.loginData = response4.data;
     }
     catch (e)
     {
@@ -184,6 +190,9 @@ export default {
       this.$router.push({name:'patient-publication', params:{id: publicationId}})
     },
 
+    retrieveTags() {
+      return PublicationsApiService.getTags();
+    },
 
     psychologistDialog(psychologist){
       console.log('psychologistDialog psychologist:', psychologist);

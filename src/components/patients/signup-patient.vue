@@ -19,25 +19,25 @@
                     <v-text-field
                         outlined dense color="blue"
                         class="mt-16"
-                        v-model="firstname"
-                        :error-messages="firstnameErrors"
+                        v-model="firstName"
+                        :error-messages="firstNameErrors"
                         :counter="30"
-                        label="Firstname"
+                        label="firstName"
                         prepend-icon="mdi-account-details"
                         required
-                        @input="$v.firstname.$touch()"
-                        @blur="$v.firstname.$touch()"
+                        @input="$v.firstName.$touch()"
+                        @blur="$v.firstName.$touch()"
                     ></v-text-field>
                     <v-text-field
                         outlined dense color="blue"
-                        v-model="lastname"
-                        :error-messages="lastnameErrors"
+                        v-model="lastName"
+                        :error-messages="lastNameErrors"
                         :counter="30"
-                        label="Lastname"
+                        label="lastName"
                         prepend-icon="mdi-account-details-outline"
                         required
-                        @input="$v.lastname.$touch()"
-                        @blur="$v.lastname.$touch()"
+                        @input="$v.lastName.$touch()"
+                        @blur="$v.lastName.$touch()"
                     ></v-text-field>
                     <v-text-field
                         outlined dense color="blue"
@@ -169,8 +169,8 @@ export default {
   name: "signup-patient",
   mixins: [validationMixin],
   validations: {
-    firstname: { required, maxLength: maxLength(30) },
-    lastname: { required, maxLength: maxLength(30) },
+    firstName: { required, maxLength: maxLength(30) },
+    lastName: { required, maxLength: maxLength(30) },
     phone: { required, maxLength: maxLength(9) },
     password: { required, minLength: minLength(8) },
     email: { required, email },
@@ -188,8 +188,8 @@ export default {
     patients: [],
     show1: false,
     id: 0,
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     password: '',
@@ -243,11 +243,11 @@ export default {
       !this.$v.date.required && errors.push('Birthday date is required')
       return errors
     },
-    firstnameErrors () {
+    firstNameErrors () {
       const errors = []
-      if (!this.$v.firstname.$dirty) return errors
-      !this.$v.firstname.maxLength && errors.push('Name must be at most 30 characters long')
-      !this.$v.firstname.required && errors.push('Name is required.')
+      if (!this.$v.firstName.$dirty) return errors
+      !this.$v.firstName.maxLength && errors.push('Name must be at most 30 characters long')
+      !this.$v.firstName.required && errors.push('Name is required.')
       return errors
     },
     passwordErrors () {
@@ -257,11 +257,11 @@ export default {
       !this.$v.password.required && errors.push('Password is required.')
       return errors
     },
-    lastnameErrors () {
+    lastNameErrors () {
       const errors = []
-      if (!this.$v.lastname.$dirty) return errors
-      !this.$v.lastname.maxLength && errors.push('Lastname must be at most 30 characters long')
-      !this.$v.lastname.required && errors.push('Lastname is required.')
+      if (!this.$v.lastName.$dirty) return errors
+      !this.$v.lastName.maxLength && errors.push('lastName must be at most 30 characters long')
+      !this.$v.lastName.required && errors.push('lastName is required.')
       return errors
     },
     emailErrors () {
@@ -295,17 +295,18 @@ export default {
     register () {
       this.patients=({
         id: this.id,
-        firstname: this.firstname,
-        lastname: this.lastname,
+        firstName: this.firstName,
+        lastName: this.lastName,
         email: this.email,
         password: this.password,
         state: this.state,
         phone: this.phone,
         date: this.date,
         gender: this.gender,
+        img: "https://static.vecteezy.com/system/resources/previews/002/610/660/non_2x/woman-consulting-psychologist-vector.jpg"
       })
-      this.firstname= ''
-      this.lastname=''
+      this.firstName= ''
+      this.lastName=''
       this.email=''
       this.password=''
       this.state=''
@@ -321,8 +322,8 @@ export default {
     },
     clear () {
       this.$v.$reset()
-      this.firstname = ''
-      this.lastname = ''
+      this.firstName = ''
+      this.lastName = ''
       this.email = ''
       this.phone=''
       this.password=''

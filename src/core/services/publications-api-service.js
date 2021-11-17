@@ -2,12 +2,15 @@ import http from "./http-common"
 
 class PublicationsApiService{
     getAll(){
-        return http.get("/publications");
+        return http.get("/publications/");
     }
     // getById(id) {
     //     return http.get(`/publications/${id}?_expand=psychologist`);
     // }
 
+    getTags(){
+        return http.get("/tags");
+    }
     getById(id) {
         return http.get(`/publications/${id}`);
     }

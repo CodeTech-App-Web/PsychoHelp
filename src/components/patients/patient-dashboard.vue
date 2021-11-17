@@ -10,7 +10,7 @@
               <v-avatar class="mt-4" width="100" height="100">
                 <img :src="patientDB.img"></v-avatar>
             </v-col>
-            <v-card-title class="justify-center font-weight-bold text-lg-body-1">{{ patientDB.lastname }} {{ patientDB.firstname }}</v-card-title>
+            <v-card-title class="justify-center font-weight-bold text-lg-body-1">{{ patientDB.lastName }} {{ patientDB.firstName }}</v-card-title>
             <v-card-subtitle class="text-center" style="font-size:1rem">{{ patientDB.date }}
             </v-card-subtitle>
             <v-card-text class="text-center" style="color: black">{{ patientDB.email }}</v-card-text>
@@ -29,8 +29,8 @@ export default {
 
   data: () => ({
     id: '',
-    lastname: '',
-    firstname: '',
+    lastName: '',
+    firstName: '',
     email: '',
     date: '',
     img: '',
@@ -42,8 +42,8 @@ export default {
     getDisplayPatient(patient) {
       return {
         id: patient.id,
-        lastname: patient.lastname,
-        firstname: patient.firstname,
+        lastName: patient.lastName,
+        firstName: patient.firstName,
         email: patient.email,
         date: patient.date,
         img: patient.img,
