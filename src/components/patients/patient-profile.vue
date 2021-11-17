@@ -99,6 +99,16 @@
                       @input="$v.email.$touch()"
                       @blur="$v.email.$touch()"
                   ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="img"
+                      :error-messages="imgErrors"
+                      label="Img"
+                      prepend-icon="mdi-at"
+                      required
+                      @input="$v.img.$touch()"
+                      @blur="$v.img.$touch()"
+                  ></v-text-field>
                   <v-select
                       outlined dense color="blue"
                       v-model="state"
@@ -194,6 +204,7 @@ export default {
     state: { required },
     gender: { required },
     date: { required },
+    img: {required}
   },
   data: () => ({
     patients: [],
@@ -258,18 +269,6 @@ export default {
   },
 
   methods: {
-    async retrieveProfileInfo() {
-      const response = await PatientApiService.getAll();
-      this.dataUser = response.data;
-      this.firstName = this.dataUser.firstName;
-      this.lasttname = this.dataUser.lasttname;
-      this.email = this.dataUser.email;
-      this.gender = this.dataUser.gender;
-      this.state = this.dataUser.state;
-      this.phone = this.dataUser.phone;
-      this.date = this.dataUser.date;
-      console.log(this.dataUser.firstName)
-    },
 
     editProfile(select){
       this.correct = select;
@@ -280,6 +279,7 @@ export default {
       this.phone = this.profileData.phone;
       this.state = this.profileData.state;
       this.date = this.profileData.date;
+      this.img = this.profileData.img;
       this.dialog = true;
     },
 
@@ -291,6 +291,9 @@ export default {
      this.profileData.phone = this.phone;
      this.profileData.state = this.state;
      this.profileData.date = this.date;
+     this.profileData.img = this.img;
+     this.profileData.
+     console.log(this.profileData);
      PatientApiService.update(this.profileData.id, this.profileData);
      this.dialog = false;
     },

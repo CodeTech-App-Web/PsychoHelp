@@ -29,10 +29,10 @@
                         required :error-messages="emailErrors"
                         @input="$v.email.$touch()"
                         @blur="$v.email.$touch()"></v-text-field>
-          <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="cmpC" label="CMP"
+          <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="cmp" label="CMP"
                         required :error-messages="cmpErrors"
-                        @input="$v.cmpC.$touch()"
-                        @blur="$v.cmpC.$touch()"></v-text-field>
+                        @input="$v.cmp.$touch()"
+                        @blur="$v.cmp.$touch()"></v-text-field>
           <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="password" label="Password"
                         required :error-messages="passwordErrors"
                         @input="$v.password.$touch()"
@@ -71,8 +71,8 @@ export default {
     name: { required, maxLength: maxLength(10) },
     email: { required, email },
     dni: { required, maxLength: maxLength(7), numeric },
-    phone: { required, maxLength: maxLength(9), numeric },
-    cmpC: { required, maxLength: maxLength(10), numeric },
+    phone: { required, maxLength: maxLength(9), minLength: minLength(9), numeric },
+    cmp: { required, maxLength: maxLength(10), numeric },
     password: { required, maxLength: maxLength(20), minLength: minLength(8) },
     genre: { required },
   },
@@ -84,12 +84,15 @@ export default {
     age: "",
     email: "",
     phone: "",
-    cmpC: "",
+    cmp: "",
+    specialization: "",
+    formation: "",
     about: "",
     active: false,
     new: false,
     password:"",
     genre : "",
+    sessionType:"",
     genreItems: [
       'Male',
       'Female',
@@ -141,10 +144,10 @@ export default {
     },
     cmpErrors () {
       const errors = []
-      if (!this.$v.cmpC.$dirty) return errors
-      !this.$v.cmpC.required && errors.push('Cmp is required')
-      !this.$v.cmpC.numeric && errors.push('Only numbers')
-      !this.$v.cmpC.maxLength && errors.push('Name must be at 10 characters long')
+      if (!this.$v.cmp.$dirty) return errors
+      !this.$v.cmp.required && errors.push('Cmp is required')
+      !this.$v.cmp.numeric && errors.push('Only numbers')
+      !this.$v.cmp.maxLength && errors.push('Name must be at 10 characters long')
       return errors
     },
     passwordErrors () {
@@ -177,13 +180,14 @@ export default {
           age: "age",
           email: this.email,
           phone: this.phone,
-          cmpC: this.cmpC,
+          cmp: this.cmp,
           specialization: "specialization",
           formation: "formation",
           about: "about",
           active: this.active,
           img: "imagenurl",
           new: this.new,
+          sessionType: "tgrue",
           password: this.password,
           genre : this.genre,}
         PsychologistsApiService.create(psychologistObject)

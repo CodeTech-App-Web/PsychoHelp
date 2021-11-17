@@ -134,6 +134,17 @@
                   ></v-text-field>
                   <v-text-field
                       outlined dense color="blue"
+                      v-model="img"
+                      :error-messages="imgErrors"
+                      :counter="6"
+                      label="CMP Number"
+                      prepend-icon="mdi-cellphone"
+                      required
+                      @input="$v.img.$touch()"
+                      @blur="$v.img.$touch()"
+                  ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
                       v-model="email"
                       :error-messages="emailErrors"
                       label="E-mail"
@@ -255,7 +266,7 @@ export default {
     formation: { required },
     about: { required },
     cmp: { required, maxLength: maxLength(8) },
-
+    img: {required},
   },
   data: () => ({
     psychologists: [],
@@ -313,6 +324,7 @@ export default {
       this.formation = this.profileData.formation;
       this.about = this.profileData.about;
       this.cmp = this.profileData.cmp;
+      this.img = this.profileData.img;
       this.dialog = true;
     },
 
@@ -328,6 +340,7 @@ export default {
       this.profileData.formation = this.formation;
       this.profileData.about = this.about;
       this.profileData.cmp = this.cmp;
+      this.profileData.img = this.img;
       PsychologistsApiService.update(this.profileData.id, this.profileData);
       this.dialog = false;
     },

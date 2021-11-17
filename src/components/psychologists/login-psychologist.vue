@@ -62,12 +62,10 @@ export default {
       try {
         const response2 = await PsychologistsApiService.findByEmail(this.email);
         this.loginData = response2.data;
-        console.log(this.loginData);
         if (this.password === this.loginData.password) {
-          await this.$router.push({name: 'home-patient', params: {id: this.loginData.id}})
-        } else {
-          console.log(this.loginData.email)
-          alert("Incorrect Password")
+          await this.$router.push({name: 'home-psycho', params: {id: this.loginData.id}})
+        }else {
+            alert("Incorrect Password")
         }
       } catch (e) {
         console.error(e)

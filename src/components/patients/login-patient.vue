@@ -89,6 +89,7 @@ export default {
     }
   },
   methods: {
+
     async validateLogin() {
       try {
         const response2 = await PatientApiService.findByEmail(this.email);
