@@ -62,6 +62,7 @@
             <span class="text-h5">Perfil del usuario</span>
           </v-card-title>
           <v-card-text>
+
             <v-row align="center" justify="center">
               <v-col cols="12" sm="8">
                 <v-form>
@@ -97,6 +98,16 @@
                       required
                       @input="$v.email.$touch()"
                       @blur="$v.email.$touch()"
+                  ></v-text-field>
+                  <v-text-field
+                      outlined dense color="blue"
+                      v-model="img"
+                      :error-messages="imgErrors"
+                      label="Img"
+                      prepend-icon="mdi-at"
+                      required
+                      @input="$v.img.$touch()"
+                      @blur="$v.img.$touch()"
                   ></v-text-field>
                   <v-select
                       outlined dense color="blue"
@@ -193,7 +204,7 @@ export default {
     state: { required },
     gender: { required },
     date: { required },
-    img: {required},
+    img: {required}
   },
   data: () => ({
     patients: [],
@@ -202,6 +213,15 @@ export default {
     userId: 0,
     dialog: false,
     correct: null,
+    profileIndex: 0,
+    editedProfile: {
+      firstName:'',
+      lastName:'',
+      gender: null,
+      date: null,
+      state: null,
+      phone: 0
+    },
     itemsState: [
       'Single',
       'Married',
@@ -249,6 +269,7 @@ export default {
   },
 
   methods: {
+
     editProfile(select){
       this.correct = select;
       this.firstName = this.profileData.firstName;
@@ -258,7 +279,7 @@ export default {
       this.phone = this.profileData.phone;
       this.state = this.profileData.state;
       this.date = this.profileData.date;
-      this.img = this.img.date;
+      this.img = this.profileData.img;
       this.dialog = true;
     },
 
@@ -271,6 +292,8 @@ export default {
      this.profileData.state = this.state;
      this.profileData.date = this.date;
      this.profileData.img = this.img;
+     this.profileData.
+     console.log(this.profileData);
      PatientApiService.update(this.profileData.id, this.profileData);
      this.dialog = false;
     },
