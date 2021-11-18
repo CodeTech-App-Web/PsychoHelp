@@ -136,7 +136,7 @@
                 <v-card elevation="5">
                   <v-card-subtitle class="text-center">Turno mañana</v-card-subtitle>
                   <v-chip-group active-class="primary--text" column class="ml-7">
-                    <div v-for="schedule in selectedAppointment.schedules" :key="schedule" >
+                    <div v-for="schedule in schedules" :key="schedule" >
                       <v-chip v-if="schedule.id < 6" @click="scheduleDialog(schedule)">
                         {{ schedule.time }}
                       </v-chip>
@@ -148,7 +148,7 @@
                 <v-card elevation="5">
                   <v-card-subtitle class="text-center">Turno Tarde</v-card-subtitle>
                   <v-chip-group  active-class="primary--text" column class="ml-7">
-                    <div v-for="schedule in selectedAppointment.schedules" :key="schedule" align="center" >
+                    <div v-for="schedule in schedules" :key="schedule" align="center" >
                       <v-chip  v-if="schedule.id >= 6" @click="scheduleDialog(schedule)">
                         {{ schedule.time }}
                       </v-chip>
@@ -169,13 +169,13 @@
           <v-card-title class="justify-center">Detalles de tu cita</v-card-title>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold mt-2">Terapeuta: {{selectedAppointment.name}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{selectedSchedule.time}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastname}}</v-card-subtitle>
+          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastName}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Teléfono: {{loginData.phone}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">E-mail: {{loginData.email}}</v-card-subtitle>
           <v-card-actions>
             <v-row>
               <v-col>
-                <v-btn class="text-lg-overline mb-5">Agendar cita</v-btn>
+                <v-btn block color="primary" rounded @click="programme(userId, selectedAppointment.id, selectedSchedule.id)">Agendar cita</v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
@@ -197,6 +197,7 @@ export default {
     schedules: [],
     loginData: [],
     userId: 0,
+    scheduleId: 0,
     dialog: false,
     toggle_exclusive: undefined,
     dialogAppointment: false,
@@ -222,13 +223,22 @@ export default {
     }
 
     this.retrievePsychologists();
-    this.retrievePsychoSchedules();
     this.dialog = false;
     this.dialogAppointment = false;
     this.dialogSelected = false;
   },
 
   methods:{
+
+    async programme(id, idPsycho, idSchedule) {
+      try {
+        await this.$router.push({name: 'checkout', params: {id: id, idPsycho: idPsycho, idSchedule: idSchedule}})
+      } catch (e)
+      {
+        console.error(e)
+      }
+    },
+
     retrievePsychologists(){
       PsychologistsApiService.getAll()
       .then(response => {
@@ -240,10 +250,10 @@ export default {
       });
     },
 
-    retrievePsychoSchedules() {
-      PsychologistsApiService.getPsychoSchedules()
+    retrievePsychoSchedules(id) {
+      PsychologistsApiService.getScheduleFromPsycho(id)
           .then(response => {
-            this.psychologists = response.data;
+            this.schedules = response.data;
             console.log(response.data);
           })
           .catch(e => {
@@ -257,8 +267,9 @@ export default {
       this.dialog = true;
     },
 
-    appointmentDialog(appointment){
-      this.selectedAppointment = appointment;
+    appointmentDialog(psycho){
+      this.selectedAppointment = psycho;
+      this.retrievePsychoSchedules(this.selectedAppointment.id);
       this.dialogAppointment = true;
     },
 
@@ -266,6 +277,10 @@ export default {
       this.selectedSchedule = schedule;
       this.dialogSelected = true;
     },
+
+
+
+
 
     getPsychologistsByFilter(genre, sessionType){
       if(genre!=null && sessionType===null) {

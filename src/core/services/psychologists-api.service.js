@@ -45,8 +45,12 @@ class PsychologistsApiService {
         return http.get(`/psychologists/email/${email}`);
     }
 
-    getPsychoSchedules() {
-        return http.get(`/psychologists?_embed=schedules`);
+    getScheduleFromPsycho(psychoId) {
+        return http.get(`/psychologists/schedule/${psychoId}`);
+    }
+
+    getByIdSchedule(scheduleId) {
+        return http.get(`/psychologists/byschedule/${scheduleId}`);
     }
 }
 
