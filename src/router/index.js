@@ -82,7 +82,7 @@ const routes = [
     component: () => import('../views/Home')
   },
   {
-    path: '/checkout',
+    path: '/checkout/:id/:idPsycho/:idSchedule',
     name: 'checkout',
     component: () => import('../components/checkout/payment')
   },
