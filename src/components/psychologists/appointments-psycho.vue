@@ -43,8 +43,11 @@
           <v-card-title class="justify-center">{{ selectedAppointment.firstName + " " + selectedAppointment.lastName }}</v-card-title>
           <v-card-subtitle class="text-center">{{ selectedAppointment.phone }}</v-card-subtitle>
           <v-card-text class="text-justify">{{ selectedAppointment.email }}</v-card-text>
+          <v-card-text v-if="flagUrl === true">Enter the url</v-card-text>
+          <v-text-field v-if="flagUrl === true" class="mr-4 ml-4" background-color="white" outlined dense color="black" v-model="url"></v-text-field>
+          <v-btn v-if="flagUrl === true" @click="updateUrl()">Close</v-btn>
           <v-card-actions class="justify-center">
-            <v-btn>Join</v-btn>
+            <v-btn @click="setUrlFields" >Join</v-btn>
             <v-btn @click="closeDialog()">Close</v-btn>
           </v-card-actions>
         </v-card>
@@ -63,6 +66,7 @@ import PatientApiService from '../../core/services/patient-api-service'
 export default {
   name: "appointments-psycho",
   data: () => ({
+    url: '',
     appointments: [],
     dialogPayment:false,
     patients: [],
@@ -72,6 +76,7 @@ export default {
     selectedAppointment: null,
     deleteAppointment: null,
     appointmentId: 0,
+    flagUrl: false,
   }),
 
   async created() {
@@ -101,6 +106,29 @@ export default {
 
     closeDialog(){
       this.dialogInfo = false;
+    },
+
+    async updateUrl(){
+      const response = await AppointmentApiService.getAppointmentId(this.appointmentId);
+      let dataAppointment = response.data;
+      console.log(response.data);
+      let addUrl = {
+        psychoNotes: this.url,
+        scheduleDate: dataAppointment.scheduleDate,
+        createdAt: dataAppointment.createdAt,
+        motive: dataAppointment.motive,
+        personalHistory: dataAppointment.personalHistory,
+        testRealized: dataAppointment.testRealized,
+        treatment: dataAppointment.treatment,
+      };
+      await AppointmentApiService.updateAppointment(dataAppointment.id, addUrl);
+      this.flagUrl = false;
+    },
+
+    setUrlFields(){
+      this.flagUrl = true;
+      window.open("https://meet.google.com/new");
+      // window.location.href = "https://meet.google.com/new";
     },
 
     async retrieveAppointments(){

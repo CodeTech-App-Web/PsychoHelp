@@ -42,7 +42,7 @@
           <v-card-subtitle class="text-center">{{ selectedAppointment.phone }}</v-card-subtitle>
           <v-card-text class="text-justify">{{ selectedAppointment.email }}</v-card-text>
           <v-card-actions class="justify-center">
-            <v-btn>Join</v-btn>
+            <v-btn @click="joinMeet">Join</v-btn>
             <v-btn>ReSchedule</v-btn>
             <v-btn @click="openCancelDialog()">Cancel</v-btn>
           </v-card-actions>
@@ -126,6 +126,12 @@ export default {
       this.dialogInfo = false;
       alert("Canceled Appointment")
     },
+
+    async joinMeet() {
+      const response = await AppointmentApiService.getAppointmentId(this.appointmentId);
+      const appointment = response.data;
+      window.open(appointment.psychoNotes);
+    }
   },
 }
 </script>
