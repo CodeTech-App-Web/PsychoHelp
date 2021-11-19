@@ -131,6 +131,39 @@
           <v-card-title>{{selectedAppointment.name}}</v-card-title>
           <v-divider></v-divider>
           <v-container>
+            <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                min-width="auto"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    outlined dense color="blue"
+                    v-model="dateApp"
+                    :error-messages="dateAppErrors"
+                    required
+                    label="Date"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    @input="$v.dateApp.$touch()"
+                    @blur="$v.dateApp.$touch()"
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="dateApp"
+                  :active-picker.sync="activePicker"
+                  :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                  min="1950-01-01"
+                  @change="save"
+              ></v-date-picker>
+            </v-menu>
+          </v-container>
+          <v-container>
             <v-row>
               <v-col cols="12" sm="6">
                 <v-card elevation="5">
@@ -168,14 +201,23 @@
         <v-card>
           <v-card-title class="justify-center">Detalles de tu cita</v-card-title>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold mt-2">Terapeuta: {{selectedAppointment.name}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{selectedSchedule.time}}</v-card-subtitle>
+          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{dateApp + selectedSchedule.time}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastName}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Teléfono: {{loginData.phone}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">E-mail: {{loginData.email}}</v-card-subtitle>
           <v-card-actions>
             <v-row>
               <v-col>
-                <v-btn block color="primary" rounded @click="programme(userId, selectedAppointment.id, selectedSchedule.id)">Agendar cita</v-btn>
+                <stripe-checkout
+                    ref="checkoutRef"
+                    mode="payment"
+                    :pk="publishableKey"
+                    :line-items="lineItems"
+                    :success-url="successURL"
+                    :cancel-url="cancelURL"
+                    @loading="v => loading = v"
+                />
+                <v-btn block color="primary" rounded @click="submit">Agendar cita</v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
@@ -189,27 +231,53 @@
 import PsychologistsApiService from "../../core/services/psychologists-api.service"
 import { validationMixin } from 'vuelidate'
 import PatientApiService from "../../core/services/patient-api-service";
+import {StripeCheckout} from "@vue-stripe/vue-stripe";
 export default {
   name: "list-psychologists",
+  components: {
+    StripeCheckout,
+  },
   mixins: [validationMixin],
-  data: ()=> ({
-    psychologists: [],
-    schedules: [],
-    loginData: [],
-    userId: 0,
-    scheduleId: 0,
-    dialog: false,
-    toggle_exclusive: undefined,
-    dialogAppointment: false,
-    dialogSelected: false,
-    selectedPsychologist: null,
-    selectedAppointment: null,
-    selectedSchedule: null,
-    selected: [],
-    genre: null,
-    sessionType: null,
-    search: "",
-  }),
+  data () {
+    this.publishableKey = 'pk_test_51Jr9EdFDbJHLEOuuKrrVxAmdDsc1uJPXL2WGeofMmTGcaX8VNFrZFAzZgZiGjJ7g0iyYiVuM6bXcscbCqYTfW06A00dBxdQn3F';
+    return {
+      psychologists: [],
+      schedules: [],
+      loginData: [],
+      userId: 0,
+      scheduleId: 0,
+      dialog: false,
+      toggle_exclusive: undefined,
+      dialogAppointment: false,
+      dialogSelected: false,
+      selectedPsychologist: null,
+      selectedAppointment: null,
+      selectedSchedule: null,
+      selected: [],
+      genre: null,
+      sessionType: null,
+      search: "",
+      activePicker: null,
+      dateApp: null,
+      menu: false,
+
+      loading: false,
+      lineItems: [
+        {
+          price: 'price_1Jr9VMFDbJHLEOuuuz8xBHfH', // The id of the one-time price you created in your Stripe dashboard
+          quantity: 1,
+        },
+      ],
+      successURL: 'http://localhost:8080/',
+      cancelURL: 'http://localhost:8080/',
+    };
+  },
+
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = 'YEAR'))
+    },
+  },
 
   async created() {
     this.userId = this.$route.params.id;
@@ -229,6 +297,10 @@ export default {
   },
 
   methods:{
+    submit () {
+      // You will be redirected to Stripe's secure checkout page
+      this.$refs.checkoutRef.redirectToCheckout();
+    },
 
     async programme(id, idPsycho, idSchedule) {
       try {
@@ -278,10 +350,6 @@ export default {
       this.dialogSelected = true;
     },
 
-
-
-
-
     getPsychologistsByFilter(genre, sessionType){
       if(genre!=null && sessionType===null) {
         PsychologistsApiService.findByGenre(genre)
@@ -326,6 +394,9 @@ export default {
             });
     },
 
+    save (date) {
+      this.$refs.menu.save(date)
+    },
 
     clear () {
       this.retrievePsychologists();

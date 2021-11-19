@@ -66,6 +66,7 @@ export default {
       ],
       successURL: 'http://localhost:8080/',
       cancelURL: 'http://localhost:8080/',
+
       psychologists: [],
       loginData: [],
       schedules: [],
