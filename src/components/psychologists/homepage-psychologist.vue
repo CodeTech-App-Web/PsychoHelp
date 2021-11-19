@@ -26,8 +26,8 @@
       <v-divider inset vertical class="mx-4"></v-divider>
       <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
         <v-list shaped >
-          <v-list-item v-for="item in items" :key="item.text" router :to="item.route">
-            <v-list-item-content>
+          <v-list-item v-for="item in items" :key="item.text" @click="redirectTo(item.route, userId)">
+            <v-list-item-content >
               <v-list-item-title>
                 {{item.text}}
                 <v-divider></v-divider>
@@ -173,7 +173,7 @@ export default {
   name: "homepage-psychologist",
   data: () => ({
     items: [
-      {text: 'Pacientes', route:'/dashboard_patient'},
+      {text: 'Pacientes', route:'patientDBs'},
       {text:'Centro de Ayuda', route:'/centro de ayuda'},
       {text:'Guía', route:'/video-call'}
     ],
@@ -196,12 +196,11 @@ export default {
     formAdd: true,
     formEdit: true,
     dialog: false,
-
     dialogInfo: false,
     selectedPsychologist: null,
-
     editedIndex: 0,
     deletedIndex: 0,
+    userId: "",
     editedPublication:{
       id:0,
       title:'',
@@ -278,6 +277,10 @@ export default {
       this.selectedPsychologist = psychologist;
       this.dialogInfo = true;
     },
+
+    redirectTo(router, id) {
+      this.$router.push({name: router, params:{id: id}})
+    }
 
   }
 }

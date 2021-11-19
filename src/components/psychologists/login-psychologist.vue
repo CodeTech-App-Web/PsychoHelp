@@ -28,7 +28,6 @@
 
 <script>
 import PsychologistsApiService from "../../core/services/psychologists-api.service";
-import PatientApiService from "../../core/services/patient-api-service";
 
 export default {
   name: "login-psychologist",
