@@ -43,7 +43,7 @@
           <v-card-text class="text-justify">{{ selectedAppointment.email }}</v-card-text>
           <v-card-actions class="justify-center">
             <v-btn @click="joinMeet">Join</v-btn>
-            <v-btn>ReSchedule</v-btn>
+            <v-btn @click="openReScheduleDialog(psychoId)">ReSchedule</v-btn>
             <v-btn @click="openCancelDialog()">Cancel</v-btn>
           </v-card-actions>
         </v-card>
@@ -52,17 +52,101 @@
     </template>
 
     <template>
-      <!--DIALOG INFO PSICOLOGO SELECCIONADO-->
-      <v-dialog v-model="dialog" width="400">
+      <!--DIALOG CANCEL APPOINTMENT-->
+      <v-dialog v-model="dialog" width="440">
         <v-card>
-          <v-card-title class="justify-center">Do you want to cancel your appointment?</v-card-title>
+          <v-card-title class="justify-center">Do you want to cancel your appointment ?</v-card-title>
           <v-card-actions class="justify-center">
-            <v-btn @click="cancelAppointment(appointmentId)">Cancel</v-btn>
+            <v-btn @click="cancelAppointment(appointmentId)">Yes</v-btn>
+            <v-btn @click.stop="dialog=false">No</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
       <!--Fin del Dialog-->
     </template>
+
+    <template>
+      <!--DIALOG RESCHEDULE-->
+      <v-dialog v-model="dialogReSchedule" width="400" persistent>
+        <v-card>
+          <v-card-title class="justify-center">Elige un horario a tu preferencia</v-card-title>
+          <v-card-subtitle class="text-center">Horarios disponibles</v-card-subtitle>
+          <v-divider></v-divider>
+          <v-menu
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
+              min-width="auto"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                  outlined dense color="blue"
+                  v-model="dateApp"
+                  required
+                  label="Date"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                  @input="$v.dateApp.$touch()"
+                  @blur="$v.dateApp.$touch()"
+                  class="mr-4 ml-5"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+                v-model="dateApp"
+                :active-picker.sync="activePicker"
+                :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                min="2021-01-01"
+                @change="save"
+                class="mr-4 ml-5"
+            ></v-date-picker>
+          </v-menu>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <v-card class="ml-5" elevation="5">
+                <v-card-subtitle class="text-center">Morning</v-card-subtitle>
+                <v-chip-group active-class="primary--text" column class="ml-7">
+                  <div v-for="schedule in schedules" :key="schedule" @click="scheduleDialog(schedule.time)">
+                    <v-chip v-if="schedule.id < 6" >
+                      {{ schedule.time }}
+                    </v-chip>
+                  </div>
+                </v-chip-group>
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-card class="mr-5" elevation="5">
+                <v-card-subtitle class="text-center">Evening</v-card-subtitle>
+                <v-chip-group  active-class="primary--text" column class="ml-7">
+                  <div v-for="schedule in schedules" :key="schedule" class="align-center" @click="scheduleDialog(schedule.time)">
+                    <v-chip  v-if="schedule.id >= 6">
+                      {{ schedule.time }}
+                    </v-chip>
+                  </div>
+                </v-chip-group>
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-card-actions class="justify-end">
+            <v-btn @click.stop="dialogReSchedule=false">Cancelar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!--Fin del Dialog-->
+      <v-dialog v-model="dialogSelected" width="400">
+        <v-card>
+          <v-card-title class="justify-center">Detalles de tu cita</v-card-title>
+          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{dateApp + scheduleDate}}</v-card-subtitle>
+          <v-card-actions>
+            <v-btn block color="primary" rounded @click="reSchedule(dateApp,scheduleDate)">ReSchedule</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </template>
+
   </div>
 </template>
 
@@ -70,19 +154,34 @@
 
 import AppointmentApiService from '../../core/services/appointments-api.service'
 import PsychologistApiService from '../../core/services/psychologists-api.service'
+import PsychologistsApiService from "../../core/services/psychologists-api.service";
 
 export default {
   name: "appointments-patient",
   data: () => ({
+    scheduleDate: '',
+    menu: false,
+    psychoId: "",
+    schedules: [],
+    dialogReSchedule: false,
     appointments: [],
     psychologists: [],
     userId: "",
     dialogInfo: false,
     dialog: false,
+    dialogSelected: false,
     selectedAppointment: null,
     deleteAppointment: null,
     appointmentId: 0,
+    activePicker: null,
+    dateApp: null,
   }),
+
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = 'YEAR'))
+    },
+  },
 
   async created() {
     this.userId = this.$route.params.id;
@@ -93,13 +192,56 @@ export default {
   },
 
   methods: {
+    scheduleDialog(scheduledATE){
+      this.scheduleDate = scheduledATE;
+      this.dialogSelected = true;
+    },
+
+    save (date) {
+      this.$refs.menu.save(date)
+    },
+
+    async reSchedule(dateTime, dateHour) {
+      let dateToIso = new Date(dateTime + " " + dateHour);
+      const response = await AppointmentApiService.getAppointmentId(this.appointmentId);
+      let dataAppointment = response.data;
+      console.log(dataAppointment, dateToIso)
+      let newDate = {
+        psychoNotes: dataAppointment.psychoNotes,
+        scheduleDate: dateToIso.toISOString(),
+        createdAt: dataAppointment.createdAt,
+        motive: dataAppointment.motive,
+        personalHistory: dataAppointment.personalHistory,
+        testRealized: dataAppointment.testRealized,
+        treatment: dataAppointment.treatment,
+      };
+      await AppointmentApiService.updateAppointment(dataAppointment.id, newDate);
+      this.dialogSelected = false;
+    },
 
     getPsychologistName(id) {
-      return this.psychologists.find(psychologists => psychologists.id == id).name;
+      return this.psychologists.find(psychologists => psychologists.id === id).name;
+    },
+
+    openReScheduleDialog(appointmentId) {
+      this.retrievePsychoSchedules(appointmentId);
+      this.dialogReSchedule = true;
+    },
+
+    retrievePsychoSchedules(id) {
+      PsychologistsApiService.getScheduleFromPsycho(id)
+          .then(response => {
+            this.schedules = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
     },
 
     async psychologistDialog(psychoId, idAppointment){
       this.appointmentId = idAppointment;
+      this.psychoId = psychoId;
       const response = await PsychologistApiService.getById(psychoId);
       this.selectedAppointment = response.data;
       this.dialogInfo = true;
@@ -130,7 +272,14 @@ export default {
     async joinMeet() {
       const response = await AppointmentApiService.getAppointmentId(this.appointmentId);
       const appointment = response.data;
-      window.open(appointment.psychoNotes);
+      if(appointment.psychoNotes === "No Url Yet")
+      {
+        alert("An url is not set yet")
+      }
+      else
+      {
+        window.open(appointment.psychoNotes);
+      }
     }
   },
 }
