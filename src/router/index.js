@@ -105,12 +105,7 @@ const routes = [
     path: '/appointments-patient/:id',
     name: 'patient-appointments',
     component: ()=> import('../components/patients/appointments-patient')
-  },
-  {
-    path: '/testPrueba',
-    name: 'stripePrueba',
-    component: ()=> import('../components/checkOutExample')
-  },
+  }
 ]
 
 const router = new VueRouter({

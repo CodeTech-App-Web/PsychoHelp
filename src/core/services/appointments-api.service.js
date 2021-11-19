@@ -6,6 +6,10 @@ class AppointmentsApiService{
         return http.put(`/appointment/${id}`, data);
     }
 
+    createAppointment(data) {
+        return http.post("/appointment", data);
+    }
+
     getAppointmentId(id) {
         return http.get(`/appointment/${id}`);
     }

@@ -80,6 +80,9 @@ export default {
     this.userId = this.$route.params.id;
     this.psychoId = this.$route.params.idPsycho;
     this.scheduleId = this.$route.params.idSchedule;
+    console.log(this.userId);
+    console.log(this.psychoId);
+    console.log(this.scheduleId);
     try {
       const response = await PatientApiService.getById(this.userId);
       const response2 = await PsychologistsApiService.getById(this.psychoId);
