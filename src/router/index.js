@@ -29,7 +29,7 @@ const routes = [
     component: () => import('../components/psychologists/psychologist-profile')
   },
   {
-    path: '/dashboard_patient',
+    path: '/dashboard_patient/:id',
     name: 'patientDBs',
     component: () => import('../components/patients/patient-dashboard')
   },
@@ -92,10 +92,25 @@ const routes = [
     component: () => import('../components/patients/patient-publication')
   },
   {
-    path: '/logbook_psychologist/:id',
+    path: '/logbook_psychologist/:psycho_id/patient/:patient_id',
     name: 'psychologist-logbook',
     component: ()=> import('../components/psychologists/psychologist-logbook')
-  }
+  },
+  {
+    path: '/appointments-psycho/:id',
+    name: 'psychologist-appointments',
+    component: ()=> import('../components/psychologists/appointments-psycho')
+  },
+  {
+    path: '/appointments-patient/:id',
+    name: 'patient-appointments',
+    component: ()=> import('../components/patients/appointments-patient')
+  },
+  {
+    path: '/testPrueba',
+    name: 'stripePrueba',
+    component: ()=> import('../components/checkOutExample')
+  },
 ]
 
 const router = new VueRouter({
