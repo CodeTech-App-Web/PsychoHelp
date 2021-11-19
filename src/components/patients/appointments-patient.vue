@@ -10,7 +10,7 @@
               <v-col cols="9">
                 <h3 class="ml-4">
                   <v-icon color="white">mdi-calendar-range</v-icon>
-                  Date Scheduled at: {{ appointment.scheduleDate}}
+                  Date Scheduled at: {{ appointment.scheduleDate.slice(0, 19).replace('T', ' ')}}
                 </h3>
               </v-col>
               <v-col cols="3">

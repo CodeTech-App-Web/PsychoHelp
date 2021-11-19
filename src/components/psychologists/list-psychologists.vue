@@ -201,7 +201,7 @@
         <v-card>
           <v-card-title class="justify-center">Detalles de tu cita</v-card-title>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold mt-2">Terapeuta: {{selectedAppointment.name}}</v-card-subtitle>
-          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{dateApp + selectedSchedule.time}}</v-card-subtitle>
+          <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Horario: {{dateApp + " " + selectedSchedule.time}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Paciente: {{loginData.lastName}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">Teléfono: {{loginData.phone}}</v-card-subtitle>
           <v-card-subtitle class="text-left text-subtitle-1 text--primary text-uppercase font-weight-bold">E-mail: {{loginData.email}}</v-card-subtitle>
@@ -266,7 +266,7 @@ export default {
       sessionType: null,
       search: "",
       activePicker: null,
-      dateApp: null,
+      dateApp: new Date().toISOString().substr(0, 7),
       menu: false,
       stripe: null,
       elements: null,
@@ -427,7 +427,7 @@ export default {
         patientId: patientId,
         psychoId: psychoId,
         psychoNotes: "Notes",
-        scheduleDate: dateToIso.toISOString(),
+        scheduleDate: dateToIso,
         createdAt: createdAt,
         motive: "Motive",
         personalHistory: "Personal History",
@@ -459,7 +459,7 @@ export default {
       } catch (error) {
         console.log("error", error);
       }
-      await this.$router.push({name: 'checkout', params: {id: this.loginData.id, idPsycho: this.selectedAppointment.id, idSchedule: this.selectedAppointment.id}});
+      await this.$router.push({name: 'home-patient', params: {id: this.loginData.id}});
     },
 
   }

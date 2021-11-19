@@ -1,7 +1,5 @@
 <template>
   <div style="width: 100%; height: 100%">
-    <v-btn class="mr-6" @click="openPaymentDialog">Pay</v-btn>
-
     <v-card class="mt-10" style="width:100%">
       <v-divider vertical></v-divider>
       <h2 class="ml-9 mb-5">Appointments</h2>
@@ -12,7 +10,7 @@
               <v-col cols="10">
                 <h3 class="ml-4">
                   <v-icon color="white">mdi-calendar-range</v-icon>
-                  Date Scheduled at: {{ appointment.scheduleDate}}
+                  Date Scheduled at: {{ appointment.scheduleDate.slice(0, 19).replace('T', ' ')}}
                 </h3>
               </v-col>
               <v-col cols="2">

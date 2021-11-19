@@ -81,11 +81,11 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home')
   },
-  {
-    path: '/checkout/:id/:idPsycho/:idSchedule',
-    name: 'checkout',
-    component: () => import('../components/checkout/payment')
-  },
+  // {
+  //   path: '/checkout/:id/:idPsycho/:idSchedule',
+  //   name: 'checkout',
+  //   component: () => import('../components/checkout/payment')
+  // },
   {
     path: '/publication/:id',
     name: 'patient-publication',

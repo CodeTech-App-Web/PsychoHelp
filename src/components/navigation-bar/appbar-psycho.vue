@@ -54,7 +54,7 @@ export default {
     ],
     items: [
       {text:'Mi Perfil', icon:'mdi-account', routeName:'psychologist-profile'},
-      //{text:'Citas', icon:'mdi-calendar-range', routeName:'psychologist-profile'},
+      {text:'Citas', icon:'mdi-calendar-range', routeName:'psychologist-appointments'},
       //{text:'Forma de Pago', icon:'mdi-credit-card', routeName:'/metododepago'},
       {text:'Cerrar Sesion', icon:'mdi-logout', routeName:'psychologist-login'},
     ],
