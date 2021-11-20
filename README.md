@@ -1,4 +1,4 @@
-# psycho-help
+# PsychoHelp Web Application
 
 ## Project setup
 ```
@@ -18,6 +18,11 @@ npm run build
 ### Lints and fixes files
 ```
 npm run lint
+```
+
+### Deployment in firebase
+```
+https://psychohelp-2021.web.app
 ```
 
 ### Customize configuration
