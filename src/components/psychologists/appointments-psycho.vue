@@ -38,12 +38,12 @@
               <v-img :src="selectedAppointment.img"></v-img>
             </v-avatar>
           </v-col>
-          <v-card-title class="justify-center">{{ selectedAppointment.firstName + " " + selectedAppointment.lastName }}</v-card-title>
+          <v-card-title class="justify-center mb-2">{{ selectedAppointment.firstName + " " + selectedAppointment.lastName }}</v-card-title>
           <v-card-subtitle class="text-center">{{ selectedAppointment.phone }}</v-card-subtitle>
-          <v-card-text class="text-justify">{{ selectedAppointment.email }}</v-card-text>
+          <v-card-text class="text-justify font-weight-black">{{ selectedAppointment.email }}</v-card-text>
           <v-card-text v-if="flagUrl === true">Enter the url</v-card-text>
           <v-text-field v-if="flagUrl === true" class="mr-4 ml-4" background-color="white" outlined dense color="black" v-model="url"></v-text-field>
-          <v-btn v-if="flagUrl === true" @click="updateUrl()">Close</v-btn>
+          <v-btn class="ml-5" v-if="flagUrl === true" @click="updateUrl()">Save</v-btn>
           <v-card-actions class="justify-center">
             <v-btn @click="setUrlFields" >Join</v-btn>
             <v-btn @click="closeDialog()">Close</v-btn>

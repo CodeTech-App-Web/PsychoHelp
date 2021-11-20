@@ -216,6 +216,7 @@ export default {
         treatment: dataAppointment.treatment,
       };
       await AppointmentApiService.updateAppointment(dataAppointment.id, newDate);
+      await this.retrieveAppointments();
       this.dialogSelected = false;
     },
 

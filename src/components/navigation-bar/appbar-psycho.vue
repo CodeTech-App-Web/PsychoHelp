@@ -4,16 +4,7 @@
       <!--Drawer Icon-->
       <v-app-bar-nav-icon align="right" @click.stop="drawer = !drawer" color="white"></v-app-bar-nav-icon>
       <h1 class="text-sm-h4 text-md-h4 text-lg-h5 font-weight-medium white--text ml-3" >PSYCHOHELP</h1>
-      <v-container>
-        <v-responsive class="flex xl12" max-width="300">
-          <v-text-field background-color=#BDBDBD dense flat hide-details rounded solo-inverted ></v-text-field>
-        </v-responsive>
-      </v-container>
-      <v-btn icon depressed>
-        <v-avatar right color=#BDBDBD size="50">
-          <v-icon color="white" size="40">mdi-account-circle</v-icon>
-        </v-avatar>
-      </v-btn>
+      <v-spacer></v-spacer>
     </v-app-bar>
     <!--Drawer despegable-->
     <v-navigation-drawer v-model="drawer" absolute temporary >
@@ -21,7 +12,7 @@
         <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title class="text-h6">Usuario</v-list-item-title>
+              <v-list-item-title class="text-h6">User</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider inset vertical></v-divider>
@@ -53,10 +44,10 @@ export default {
       'Updates',
     ],
     items: [
-      {text:'Mi Perfil', icon:'mdi-account', routeName:'psychologist-profile'},
-      {text:'Citas', icon:'mdi-calendar-range', routeName:'psychologist-appointments'},
-      //{text:'Forma de Pago', icon:'mdi-credit-card', routeName:'/metododepago'},
-      {text:'Cerrar Sesion', icon:'mdi-logout', routeName:'psychologist-login'},
+      {text:'Home', icon:'mdi-home', routeName:'home-psycho'},
+      {text:'My Profile', icon:'mdi-account', routeName:'psychologist-profile'},
+      {text:'Appointment', icon:'mdi-calendar-range', routeName:'psychologist-appointments'},
+      {text:'Logout', icon:'mdi-logout', routeName:'psychologist-login'},
     ],
     profile: [],
     drawer: false,
@@ -74,6 +65,10 @@ export default {
   methods: {
     redirectTo(router, id) {
       this.$router.push({name: router , params:{id: id}})
+    },
+
+    redirectHome(id) {
+      this.$router.push({name: 'home-psycho' , params:{id: id}})
     }
   }
 }

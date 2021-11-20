@@ -137,11 +137,6 @@
                         @change="$v.checkbox.$touch()"
                         @blur="$v.checkbox.$touch()"
                     ></v-checkbox>
-
-
-                    <v-btn class="mr-4" @click="submit">
-                      Validate
-                    </v-btn>
                     <v-btn class="mr-4" @click="clear">
                       Clear
                     </v-btn>
@@ -303,7 +298,7 @@ export default {
         phone: this.phone,
         date: this.date,
         gender: this.gender,
-        img: "https://static.vecteezy.com/system/resources/previews/002/610/660/non_2x/woman-consulting-psychologist-vector.jpg"
+        img: "https://www.logolynx.com/images/logolynx/4b/4beebce89d681837ba2f4105ce43afac.png"
       })
       this.firstName= ''
       this.lastName=''
@@ -315,6 +310,8 @@ export default {
       this.gender=''
       PatientApiService.create(this.patients)
       console.log(this.data)
+      alert("Success Register")
+      this.$router.push({name: 'Login-Patient'});
     },
 
     submit () {

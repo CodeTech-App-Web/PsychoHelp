@@ -24,7 +24,7 @@
       <v-divider inset vertical class="mx-4"></v-divider>
       <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
         <v-list shaped >
-          <v-list-item v-for="item in items" :key="item.text" @click="redirectTo(item.route, userId)">
+          <v-list-item v-for="item in items" :key="item.text" @click="redirectTo(item.routeName, userId)">
             <v-list-item-content >
               <v-list-item-title>
                 {{item.text}}
@@ -41,9 +41,8 @@
           <v-carousel-item class="flex xl12" v-for="(slide, i) in slides" :key="i">
             <v-sheet :color="colors[i]" height="100%">
               <v-row class="fill-height" align="center" justify="center">
-                <div class="carousel_text text-h5 font-weight-medium">
+                <div class="carousel_text text-h5 white--text font-weight-medium">
                   {{ slide }}
-                  <v-btn color="white">Agenda Aquí</v-btn>
                 </div>
               </v-row>
             </v-sheet>
@@ -111,8 +110,12 @@
 
     <v-col lg="2">
       <!--CARDS PSICÓLOGOS-->
-      <v-subheader>NEW PSYCHOLOGISTS</v-subheader>
       <v-row>
+        <v-card max-width="220" class="mx-auto">
+          <v-card-title class=" text-subtitle-1 text--primary text-uppercase font-weight-bold">
+            New psychologists
+          </v-card-title>
+        </v-card>
         <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
           <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
             <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
@@ -182,20 +185,17 @@ export default {
   name: "homepage-psychologist",
   data: () => ({
     items: [
-      {text: 'Patients', route:'/patientDBs'},
-      {text:'Help Center', route:'/centro de ayuda'},
-      {text:'Guide', route:'/video-call'}
+      {text: 'Patients', routeName:'dashboard_psycho'},
+      {text:'Help Center', routeName:'centro de ayuda'},
+      {text:'Guide', routeName:'video-call'}
     ],
     colors: [
-      'indigo',
-      'warning',
-      'pink darken-2',
-      'red lighten-1',
-      'deep-purple accent-4',
+      '#03A9F4',
+      '#03A9F4',
     ],
     slides: [
-      'Hasta un 20% de descuento en el paquete de citas!!!',
-      'Agenda con nuestros nuevos psicólogos!'
+      'Up to 20% discount on the dating package !!!',
+      'Schedule with our new psychologists!'
     ],
     publications: [],
     psychologists: [],
@@ -241,23 +241,8 @@ export default {
 
   created() {
     this.userId = this.$route.params.id;
-    //try {
-      //let response = await PublicationsApiService.getByPsychologistId(this.userId);
-     // let response2 = await PsychologistsApiService.getAll();
-      //let response3 = await PsychologistsApiService.getById(this.userId);
-     // let response4 = await PublicationsApiService.getTags();
-      //this.publications = response.data;
-     // this.psychologists = response2.data;
-      //this.loginData = response3.data;
-     // this.tags = response4.data;
-      this.retrievePublications();
-      this.retrievePsychologists();
-
-    //}
-    //catch (e)
-    //{
-     // console.error(e);
-    //}
+    this.retrievePublications();
+    this.retrievePsychologists();
   },
 
 

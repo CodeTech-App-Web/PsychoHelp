@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: '/dashboard_patient/:id',
-    name: 'patientDBs',
+    name: 'dashboard_psycho',
     component: () => import('../components/patients/patient-dashboard')
   },
   {
@@ -53,7 +53,7 @@ const routes = [
   },
   {
     path: '/dashboard_psycho/:id',
-    name: 'list-psychologists',
+    name: 'dashboard_patient',
     component: ()=> import('../components/psychologists/list-psychologists')
   },
   {

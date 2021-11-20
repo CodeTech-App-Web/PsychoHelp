@@ -15,12 +15,12 @@
           </v-col>
           <v-col cols="12" sm="6" md="8">
             <v-card elevation="10">
-              <v-card-title class="ml-5" style="font-size:2em">Perfil del usuario</v-card-title>
+              <v-card-title class="ml-5" style="font-size:2em">User Profile</v-card-title>
               <v-row class="mb-2">
                 <v-col cols="12" md="6">
-                  <v-card-title class="ml-10 mr-10 mb-2">firstName</v-card-title>
+                  <v-card-title class="ml-10 mr-10 mb-2">First Name</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.firstName }}</v-card-subtitle>
-                  <v-card-title class="ml-10 mr-10 mb-2">lastName</v-card-title>
+                  <v-card-title class="ml-10 mr-10 mb-2">Last Name</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:18px">{{profileData.lastName }}</v-card-subtitle>
                   <v-row>
                     <v-col>
@@ -39,7 +39,7 @@
                   <v-card-title class="ml-10 mr-10 mb-2">E-mail</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:1em">{{ profileData.email }}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Birthday Date</v-card-title>
-                  <v-card-subtitle class="dateProfile" style="font-size:1em">{{ profileData.date }}</v-card-subtitle>
+                  <v-card-subtitle class="dateProfile" style="font-size:1em">{{ profileData.date.slice(0, 10).replace('T', ' ')}}</v-card-subtitle>
                   <v-card-title class="ml-10 mr-10 mb-2">Phone</v-card-title>
                   <v-card-subtitle class="dateProfile" style="font-size:18px">{{ profileData.phone }}</v-card-subtitle>
                 </v-col>
@@ -47,7 +47,7 @@
               <v-divider></v-divider>
               <v-card-actions>
                 <v-row>
-                  <v-btn class="ma-6" color="#BBDEFB" elevation="2" @click="editProfile(profileData)">Editar perfil</v-btn>
+                  <v-btn class="ma-6" color="#BBDEFB" elevation="2" @click="editProfile(profileData)">Edit profile</v-btn>
                 </v-row>
               </v-card-actions>
             </v-card>
@@ -59,7 +59,7 @@
       <v-dialog v-model="dialog" persistent max-width="500px" v-if="correct!=null">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Perfil del usuario</span>
+            <span class="text-h5">User Profile</span>
           </v-card-title>
           <v-card-text>
 
@@ -72,7 +72,7 @@
                       v-model="firstName"
                       :error-messages="firstNameErrors"
                       :counter="30"
-                      label="firstName"
+                      label="First Name"
                       prepend-icon="mdi-account-details"
                       required
                       @input="$v.firstName.$touch()"
@@ -83,7 +83,7 @@
                       v-model="lastName"
                       :error-messages="lastNameErrors"
                       :counter="30"
-                      label="lastName"
+                      label="Last Name"
                       prepend-icon="mdi-account-details-outline"
                       required
                       @input="$v.lastName.$touch()"
@@ -167,7 +167,7 @@
                     <v-date-picker
                         v-model="date"
                         :active-picker.sync="activePicker"
-                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+                        :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString()"
                         min="1950-01-01"
                         @change="save"
                     ></v-date-picker>
@@ -179,8 +179,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">Cerrar</v-btn>
-            <v-btn color="blue darken-1" text @click="saveProfile()">Guardar</v-btn>
+            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="saveProfile()">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -220,7 +220,7 @@ export default {
       gender: null,
       date: null,
       state: null,
-      phone: 0
+      phone: ''
     },
     itemsState: [
       'Single',
@@ -278,7 +278,7 @@ export default {
       this.gender = this.profileData.gender;
       this.phone = this.profileData.phone;
       this.state = this.profileData.state;
-      this.date = this.profileData.date;
+      this.date = this.profileData.date.slice(0, 10).replace('T', ' ');
       this.img = this.profileData.img;
       this.dialog = true;
     },
@@ -288,11 +288,10 @@ export default {
      this.profileData.lastName = this.lastName;
      this.profileData.email = this.email;
      this.profileData.gender = this.gender;
-     this.profileData.phone = this.phone;
+     this.profileData.phone = this.phone.toString();
      this.profileData.state = this.state;
      this.profileData.date = this.date;
      this.profileData.img = this.img;
-     this.profileData.
      console.log(this.profileData);
      PatientApiService.update(this.profileData.id, this.profileData);
      this.dialog = false;
