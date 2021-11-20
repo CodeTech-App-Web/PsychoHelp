@@ -3,10 +3,11 @@
     <v-card class="ml-10 mr-10 mt-10 elevation-6 Card" >
       <v-row>
         <v-col cols="7">
-          <h1 class="mt-10 ml-10">{{this.publicationData.description}}</h1>
+          <h1 class="mt-10 ml-10">{{this.publicationData.title}}</h1>
+          <h3 class="mt-10 ml-10">{{this.publicationData.description}}</h3>
           <v-divider inset vertical></v-divider>
           <h4  class="ml-10 mt-8">Autor: {{this.publicationData.psychologist.name}}</h4>
-          <h4 class="ml-10 mt-6">Fecha de Publicación: {{ this.publicationData.date }}</h4>
+          <h4 class="ml-10 mt-6">Fecha de Publicación: {{ this.publicationData.createdAt.slice(0, 10).replace('T', ' ') }}</h4>
           <p class="ml-10 mt-10">{{this.publicationData.content}}</p>
         </v-col>
         <v-col cols="3">

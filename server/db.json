@@ -2,26 +2,26 @@
   "patients": [
     {
       "id": 1,
-      "firstname": "Juana",
-      "lastname": "Velasquez Torres",
-      "email": "juanavela123@gmail.com",
-      "password": "12345678abc",
-      "state": "single",
-      "phone": 945856232,
-      "date": "2000-05-10",
-      "gender": "female",
-      "img": "https://www.hcmarbella.com/wp-content/uploads/2020/03/dra_manuela_reisbeck.jpg"
+      "firstname": "Maria Luisa",
+      "lastname": "de la Vega",
+      "email": "maria405@upc.com",
+      "password": "12345678def",
+      "gender": "Female",
+      "date": "1985-02-13",
+      "state": "Married",
+      "phone": "123456789",
+      "img": "https://www.elcolombiano.com/documents/10157/0/581x870/0c42/580d365/none/11101/MVGI/image_content_33688223_20190625103020.jpg"
     },
     {
       "id": 2,
-      "firstname": "Mario",
+      "firstname": "Mario Casas",
       "lastname": "Veliz Calderon",
       "email": "joseuc156@gmail.com",
       "password": "12345678def",
-      "state": "single",
+      "state": "Single",
       "phone": 945856232,
       "date": "2000-05-10",
-      "gender": "male",
+      "gender": "Male",
       "img": "https://ath2.unileverservices.com/wp-content/uploads/sites/11/2021/03/17172909/cortes-de-pelo-para-hombres-con-rulos-23-500x500.jpg"
     },
     {
@@ -88,15 +88,15 @@
   "psychologists": [
     {
       "id": 1,
-      "name": "Daniel Caceres Montes",
-      "age": 55,
-      "dni": 74546845,
+      "name": "Daniel Garcilazo",
+      "age": "1992-04-30",
+      "dni": "12345678",
       "email": "daniel.cm@gmail.com",
       "phone": 958666951,
       "specialization": [
-        "Trastorno por estrés postraumático",
-        "Conflictos de pareja",
-        "Ansiedad"
+        "Codependencia",
+        "Autoestima",
+        "Celos"
       ],
       "formation": [
         "Maestría en Psicología Clínica - Universidad Cesar Vallejo",
@@ -106,9 +106,9 @@
       "active": true,
       "img": "https://bullseye-magazine.eu/wp-content/uploads/2019/09/portrait_test.jpg",
       "new": true,
-      "genre": "Masculino",
-      "sessionType": "Individual",
-      "cmp": 123456,
+      "genre": "Male",
+      "sessionType": "Couple",
+      "cmp": "963258",
       "password": "12s45s5d"
     },
     {
@@ -198,7 +198,7 @@
       ],
       "img": "https://cdn.pixabay.com/photo/2021/01/27/06/54/nova-scotia-duck-tolling-retriever-5953883_1280.jpg",
       "date": "25/04/2021",
-      "psychologistId": 1,
+      "autor": "Juana Velazques",
       "content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\n            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham"
     },
     {
@@ -211,7 +211,9 @@
         "#apoyoemocional"
       ],
       "img": "https://assets.weforum.org/article/image/responsive_large_E79PmG1Oop_9P7-edBkH9JddpXUpnaVEz2cvg8KkYOE.jpg",
-      "psychologistId": 4
+      "autor": "Carla Garcia Heredia",
+      "date": "25/04/2021",
+      "content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\n            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham"
     },
     {
       "id": 3,
@@ -224,10 +226,11 @@
         "#tristeza"
       ],
       "img": "https://gentequebrilla.azurewebsites.net/wp-content/uploads/2019/04/12014-1024x604.jpg",
-      "psychologistId": 2
+      "autor": "Juana Velazques",
+      "date": "26/04/2021",
+      "content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\n            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham"
     }
   ],
-
   "schedules": [
     {
       "id": 1,
@@ -280,7 +283,6 @@
       "psychologistId": 2
     }
   ],
-
   "schedulesPsycho": [
     {
       "id": 1,
@@ -288,7 +290,6 @@
       "psychologistId": 1
     }
   ],
-
   "appointments": [
     {
       "id": 1,
@@ -296,7 +297,7 @@
       "psychologistId": 1,
       "patientId": 1,
       "date": "10/03/2021",
-      "motive": "Presencia de apatía en el estudio",
+      "motive": "Autoestima",
       "personalHistory": "Crianza de ambos padres",
       "testRealized": "Observación de la conducta",
       "treatment": "Relajación muscular"
@@ -307,7 +308,7 @@
       "psychologistId": 1,
       "patientId": 1,
       "date": "17/03/2021",
-      "motive": "Empezó a sentirse ansioso hace 2 meses",
+      "motive": "Test de ansiedad",
       "personalHistory": "Buena relación con su hermana",
       "testRealized": "Test de Zung - Ansiedad",
       "treatment": "Indicación de las aspectos buenos de su vida"
@@ -321,7 +322,7 @@
       "motive": "Falta de autoestima",
       "personalHistory": "Mira a otras personas y se siente mal en si mismo",
       "testRealized": "Observación de la conducta",
-      "treatment": "Pipipi"
+      "treatment": "popopo"
     }
   ]
 }

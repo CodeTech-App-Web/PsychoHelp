@@ -3,20 +3,20 @@
   <v-row>
     <v-col lg="2" v-if="$vuetify.breakpoint.mdAndDown===!true" >
       <v-img class="pat" contain :src="loginData.img"></v-img>
-      <span class="mt-8 ml-3">User: {{loginData.lastname}}</span>
+      <v-card class="rounded-xl">
+        <v-card-title class="mt-4">Welcome: {{loginData.firstName}} {{loginData.lastName}}</v-card-title>
+      </v-card>
       <v-divider inset vertical></v-divider>
-      <v-sheet elevation="8" class="pa-2" rounded="xl" color=white>
+      <v-card elevation="8" class="pa-1" rounded="xl" color=white>
         <v-list>
-          <v-list-item v-for="item in items" :key="item.text" router :to="item.route">
-            <v-list-item-content>
-              <v-list-item-title>
-                {{item.text}}
-              </v-list-item-title>
+          <v-list-item v-for="item in items" :key="item">
+            <v-list-item-content @click="redirectTo(item.routeName, userId)">
+              {{item.text}}
               <v-divider></v-divider>
             </v-list-item-content>
           </v-list-item>
         </v-list>
-      </v-sheet>
+      </v-card>
     </v-col>
 
     <v-col justify="center" sm="12" md="10" lg="8">
@@ -27,7 +27,6 @@
               <div class= " carousel_text text-lg-h5 text-sm-h6 font-weight-medium">
                 {{ slide }}
               </div>
-              <v-btn color="white">Agenda Aquí</v-btn>
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -36,46 +35,50 @@
 
       <!-- PUBLICATIONS !-->
 
-      <v-card min-width="50vh" rounded="lg">
             <v-row v-for="publication in publications" :key="publication.id" class="py-4 mr-2">
-              <v-col cols="12" md="4">
-                <v-card class="pl-4" flat height="100%">
-                  <v-img :src="publication.img"
-                      :aspect-ratio="16 / 9"
-                      max-height="90%"
-                  ></v-img>
-                </v-card>
-              </v-col>
-              <v-col class="ml-4">
-                <div>
-                  <v-btn @click="redirectToPublication(publication.id)" depressed color="primary">Publicaciones</v-btn>
-
-                  <h3 class="text-lg-h5 font-weight-bold pt-3">
-                    {{publication.title}}
-                  </h3>
-
-                  <p class="text-h6 font-weight-regular pt-3 text--secondary">
-                    {{publication.description}}
-                  </p>
-
-                  <div class="d-flex align-center">
-                    <v-avatar color="primary" size="36">
-                      <v-icon dark>mdi-feather</v-icon>
-                    </v-avatar>
-
-                    <div class="pl-2">  23 09 2021</div>
-                  </div>
-                </div>
-              </v-col>
+              <v-card  min-width="50vh" rounded="lg" hover @click="redirectToPublication(publication.id)" >
+                <v-row>
+                  <v-col cols="12" md="4">
+                      <v-img class="mt-4 ml-3" flat height="100%" :src="publication.img"
+                             :aspect-ratio="16 / 9"
+                             max-height="90%"
+                      ></v-img>
+                  </v-col>
+                  <v-col class="ml-4">
+                    <div>
+                      <v-card-title class="text-lg-h5 font-weight-bold pt-3 mb-1">
+                        {{publication.title}}
+                      </v-card-title>
+                      <v-card-subtitle>
+                        <v-avatar color="primary" size="20" class="mr-2">
+                          <v-icon dark size="18">mdi-feather</v-icon>
+                        </v-avatar>
+                        {{publication.psychologist.name}}
+                      </v-card-subtitle>
+                      <v-card-text class="text-h6 font-weight-regular pt-3 text--secondary">
+                        {{publication.description}}
+                      </v-card-text>
+                      <div class="d-flex align-center ml-4">
+                        <v-chip-group  v-for="tag in tags" :key="tag">
+                          <v-chip v-if="tag.publication.id === publication.id" color="primary" outlined>{{tag.text}}</v-chip>
+                        </v-chip-group>
+                      </div>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card>
             </v-row>
-      </v-card>
     </v-col>
     <v-col sm="" lg="2">
       <!--CARDS PSICÓLOGOS-->
-      <v-subheader>NUEVOS PSICOLOGOS</v-subheader>
       <v-row>
+        <v-card max-width="220" class="mx-auto">
+          <v-card-title class=" text-subtitle-1 text--primary text-uppercase font-weight-bold">
+            New psychologists
+          </v-card-title>
+        </v-card>
         <v-col  sm="4" md="2" lg="12" v-for="psychology in psychologists" :key="psychology">
-          <v-card v-if="psychology.new" max-height="300" max-width="200" class="mx-auto mb-5" >
+          <v-card max-height="300" max-width="200" class="mx-auto mb-5" >
             <v-img aspect-ratio="14:9" height="150" width="200" class="white--text align-end" :src="psychology.img">
             </v-img>
             <v-card-subtitle class="pb-0">
@@ -87,7 +90,7 @@
             <!-- BOTONES CARDS-->
             <v-card-actions>
               <v-btn color="primary" text @click="psychologistDialog(psychology)">More</v-btn>
-              <v-btn color="primary" text :to="{name: 'list-psychologists'}" >Schedule</v-btn>
+              <v-btn color="primary" text :to="{name: 'dashboard_patient'}" >Schedule</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -137,6 +140,7 @@ export default {
     publications: [],
     psychologists: [],
     loginData: [],
+    tags: [],
     userId: 0,
     dialog: false,
     selectedPsychologist: null,
@@ -145,17 +149,16 @@ export default {
       '#03A9F4',
     ],
     slides: [
-        'Hasta un 20% de descuento en el paquete de citas!!!',
-        'Agenda con nuestros nuevos psicólogos!'
+        'Up to 20% discount on the dating package !!!',
+        'Schedule with our new psychologists!'
     ],
     buttons: [
         'Agenda aquí',
-
     ],
     items: [
-      {text: 'Psicologos', route: '/dashboard_psycho/:id'},
-      {text: 'Centro de Ayuda', route: '/centro de ayuda'},
-      {text: 'Guia', route: '/guia'}
+      {text: 'Psychologists', routeName: 'dashboard_patient'},
+      {text: 'Help Center', route: '/centro de ayuda'},
+      {text: 'Guide', route: '/guia'}
     ],
     specialties: [
         'Terapias de pareja',
@@ -169,10 +172,13 @@ export default {
     try {
       const response = await PublicationsApiService.getAll();
       const response2 = await PsychologistsApiService.getAll();
-      const response3 = await PatientApiService.getById(this.userId);
+      const response3 = await PublicationsApiService.getTags();
+      const response4 = await PatientApiService.getById(this.userId);
       this.publications = response.data;
       this.psychologists = response2.data;
-      this.loginData = response3.data;
+      this.tags = response3.data;
+      console.log(this.tags);
+      this.loginData = response4.data;
     }
     catch (e)
     {
@@ -185,10 +191,18 @@ export default {
       this.$router.push({name:'patient-publication', params:{id: publicationId}})
     },
 
+    retrieveTags() {
+      return PublicationsApiService.getTags();
+    },
+
     psychologistDialog(psychologist){
       console.log('psychologistDialog psychologist:', psychologist);
       this.selectedPsychologist = psychologist;
       this.dialog = true;
+    },
+
+    redirectTo(router, id) {
+      this.$router.push({name: router, params:{id: id}})
     }
   }
 }

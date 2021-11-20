@@ -29,10 +29,10 @@
                         required :error-messages="emailErrors"
                         @input="$v.email.$touch()"
                         @blur="$v.email.$touch()"></v-text-field>
-          <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="cmpC" label="CMP"
+          <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="cmp" label="CMP"
                         required :error-messages="cmpErrors"
-                        @input="$v.cmpC.$touch()"
-                        @blur="$v.cmpC.$touch()"></v-text-field>
+                        @input="$v.cmp.$touch()"
+                        @blur="$v.cmp.$touch()"></v-text-field>
           <v-text-field background-color="white" outlined dense color="black" class="mt-5 ml-10 mr-10" v-model="password" label="Password"
                         required :error-messages="passwordErrors"
                         @input="$v.password.$touch()"
@@ -72,12 +72,11 @@ export default {
     email: { required, email },
     dni: { required, maxLength: maxLength(7), numeric },
     phone: { required, maxLength: maxLength(9), minLength: minLength(9), numeric },
-    cmpC: { required, maxLength: maxLength(10), numeric },
+    cmp: { required, maxLength: maxLength(10), numeric },
     password: { required, maxLength: maxLength(20), minLength: minLength(8) },
     genre: { required },
   },
   data: () => ({
-    psychologists: [],
 
     id: 0,
     name: "",
@@ -85,15 +84,15 @@ export default {
     age: "",
     email: "",
     phone: "",
-    cmpC: "",
-    specialization: [],
-    formation: [],
+    cmp: "",
+    specialization: "",
+    formation: "",
     about: "",
     active: false,
-    img: "",
     new: false,
     password:"",
     genre : "",
+    sessionType:"",
     genreItems: [
       'Male',
       'Female',
@@ -145,10 +144,10 @@ export default {
     },
     cmpErrors () {
       const errors = []
-      if (!this.$v.cmpC.$dirty) return errors
-      !this.$v.cmpC.required && errors.push('Cmp is required')
-      !this.$v.cmpC.numeric && errors.push('Only numbers')
-      !this.$v.cmpC.maxLength && errors.push('Name must be at 10 characters long')
+      if (!this.$v.cmp.$dirty) return errors
+      !this.$v.cmp.required && errors.push('Cmp is required')
+      !this.$v.cmp.numeric && errors.push('Only numbers')
+      !this.$v.cmp.maxLength && errors.push('Name must be at 10 characters long')
       return errors
     },
     passwordErrors () {
@@ -169,13 +168,6 @@ export default {
 
   methods: {
     register() {
-      // if(!this.$v.password.required || !this.$v.password.maxLength || !this.$v.password.minLength ||
-      //    !this.$v.email.required || !this.$v.email.email ||
-      //    !this.$v.dni.required || !this.$v.dni.maxLength || !this.$v.dni.numeric ||
-      //    !this.$v.phone.required || !this.$v.phone.maxLength || !this.$v.phone.minLength ||
-      //    !this.$v.cmpC.required || !this.$v.cmpC.maxLength || !this.$v.cmpC.numeric ||
-      //    !this.$v.password.required || !this.$v.password.maxLength || !this.$v.password.minLength ||
-      //    !this.$v.selected.required){
       if (this.$v.$invalid){
         alert("Ingrese los datos correctamente")
         this.$v.$touch()
@@ -185,24 +177,23 @@ export default {
           id : this.id,
           name: this.name,
           dni: this.dni,
-          age: this.age,
+          age: "age",
           email: this.email,
           phone: this.phone,
-          cmpC: this.cmpC,
-          specialization: [],
-          formation: [],
-          about: this.about,
+          cmp: this.cmp,
+          specialization: "specialization",
+          formation: "formation",
+          about: "about",
           active: this.active,
-          img: this.img,
+          img: "imagenurl",
           new: this.new,
+          sessionType: "tgrue",
           password: this.password,
           genre : this.genre,}
-        this.psychologists.push(psychologistObject)
         PsychologistsApiService.create(psychologistObject)
         alert("Registrado correctamente")
-        this.$router.push({name: 'home-psycho',params:{id: psychologistObject.id}})
+        this.$router.push({name: 'login_psycho'})
       }
-
     }
   }
 }

@@ -22,7 +22,7 @@ class PsychologistsApiService {
     }
 
     findByName(name) {
-        return http.get(`/psychologists?name_like=${name}`);
+        return http.get(`/psychologists/name/${name}`);
     }
 
     findBySpecialization(specialization){
@@ -30,23 +30,27 @@ class PsychologistsApiService {
     }
 
     findByGenre(genre){
-        return http.get(`/psychologists?genre=${genre}`);
+        return http.get(`/psychologists/genre/${genre}`);
     }
 
     findBySessionType(sessionType){
-        return http.get(`/psychologists?sessionType=${sessionType}`);
+        return http.get(`/psychologists/sessionType/${sessionType}`);
     }
 
     findByGenreAndSessionType(genre, sessionType){
-        return http.get(`/psychologists?genre=${genre}&sessionType=${sessionType}`)
+        return http.get(`/psychologists/genre/${genre}&sessionType/${sessionType}`)
     }
 
     findByEmail(email){
-        return http.get(`/psychologists?email=${email}`);
+        return http.get(`/psychologists/email/${email}`);
     }
 
-    getPsychoSchedules() {
-        return http.get(`/psychologists?_embed=schedules`);
+    getScheduleFromPsycho(psychoId) {
+        return http.get(`/psychologists/schedule/${psychoId}`);
+    }
+
+    getByIdSchedule(scheduleId) {
+        return http.get(`/psychologists/byschedule/${scheduleId}`);
     }
 }
 

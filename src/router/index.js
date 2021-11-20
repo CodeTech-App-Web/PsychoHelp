@@ -13,11 +13,7 @@ const routes = [
     name: 'home-patient',
     component: () => import('../components/patients/homepage-patient')
   },
-  {
-    path: '/',
-    name: 'home-page',
-    component: () => import('../components/patients/homepage-patient')
-  },
+
   {
     path: '/home_patient/:id/profile_patient',
     name: 'patient-profile',
@@ -29,8 +25,8 @@ const routes = [
     component: () => import('../components/psychologists/psychologist-profile')
   },
   {
-    path: '/dashboard_patient',
-    name: 'patientDBs',
+    path: '/dashboard_patient/:id',
+    name: 'dashboard_psycho',
     component: () => import('../components/patients/patient-dashboard')
   },
   {
@@ -53,7 +49,7 @@ const routes = [
   },
   {
     path: '/dashboard_psycho/:id',
-    name: 'list-psychologists',
+    name: 'dashboard_patient',
     component: ()=> import('../components/psychologists/list-psychologists')
   },
   {
@@ -77,24 +73,34 @@ const routes = [
     component: () => import('../components/patients/signup-patient')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import('../views/Home')
   },
-  {
-    path: '/checkout',
-    name: 'checkout',
-    component: () => import('../components/checkout/payment')
-  },
+  // {
+  //   path: '/checkout/:id/:idPsycho/:idSchedule',
+  //   name: 'checkout',
+  //   component: () => import('../components/checkout/payment')
+  // },
   {
     path: '/publication/:id',
     name: 'patient-publication',
     component: () => import('../components/patients/patient-publication')
   },
   {
-    path: '/logbook_psychologist/:id',
+    path: '/logbook_psychologist/:psycho_id/patient/:patient_id',
     name: 'psychologist-logbook',
     component: ()=> import('../components/psychologists/psychologist-logbook')
+  },
+  {
+    path: '/appointments-psycho/:id',
+    name: 'psychologist-appointments',
+    component: ()=> import('../components/psychologists/appointments-psycho')
+  },
+  {
+    path: '/appointments-patient/:id',
+    name: 'patient-appointments',
+    component: ()=> import('../components/patients/appointments-patient')
   }
 ]
 
