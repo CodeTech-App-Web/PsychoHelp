@@ -13,11 +13,7 @@ const routes = [
     name: 'home-patient',
     component: () => import('../components/patients/homepage-patient')
   },
-  {
-    path: '/',
-    name: 'home-page',
-    component: () => import('../components/patients/homepage-patient')
-  },
+
   {
     path: '/home_patient/:id/profile_patient',
     name: 'patient-profile',
@@ -77,7 +73,7 @@ const routes = [
     component: () => import('../components/patients/signup-patient')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import('../views/Home')
   },
