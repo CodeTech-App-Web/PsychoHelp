@@ -7,25 +7,25 @@
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-card>
-                  <v-card-title class="text-lg-subtitle-2">¿Ya tienes psicólogo? Búscalo por su nombre</v-card-title>
+                  <v-card-title class="text-lg-subtitle-2">Do you already have a psychologist? Look it up by their name.</v-card-title>
                   <v-card-actions>
                     <v-text-field v-model="search" label="Search Name" outlined v-on:input="getPsychologistByName()"></v-text-field>
                   </v-card-actions>
-                  <v-card-title>Filtrar por</v-card-title>
+                  <v-card-title>Filter by</v-card-title>
                   <v-divider></v-divider>
-                  <v-card-title class="text-lg-subtitle-1">Género</v-card-title>
+                  <v-card-title class="text-lg-subtitle-1">Genre</v-card-title>
                   <v-card-text>
                     <v-radio-group v-model="genre">
-                      <v-radio label="Masculino" value="Masculino" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
-                      <v-radio label="Femenino" value="Femenino" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
+                      <v-radio label="Male" value="Male" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
+                      <v-radio label="Female" value="Female" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
                     </v-radio-group>
                   </v-card-text>
                   <v-divider></v-divider>
-                  <v-card-title class="text-lg-subtitle-1">Tipo de Sesión</v-card-title>
+                  <v-card-title class="text-lg-subtitle-1">Session Type</v-card-title>
                   <v-card-text>
                   <v-radio-group v-model="sessionType">
                     <v-radio label="Individual" value="Individual" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
-                    <v-radio label="De Pareja" value="Pareja" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
+                    <v-radio label="Couple" value="Couple" v-on:click="getPsychologistsByFilter(genre, sessionType)"></v-radio>
                   </v-radio-group>
                   </v-card-text>
                   <v-divider></v-divider>
@@ -58,10 +58,10 @@
                     <v-container>
                       <v-row dense>
                         <v-col align="center">
-                          <v-btn class="text-lg-overline mb-5" text @click="psychologistDialog(psychologist)">Ver Perfil</v-btn>
+                          <v-btn class="text-lg-overline mb-5" outlined @click="psychologistDialog(psychologist)">Profile</v-btn>
                         </v-col>
                         <v-col align="center">
-                          <v-btn @click="appointmentDialog(psychologist)">Agendar Cita</v-btn>
+                          <v-btn @click="appointmentDialog(psychologist)">Schedule Appointment</v-btn>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -85,18 +85,15 @@
             </v-avatar>
           </v-col>
           <v-card-title class="justify-center">{{ selectedPsychologist.name }}</v-card-title>
-          <v-card-subtitle class="text-center">{{ selectedPsychologist.cmp}}</v-card-subtitle>
+          <v-card-subtitle class="text-center">CMP: {{ selectedPsychologist.cmp}}</v-card-subtitle>
           <v-card-text class="text-justify">{{ selectedPsychologist.about }}</v-card-text>
           <v-container>
             <v-layout>
               <v-flex>
                 <v-card>
-                  <v-card-title class="blue--text text--darken-2">Áreas de Atención</v-card-title>
+                  <v-card-title class="blue--text text--darken-2">Specialization</v-card-title>
                   <v-card-text>
-<!--                    {{ selectedPsychologist.specialization }}-->
-                  <v-flex v-for="specialization in selectedPsychologist.specialization" :key="specialization">
-                    {{specialization}}
-                  </v-flex>
+                   {{ selectedPsychologist.specialization }}
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -106,15 +103,13 @@
             <v-layout>
               <v-flex>
                 <v-card>
-                  <v-card-title class="blue--text text--darken-2">Formación Académica</v-card-title>
+                  <v-card-title class="blue--text text--darken-2">Academic Background</v-card-title>
                   <v-card-text>
-                    <v-flex v-for="formation in selectedPsychologist.formation" :key="formation">
-                      {{formation}}
-                    </v-flex>
+                    {{selectedPsychologist.formation}}
                   </v-card-text>
                 </v-card>
                 <v-flex class="mt-2 text-end">
-                <v-btn @click.stop="dialog=false">Salir</v-btn>
+                <v-btn @click.stop="dialog=false">Close</v-btn>
                 </v-flex>
               </v-flex>
             </v-layout>
@@ -381,6 +376,9 @@ export default {
     },
 
     getPsychologistByName(){
+      if(this.search === "" || this.search === null)
+        this.retrievePsychologists();
+      else {
         PsychologistsApiService.findByName(this.search)
             .then(response => {
               this.psychologists = response.data;
@@ -389,6 +387,7 @@ export default {
             .catch(e => {
               console.log(e);
             });
+      }
     },
 
     save (date) {

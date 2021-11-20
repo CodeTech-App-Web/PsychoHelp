@@ -2,7 +2,7 @@ import http from "./http-common"
 
 class PublicationsApiService{
     getAll(){
-        return http.get("/publications/");
+        return http.get("/publications");
     }
     // getById(id) {
     //     return http.get(`/publications/${id}?_expand=psychologist`);
@@ -11,17 +11,25 @@ class PublicationsApiService{
     getTags(){
         return http.get("/tags");
     }
+
+    getPublicationTags(publicationId){
+        return http.get(`/publications/${publicationId}/tags`);
+    }
+
     getById(id) {
         return http.get(`/publications/${id}`);
     }
 
-    getByPsychologistId(id){
-        return http.get(`/publications?psychologistId=${id}`);
+    getByPsychologistId(psychologistId){
+        return http.get(`/publications/psychologist/${psychologistId}`);
     }
-
 
     create(data) {
         return http.post("/publications",data);
+    }
+
+    createTag(data){
+        return http.post("/tags", data);
     }
 
     update(id, data) {
