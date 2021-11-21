@@ -68,9 +68,9 @@ export default {
   name: "register-psychologist",
   mixins: [validationMixin],
   validations: {
-    name: { required, maxLength: maxLength(10) },
+    name: { required, maxLength: maxLength(50) },
     email: { required, email },
-    dni: { required, maxLength: maxLength(7), numeric },
+    dni: { required, maxLength: maxLength(8), numeric },
     phone: { required, maxLength: maxLength(9), minLength: minLength(9), numeric },
     cmp: { required, maxLength: maxLength(10), numeric },
     password: { required, maxLength: maxLength(20), minLength: minLength(8) },
@@ -192,7 +192,7 @@ export default {
           genre : this.genre,}
         PsychologistsApiService.create(psychologistObject)
         alert("Registrado correctamente")
-        this.$router.push({name: 'login_psycho'})
+        this.$router.push({name: 'psychologist-login'})
       }
     }
   }
