@@ -20,6 +20,12 @@
             <v-row justify="center">
               <h4 class="mb-5">¿Olvidaste tu contraseña?</h4>
             </v-row>
+            <v-divider inset></v-divider>
+            <v-row justify="center">
+              <v-btn class="mt-3" color="white" plain to="/register_psycho">
+                Sign up
+              </v-btn>
+            </v-row>
           </v-form>
         </v-sheet>
       </v-col>
