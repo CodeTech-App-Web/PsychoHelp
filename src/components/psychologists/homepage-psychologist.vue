@@ -12,7 +12,7 @@
         <v-dialog v-model="dialog" max-width="800px">
           <v-flex class="mx-auto" v-if="formAdd">
             <v-card class="mb-3 pa-3">
-              <v-form @submit="addPublication">
+              <v-form @submit.prevent="addPublication">
                 <v-text-field label="To post" v-model="defaultPublication.title"></v-text-field>
                 <v-textarea label="What do you want to publish?" v-model="defaultPublication.description"></v-textarea>
                 <v-btn block color=#BBDEFB type="submit" @click="closeDialog()">Add Published</v-btn>
@@ -164,7 +164,7 @@
     <template>
       <v-dialog v-model="dialogTag" width="400">
         <v-card  class="mb-3 pa-3">
-          <v-form @submit="addTag">
+          <v-form @submit.prevent="addTag">
             <v-text-field label="Add Tag" v-model="defaultTag.text"></v-text-field>
             <v-btn block color=#BBDEFB type="submit" @click="closeDialogTag()">Add Tag</v-btn>
           </v-form>
@@ -290,7 +290,7 @@ export default {
     },
 
 
-    addPublication(){
+    async addPublication(){
       if(this.defaultPublication.title === '' || this.defaultPublication.description === '') {
         this.snackbar = true
         this.message = 'Llena todos los campos'
@@ -299,8 +299,14 @@ export default {
         this.defaultPublication.createdAt = this.date
         this.defaultPublication.img = "https://www.dzoom.org.es/wp-content/uploads/2017/07/seebensee-2384369-810x540.jpg"
         this.defaultPublication.psychologistId = this.userId
-        this.publications.push(this.defaultPublication)
-        PublicationsApiService.create(this.defaultPublication)
+        await PublicationsApiService.create(this.defaultPublication)
+        // this.publications.push(this.defaultPublication)
+
+        const response = await PublicationsApiService.getByPsychologistId(this.userId)
+        console.log(this.userId);
+
+
+        this.publications = response.data;
         //this.$forceUpdate();
        // this.retrievePublications()
         //this.closeDialog();
@@ -327,9 +333,10 @@ export default {
       this.dialogTag = false;
     },
 
-    addTag(){
-      PublicationsApiService.createTag(this.defaultTag);
-      this.tags.push(this.defaultTag);
+    async addTag(){
+      await PublicationsApiService.createTag(this.defaultTag);
+      const response = await PublicationsApiService.getTags();
+      this.tags = response.data;
     },
 
     editChanges(item){
